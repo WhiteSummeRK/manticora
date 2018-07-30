@@ -1,9 +1,9 @@
 from flask import Flask, render_template, Blueprint, request
 
 
-app = Blueprint('login', __name__)
+app = Blueprint('', __name__)
 
 
 @app.route('/')
 def login():
-    return render_template('login.html')
+    return render_template('index.html')
