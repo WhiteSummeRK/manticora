@@ -1,2 +1,5 @@
 venv/
 Pipfile
+.tox
+.coverage
+__pycache__/
