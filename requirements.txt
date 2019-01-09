@@ -2,5 +2,6 @@ jinja2
 flask
 ipdb
 Flask-Script
+Flask-Session
 sqlalchemy
 Flask-SQLAlchemy
