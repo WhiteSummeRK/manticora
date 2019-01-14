@@ -5,6 +5,7 @@ from sqlalchemy import (
     String,
     Date,
     Float,
+    Boolean,
     ForeignKey,
     UniqueConstraint)
 from flask_sqlalchemy import SQLAlchemy
@@ -26,7 +27,7 @@ class Account(db.Model):
     pwd = Column(String(20), nullable=False)
     bill = Column(Float, nullable=False, default=0)
     is_adm = Column(Boolean, nullable=False)
-    email = Column(String(100) nullable=False)
+    email = Column(String(100), nullable=False)
     neighborhood = Column(String(60), nullable=False)
     number = Column(String(6), nullable=False)
     city = Column(String(30), nullable=False)
