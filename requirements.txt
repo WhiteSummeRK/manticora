@@ -3,5 +3,6 @@ flask
 ipdb
 Flask-Script
 Flask-Session
-sqlalchemy
+Flask-Migrate
+SQLAlchemy
 Flask-SQLAlchemy

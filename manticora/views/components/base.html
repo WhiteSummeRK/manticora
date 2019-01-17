@@ -1,9 +1,13 @@
-<script
-src="https://code.jquery.com/jquery-3.1.1.min.js"
-integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-crossorigin="anonymous"></script>
-
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-
-<link rel="stylesheet" href="{{ url_for('static', filename='css/external/bootstrap.min.css') }}">
-<link rel="stylesheet" href="{{ url_for('static', filename='js/external/bootstrap.min.js') }}">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+    <title>{% block title %}{% endblock %}</title>
+    {% include 'components/scripts.html' %}
+    {% block css %}{% endblock %}
+    {% endblock %}
+</head>
+<body>
+    <div class="container">{% block content %}{% endblock %}</div>
+</body>
+</html>

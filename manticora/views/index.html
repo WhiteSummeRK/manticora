@@ -1,14 +1,11 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Login Page</title>
+{% extends 'components/base.html' %}
+{% block title %}Pagina 01{% endblock %}
 
-  {% include 'components/base.html' %}
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+{% endblock %}
+{% block content %}
 
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
-</head>
-<body>
-<div class="container">
 	<div class="d-flex justify-content-center h-100">
 		<div class="card">
 			<div class="card-header">
@@ -42,9 +39,10 @@
 					</div>
 				</form>
 			</div>
+			{% include 'components/register_modal.html' %}
 			<div class="card-footer">
 				<div class="d-flex justify-content-center links">
-					Don't have an account?<a href="#">Sign Up</a>
+					Don't have an account?<a href="#" data-toggle="modal" data-target="#register_modal">Sign Up</a>
 				</div>
 				<div class="d-flex justify-content-center">
 					<a href="#">Forgot your password?</a>
@@ -52,6 +50,5 @@
 			</div>
 		</div>
 	</div>
-</div>
+{% endblock %}
 </body>
-</html>
