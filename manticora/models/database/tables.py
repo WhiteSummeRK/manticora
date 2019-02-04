@@ -28,10 +28,10 @@ class Account(db.Model):
     bill = Column(Float, nullable=False, default=0)
     is_adm = Column(Boolean, nullable=False)
     email = Column(String(100), nullable=False)
-    neighborhood = Column(String(60), nullable=False)
-    number = Column(String(6), nullable=False)
-    city = Column(String(30), nullable=False)
-    state = Column(String(2), nullable=False)
+    neighborhood = Column(String(60), nullable=True)
+    number = Column(String(6), nullable=True)
+    city = Column(String(30), nullable=True)
+    state = Column(String(2), nullable=True)
     complement = Column(String(100), nullable=True)
 
     def __repr__(self):

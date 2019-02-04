@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
 {% endblock %}
 {% block content %}
-
+<div class="container">
 	<div class="d-flex justify-content-center h-100">
 		<div class="card">
 			<div class="card-header">
@@ -50,5 +50,7 @@
 			</div>
 		</div>
 	</div>
+</div>
+{% include 'components/footer.html' %}
 {% endblock %}
 </body>
