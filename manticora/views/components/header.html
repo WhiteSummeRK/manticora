@@ -1,21 +1,19 @@
-<!-- Following Menu -->
-<div class="ui large top fixed hidden menu" style="display: none;">
-  <div class="ui container">
-    <a class="active item">Home</a>
-    <div class="right menu">
-      <div class="item">
-        <a class="ui button">Log in</a>
-      </div>
-      <div class="item">
-        <a class="ui primary button">Sign Up</a>
-      </div>
-    </div>
-  </div>
-</div>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
 
-<!-- Sidebar Menu -->
-<div class="ui vertical inverted sidebar menu">
-  <a class="active item">Home</a>
-  <a class="item">Login</a>
-  <a class="item">Signup</a>
-</div>
+<nav class="navbar navbar-icon-top navbar-expand-lg navbar-dark navbar_css">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/">
+          <i class="fa fa-home"></i>
+          Home
+          <span class="sr-only">(current)</span>
+          </a>
+      </li>
+    </ul>
+  </div>
+</nav>
