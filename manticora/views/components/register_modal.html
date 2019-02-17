@@ -51,12 +51,13 @@ let fetch_request = () => {
       })
     }).then(response => response.json())
       .then(json =>{
-        if(json['result'] == 'true'){
-          $('#register_modal').modal('hide')
-          $.notify('Usuario Cadastrado!', 'success');
+        if(json['result'] == 'Usuário inserido com sucesso.'){
+          $.notify(json['result'], "error")
           return;
         }
-        $.notify("Erro", "error")
+        $('#register_modal').modal('hide')
+        $.notify(json['result'], 'success');
+        return;
       }).catch(err => { console.error(err) })
   return;
   }

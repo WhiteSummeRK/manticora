@@ -1,6 +1,9 @@
 from flask import Flask, render_template, Blueprint, request, jsonify, request
 from json import loads
 
+# imports dos modulos
+from manticora.controllers.modules.register import register_common_user
+
 app = Blueprint('register', __name__)
 
 
@@ -11,7 +14,9 @@ def new_user():
     email = data['email']
     pwd = data['pwd']
 
-    return jsonify({'result': 'true'})
+    return jsonify({
+        'result': register_common_user(name, email, pwd)
+    })
 
 
 @app.route('/new_adm/', methods=['GET'])

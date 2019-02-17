@@ -10,8 +10,6 @@ from sqlalchemy import (
     UniqueConstraint)
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
 
 app = Flask(__name__)
 
