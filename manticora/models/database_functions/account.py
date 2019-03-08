@@ -1,16 +1,25 @@
-from manticora.models.database.tables import Account, db
+from manticora.models.database.tables import Cliente, db
 
-def insert_new_user_account(name, email, pwd):
-    new_account = Account(name=name, email=email, pwd=pwd, is_adm=False)
-    db.session.add(new_account)
+def insert_new_user_account(nome, senha, email, bairro, cidade, rua, numero, complemento):
+    new_client = Cliente(
+        nome=nome,
+        senha=senha,
+        email=email,
+        bairro=bairro,
+        cidade=cidade,
+        rua=rua,
+        numero=numero,
+        complemento=complemento)
+
+    db.session.add(new_client)
     db.session.commit()
-    return new_account
+    return new_client
 
 def check_for_existing_mail(mail):
-    return len(Account.query.filter_by(email=mail).all()) > 0
+    return len(Cliente.query.filter_by(email=mail).all()) > 0
 
-def check_for_existing_name(name):
-    return len(Account.query.filter_by(name=name).all()) > 0
+def check_for_existing_name(nome):
+    return len(Cliente.query.filter_by(nome=nome).all()) > 0
 
 def query_user_and_pwd(user, pwd):
-    return Account.query.filter_by(name=user, pwd=pwd).first()
+    return Cliente.query.filter_by(nome=user, senha=pwd).first()

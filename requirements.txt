@@ -8,3 +8,4 @@ SQLAlchemy
 Flask-SQLAlchemy
 behave
 psycopg2
+sqlalchemy_imageattach

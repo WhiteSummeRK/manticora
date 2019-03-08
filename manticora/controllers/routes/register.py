@@ -15,7 +15,9 @@ def new_user():
     pwd = data['pwd']
 
     return jsonify({
-        'result': register_common_user(name, email, pwd)
+        'result': register_common_user(name, pwd, email, 'bairro1',
+                                       'cidade1', 'rua1', 'numero1',
+                                       'complemento')
     })
 
 

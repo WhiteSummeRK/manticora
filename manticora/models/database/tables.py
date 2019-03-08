@@ -1,6 +1,8 @@
+from datetime import datetime
 from sqlalchemy import (
     create_engine,
     Column,
+    DateTime,
     Integer,
     String,
     Date,
@@ -8,6 +10,8 @@ from sqlalchemy import (
     Boolean,
     ForeignKey,
     UniqueConstraint)
+from sqlalchemy_imageattach.entity import Image, image_attachment
+from sqlalchemy.orm import relationship
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask
 
@@ -17,24 +21,80 @@ db_url = 'postgresql://manticora:manticora123@localhost:5432/manticora_db'
 db = SQLAlchemy(app)
 
 
-class Account(db.Model):
-    __tablename__ = 'Account'
+class Cliente(db.Model):
+    __tablename__ = 'cliente'
 
     id = Column(Integer, primary_key=True)
-    name = Column(String(40), nullable=False)
-    pwd = Column(String(20), nullable=False)
-    bill = Column(Float, nullable=False, default=0)
-    is_adm = Column(Boolean, nullable=False)
-    email = Column(String(100), nullable=False)
-    neighborhood = Column(String(60), nullable=True)
-    number = Column(String(6), nullable=True)
-    city = Column(String(30), nullable=True)
-    state = Column(String(2), nullable=True)
-    complement = Column(String(100), nullable=True)
+    nome = Column(String(40), nullable=False)
+    senha = Column(String(20), nullable=False)
+    email = Column(String(50), nullable=False)
+    bairro = Column(String(30), nullable=False)
+    cidade = Column(String(30), nullable=False)
+    rua = Column(String(100), nullable=False)
+    numero = Column(String(5), nullable=True)
+    complemento = Column(String(30), nullable=False)
 
     def __repr__(self):
         return """
-        Account(name={}, pwd={}, bill={}, is_adm={}, email={}, neighborhood={}, number={}
-        city={}, state={}, complement={})
-        """.format(self.name, self.pwd, self.bill, self.is_adm, self.email,
-                   self.neighborhood, self.number, self.city, self.state, self.complement)
+        Cliente(nome={}, senha={}, email={}, bairro={}, cidade={}, rua={}, numero={}, complemento={})
+        """.format(self.nome, self.senha, self.email, self.bairro, self.cidade, self.rua,
+                   self.numero, self.complemento)
+
+class Restaurante(db.Model):
+    __tablename__ = 'restaurante'
+
+    id = Column(Integer, primary_key=True)
+    nome = Column(String(40), nullable=False)
+    senha = Column(String(20), nullable=False)
+    email = Column(String(50), nullable=False)
+    bairro = Column(String(30), nullable=False)
+    cidade = Column(String(30), nullable=False)
+    rua = Column(String(100), nullable=False)
+    numero = Column(String(5), nullable=False)
+    complemento = Column(String(30), nullable=True)
+    imagem = image_attachment('ImagemRestaurante')
+
+    def __repr__(self):
+        return """
+        Restaurante(nome={}, senha={}, bairro={}, email={}
+        cidade={}, rua={}, numero={}, complemento={}, imagem={})
+        """.format(self.nome, self.senha, self.email, self.bairro, self.cidade, self.rua,
+                   self.numero, self.complemento, self.imagem)
+
+class ImagemRestaurante(db.Model, Image):
+    __tablename__ = "imagem_restaurante"
+
+    id_cliente = Column(Integer, ForeignKey('restaurante.id'), primary_key=True)
+    cliente = relationship('Restaurante')
+
+    def __repr__(self):
+        return f"ImagemRestaurante(id_cliente={self.id_cliente}, cliente={self.cliente})"
+
+class ClienteConta(db.Model):
+    __tablename__ = "cliente_conta"
+
+    id = Column(Integer, primary_key=True)
+    id_cliente = Column(Integer, ForeignKey('cliente.id'))
+    id_restaurante = Column(Integer, ForeignKey('restaurante.id'))
+    cliente = relationship('Cliente')
+    restaurante = relationship('Restaurante')
+    conta = Column(Float, nullable=False)
+    status = Column(String(20), nullable=False)
+
+    def __repr__(self):
+        return """ClienteConta(cliente={}, restaurante={}, conta={}, status={})
+        """.format(self.cliente, self.restaurante, self.conta, self.status)
+
+class Extrato(db.Model):
+    __tablename__ = "extrato"
+
+    id = Column(Integer, primary_key=True)
+    id_conta = Column(Integer, ForeignKey('cliente_conta.id'))
+    conta = relationship('ClienteConta')
+    nome_item = Column(String(40), nullable=False)
+    data = Column(DateTime, nullable=False, default=datetime.now())
+    valor = Column(Float, nullable=False)
+
+    def __repr__(self):
+        return f"Extrato(conta={self.conta}, nome_item={self.nome_item}, \
+        data={self.data}, valor={self.valor})"
