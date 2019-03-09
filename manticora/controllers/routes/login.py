@@ -1,7 +1,6 @@
-from flask import Flask, render_template, Blueprint, request, redirect, url_for
-from json import loads
+from flask import Flask, render_template, Blueprint, request, url_for
 
-#modulos
+# modulos
 from manticora.controllers.modules.login import login
 
 app = Blueprint('login', __name__)

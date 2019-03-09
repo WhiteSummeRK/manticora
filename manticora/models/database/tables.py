@@ -36,9 +36,11 @@ class Cliente(db.Model):
 
     def __repr__(self):
         return """
-        Cliente(nome={}, senha={}, email={}, bairro={}, cidade={}, rua={}, numero={}, complemento={})
-        """.format(self.nome, self.senha, self.email, self.bairro, self.cidade, self.rua,
-                   self.numero, self.complemento)
+        Cliente(nome={}, senha={}, email={}, bairro={},
+        cidade={}, rua={}, numero={}, complemento={})
+        """.format(self.nome, self.senha, self.email, self.bairro, self.cidade,
+                   self.rua, self.numero, self.complemento)
+
 
 class Restaurante(db.Model):
     __tablename__ = 'restaurante'
@@ -58,17 +60,21 @@ class Restaurante(db.Model):
         return """
         Restaurante(nome={}, senha={}, bairro={}, email={}
         cidade={}, rua={}, numero={}, complemento={}, imagem={})
-        """.format(self.nome, self.senha, self.email, self.bairro, self.cidade, self.rua,
-                   self.numero, self.complemento, self.imagem)
+        """.format(self.nome, self.senha, self.email, self.bairro, self.cidade,
+                   self.rua, self.numero, self.complemento, self.imagem)
+
 
 class ImagemRestaurante(db.Model, Image):
     __tablename__ = "imagem_restaurante"
 
-    id_cliente = Column(Integer, ForeignKey('restaurante.id'), primary_key=True)
+    id_cliente = Column(Integer,
+                        ForeignKey('restaurante.id'), primary_key=True)
     cliente = relationship('Restaurante')
 
     def __repr__(self):
-        return f"ImagemRestaurante(id_cliente={self.id_cliente}, cliente={self.cliente})"
+        return f"""ImagemRestaurante(id_cliente={self.id_cliente},
+        cliente={self.cliente})"""
+
 
 class ClienteConta(db.Model):
     __tablename__ = "cliente_conta"
@@ -84,6 +90,7 @@ class ClienteConta(db.Model):
     def __repr__(self):
         return """ClienteConta(cliente={}, restaurante={}, conta={}, status={})
         """.format(self.cliente, self.restaurante, self.conta, self.status)
+
 
 class Extrato(db.Model):
     __tablename__ = "extrato"

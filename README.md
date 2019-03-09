@@ -13,8 +13,8 @@ docker rmi -f $(docker images -q -a)
 
 ## Configuração do container do postgres
 ```sh
-docker build -t manticora .
-docker run --name="manticora_db" -v local_manticora:/var/lib/postgresql/data manticora
+docker build -t ezfood .
+docker run --name="ezfood_db" -p 5432:5432 -v local_manticora:/var/lib/postgresql/data ezfood
 ```
 
 ## Executar as migrações
