@@ -13,11 +13,15 @@ align-content: center;
 }
 
 .card {
-height: 410px;
+height: 100%;
 margin-top: auto;
 margin-bottom: auto;
-width: 400px;
+width: 50%;
 background-color: rgba(0,0,0,0.5) !important;
+}
+
+#form_adm {
+  align: center !important;
 }
 
 .divider-text {

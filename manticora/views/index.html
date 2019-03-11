@@ -49,5 +49,17 @@
 	</div>
 </div>
 {% include 'components/footer.html' %}
+<script type="text/javascript">
+	if('{{new_adm}}' == "default"){
+		return;
+	if('{{new_adm}}' == "Restaurante Criado com sucesso.") {
+		$.notify('{{new_adm}}', "success")
+		return;
+	}
+	else{
+		$.notify('{{new_adm}}', "error")
+	}
+	}
+</script>
 {% endblock %}
 </body>

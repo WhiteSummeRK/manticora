@@ -6,4 +6,4 @@ app = Blueprint('', __name__)
 
 @app.route('/')
 def login():
-    return render_template('index.html')
+    return render_template('index.html', new_adm="default")

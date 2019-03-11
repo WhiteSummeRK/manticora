@@ -5,6 +5,7 @@ from sqlalchemy import (
     DateTime,
     Integer,
     String,
+    LargeBinary,
     Date,
     Float,
     Boolean,
@@ -48,13 +49,14 @@ class Restaurante(db.Model):
     id = Column(Integer, primary_key=True)
     nome = Column(String(40), nullable=False)
     senha = Column(String(20), nullable=False)
+    telefone = Column(String(11), nullable=False)
     email = Column(String(50), nullable=False)
     bairro = Column(String(30), nullable=False)
     cidade = Column(String(30), nullable=False)
     rua = Column(String(100), nullable=False)
     numero = Column(String(5), nullable=False)
     complemento = Column(String(30), nullable=True)
-    imagem = image_attachment('ImagemRestaurante')
+    imagem = Column(LargeBinary, nullable=False)
 
     def __repr__(self):
         return """
@@ -62,18 +64,6 @@ class Restaurante(db.Model):
         cidade={}, rua={}, numero={}, complemento={}, imagem={})
         """.format(self.nome, self.senha, self.email, self.bairro, self.cidade,
                    self.rua, self.numero, self.complemento, self.imagem)
-
-
-class ImagemRestaurante(db.Model, Image):
-    __tablename__ = "imagem_restaurante"
-
-    id_cliente = Column(Integer,
-                        ForeignKey('restaurante.id'), primary_key=True)
-    cliente = relationship('Restaurante')
-
-    def __repr__(self):
-        return f"""ImagemRestaurante(id_cliente={self.id_cliente},
-        cliente={self.cliente})"""
 
 
 class ClienteConta(db.Model):
