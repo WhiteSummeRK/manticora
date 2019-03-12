@@ -3,8 +3,8 @@ from flask import (render_template, Blueprint,
                    request, jsonify, redirect, url_for)
 
 # imports dos modulos
-from manticora.controllers.modules.register import (register_common_user,
-                                                    register_adm)
+from manticora.controllers.modules.register import (register_user,
+                                                    register_rest)
 
 app = Blueprint('register', __name__)
 
@@ -22,9 +22,9 @@ def new_user():
     complement = data['complement']
 
     return jsonify({
-        'result': register_common_user(name, pwd, email, neigh,
-                                       city, street, num,
-                                       complement)
+        'result': register_user(name, pwd, email, neigh,
+                                city, street, num,
+                                complement)
     })
 
 
@@ -47,6 +47,12 @@ def new_adm_post():
     comp = request.form['comp']
     img = request.files['img']
 
-    adm = register_adm(name, email, phone, num_phone, pwd, neigh, city,
-                       street, num_street, comp, img)
+    adm = register_user(name, pwd, email, neigh,
+                        city, street, num_street,
+                        comp, is_adm=True,
+                        return_entity=True)
+
+    if not type(adm) == str:
+        rest = register_rest(phone, num_phone, img, adm)
+        return redirect(url_for('register.new_adm', new_adm=rest))
     return redirect(url_for('register.new_adm', new_adm=adm))

@@ -21,73 +21,60 @@ app = Flask(__name__)
 db_url = 'postgresql://manticora:manticora123@localhost:5432/manticora_db'
 db = SQLAlchemy(app)
 
-
-class Cliente(db.Model):
-    __tablename__ = 'cliente'
+class Usuario(db.Model):
+    __tablename__ = 'usuario'
 
     id = Column(Integer, primary_key=True)
     nome = Column(String(40), nullable=False)
     senha = Column(String(20), nullable=False)
-    email = Column(String(50), nullable=False)
-    bairro = Column(String(30), nullable=False)
-    cidade = Column(String(30), nullable=False)
-    rua = Column(String(100), nullable=False)
+    email = Column(String(50), nullable=True)
+    bairro = Column(String(30), nullable=True)
+    cidade = Column(String(30), nullable=True)
+    rua = Column(String(100), nullable=True)
     numero = Column(String(5), nullable=True)
-    complemento = Column(String(30), nullable=False)
+    complemento = Column(String(30), nullable=True)
+    is_adm = Column(Boolean, default=False, nullable=False)
 
     def __repr__(self):
         return """
-        Cliente(nome={}, senha={}, email={}, bairro={},
-        cidade={}, rua={}, numero={}, complemento={})
+        Usuario(nome={}, senha={}, email={}, bairro={},
+        cidade={}, rua={}, numero={}, complemento={}, is_adm={})
         """.format(self.nome, self.senha, self.email, self.bairro, self.cidade,
-                   self.rua, self.numero, self.complemento)
+                   self.rua, self.numero, self.complemento, self.is_adm)
 
 
 class Restaurante(db.Model):
     __tablename__ = 'restaurante'
 
     id = Column(Integer, primary_key=True)
-    nome = Column(String(40), nullable=False)
-    senha = Column(String(20), nullable=False)
     telefone = Column(String(11), nullable=False)
-    email = Column(String(50), nullable=False)
-    bairro = Column(String(30), nullable=False)
-    cidade = Column(String(30), nullable=False)
-    rua = Column(String(100), nullable=False)
-    numero = Column(String(5), nullable=False)
-    complemento = Column(String(30), nullable=True)
     imagem = Column(LargeBinary, nullable=False)
-
-    def __repr__(self):
-        return """
-        Restaurante(nome={}, senha={}, bairro={}, email={}
-        cidade={}, rua={}, numero={}, complemento={}, imagem={})
-        """.format(self.nome, self.senha, self.email, self.bairro, self.cidade,
-                   self.rua, self.numero, self.complemento, self.imagem)
+    id_adm = Column(Integer, ForeignKey('usuario.id'))
+    adm = relationship('Usuario')
 
 
-class ClienteConta(db.Model):
-    __tablename__ = "cliente_conta"
+class UsuarioConta(db.Model):
+    __tablename__ = "usuario_conta"
 
     id = Column(Integer, primary_key=True)
-    id_cliente = Column(Integer, ForeignKey('cliente.id'))
+    id_usuario = Column(Integer, ForeignKey('usuario.id'))
     id_restaurante = Column(Integer, ForeignKey('restaurante.id'))
-    cliente = relationship('Cliente')
+    usuario = relationship('Usuario')
     restaurante = relationship('Restaurante')
     conta = Column(Float, nullable=False)
     status = Column(String(20), nullable=False)
 
     def __repr__(self):
-        return """ClienteConta(cliente={}, restaurante={}, conta={}, status={})
-        """.format(self.cliente, self.restaurante, self.conta, self.status)
+        return """UsuarioConta(usuario={}, restaurante={}, conta={}, status={})
+        """.format(self.usuario, self.restaurante, self.conta, self.status)
 
 
 class Extrato(db.Model):
     __tablename__ = "extrato"
 
     id = Column(Integer, primary_key=True)
-    id_conta = Column(Integer, ForeignKey('cliente_conta.id'))
-    conta = relationship('ClienteConta')
+    id_conta = Column(Integer, ForeignKey('usuario_conta.id'))
+    conta = relationship('UsuarioConta')
     nome_item = Column(String(40), nullable=False)
     data = Column(DateTime, nullable=False, default=datetime.now())
     valor = Column(Float, nullable=False)
