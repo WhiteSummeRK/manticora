@@ -47,4 +47,4 @@ def register_adm(name, email,
         )
     except Exception as e:
         return 'Algo deu errado, tente novamente.'
-    return 'Restaurante Criado com sucesso.'
+    return 'ok'

@@ -49,5 +49,4 @@ def new_adm_post():
 
     adm = register_adm(name, email, phone, num_phone, pwd, neigh, city,
                        street, num_street, comp, img)
-    return "ok"
-    # return redirect(url_for('login', new_adm=adm))
+    return redirect(url_for('register.new_adm', new_adm=adm))

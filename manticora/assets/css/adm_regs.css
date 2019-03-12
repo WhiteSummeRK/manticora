@@ -20,6 +20,10 @@ width: 50%;
 background-color: rgba(0,0,0,0.5) !important;
 }
 
+#message {
+  margin-bottom: 15px;
+}
+
 #form_adm {
   align: center !important;
 }

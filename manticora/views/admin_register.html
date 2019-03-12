@@ -34,14 +34,17 @@
     	<div class="input-group-prepend">
 		    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
 		</div>
-        <input name="pwd1" class="form-control" placeholder="Create password" type="password" required>
+        <input id="pwd1" name="pwd1" class="form-control" placeholder="Create password" type="password" onkeyup="check();" required>
     </div> <!-- form-group// -->
     <div class="form-group input-group">
     	<div class="input-group-prepend">
 		    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
 		</div>
-        <input name="pwd2" class="form-control" placeholder="Repeat password" type="password" required>
+        <input id="pwd2" name="pwd2" class="form-control" placeholder="Repeat password" type="password" onkeyup="check();" required>
     </div> <!-- form-group// -->
+		<div class="form-group input-group">
+					<span id='message' style="color: white;">Status da Senha</span>
+		</div> <!-- form-group// -->
 		<div class="form-group input-group">
 			<div class="input-group-prepend">
 					<span class="input-group-text"> <i class="fas fa-map-pin"></i> </span>
@@ -74,7 +77,7 @@
 				<input type="file" name="img" style="color: white;" required>
 		</div>
     <div class="form-group">
-        <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+        <button type="submit" id="sbt_btn" class="btn btn-primary btn-block" onclick="check_pwd()">Create Account</button>
     </div> <!-- form-group// -->
   </form>
 </article>
@@ -82,5 +85,38 @@
 	</div>
 </div>
 {% include 'components/footer.html' %}
+<script type="text/javascript">
+	const urlParams = new URLSearchParams(window.location.search);
+	qstr = urlParams.get('new_adm')
+	if(qstr){
+		if (qstr == "ok"){
+			$.notify("Restaurante Criado com sucesso", "success")
+		}
+		else{
+			$.notify(qstr, "error")
+		}
+	}
+	var check = function() {
+  if (document.getElementById('pwd1').value ==
+    document.getElementById('pwd2').value) {
+    document.getElementById('message').style.color = 'green';
+    document.getElementById('message').innerHTML = 'Senhas Corretas';
+		document.getElementById('sbt_btn').disabled = false;
+  } else {
+    document.getElementById('message').style.color = 'red';
+    document.getElementById('message').innerHTML = 'Senhas Incorretas';
+		document.getElementById('sbt_btn').disabled = true;
+  }
+}
+	// let check_pwd = () =>{
+	// 	let pwd1 = document.getElementById('pwd1');
+	// 	let pwd2 = document.getElementById('pwd2');
+	// 	if(pwd != pw2){
+	// 		document.getElementById('form_adm').preventDefault();
+	// 		$.notify('Senhas incorretas', 'error');
+	// 		return false
+	// 	}
+	// }
+</script>
 {% endblock %}
 </body>
