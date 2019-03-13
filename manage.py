@@ -6,7 +6,7 @@ manager = Manager(app)
 
 @manager.command
 def runserver():
-    app.run(debug=True)
+    app.run(debug=False)
 
 
 if __name__ == "__main__":
