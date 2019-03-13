@@ -1,2 +1,1 @@
-web:
-  ./start.sh
+release: ./release.sh
