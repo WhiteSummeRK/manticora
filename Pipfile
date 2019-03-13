@@ -6,6 +6,15 @@ name = "pypi"
 [packages]
 "Jinja2" = "*"
 Flask = "*"
+ipdb = "*"
+behave = "*"
+"psycopg2" = "*"
+Flask-Script = "*"
+Flask-Session = "*"
+Flask-Migrate = "*"
+SQLAlchemy = "*"
+Flask-SQLAlchemy = "*"
+SQLAlchemy-ImageAttach = "*"
 
 [dev-packages]
 
