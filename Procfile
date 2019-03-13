@@ -1,4 +1,5 @@
-web: python migrations.py db init
-web: python migrations.py db migrate
-web: python migrations.py db upgrade
-web: python manage.py runserver
+web:
+  python migrations.py db init
+  python migrations.py db migrate
+  python migrations.py db upgrade
+  python manage.py runserver
