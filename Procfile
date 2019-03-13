@@ -1,1 +1,1 @@
-release: ./release.sh
+release: ./start.sh
