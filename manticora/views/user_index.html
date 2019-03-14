@@ -3,11 +3,29 @@
 
 {% block css %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/user_index.css') }}">
 {% endblock %}
 {% block content %}
 {% include 'components/header.html' %}
 <div class="container">
-
+  <div class="row">
+    <div class="card">
+      <img class="card-img-top" id="pedidos">
+      <div class="card-body">
+        <h5 class="card-title">Realize um Pedido</h5>
+        <p class="card-text">com fome? os restaurantes estão aguardando seu pedido :3</p>
+        <a href="#" class="btn btn-primary">Realizar Pedido</a>
+      </div>
+    </div>
+    <div class="card">
+      <img class="card-img-top" id="conta">
+      <div class="card-body">
+        <h5 class="card-title">Conta</h5>
+        <p class="card-text">Vizualize quanto vc está devendo aos restaurantes. Cuidado, não exagere no consumo ^^ </p>
+        <a href="#" class="btn btn-primary">Vizualizar sua tragédia :/</a>
+      </div>
+    </div>
+  </div>
 </div>
 {% include 'components/footer.html' %}
 <script type="text/javascript">

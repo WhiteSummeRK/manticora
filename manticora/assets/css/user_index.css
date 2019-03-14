@@ -1,0 +1,43 @@
+#pedidos {
+  background-image: url("../pics/comida.jpg");
+  position: absolute;
+  height: 60%;
+  background-repeat:no-repeat;
+}
+
+#conta {
+  background-image: url("../pics/conta.jpg");
+  position: absolute;
+  height: 60%;
+  background-repeat:no-repeat;
+}
+
+.row {
+  margin-top: 100px;
+  align-self: center;
+}
+
+.card {
+  width: 25% !important;
+  margin: 12.5% !important;
+  height: 550px !important;
+}
+
+.btn-primary {
+  position: absolute;
+  top: 88%;
+  left: 10%;
+}
+
+.card-text{
+  position: absolute;
+  top: 67%;
+  color: white;
+}
+
+.card-title {
+  position: absolute;
+  top: 61%;
+  color: white;
+
+}
