@@ -1,0 +1,42 @@
+{% extends 'components/base.html' %}
+{% block title %}Manticora - Restaurantes{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/adm_index.css') }}">
+{% endblock %}
+{% block content %}
+{% include 'components/header.html' %}
+<div class="container">
+  <div class="row">
+    <div class="card">
+      <img class="card-img-top" id="pedidos">
+      <div class="card-body">
+        <h5 class="card-title">Pedidos</h5>
+        <p class="card-text">Vizualize os pedidos que foram realizados para você, seus clientes estão aguardando :D </p>
+        <a href="#" class="btn btn-primary">Vamos ao Trabalho ^^</a>
+      </div>
+    </div>
+    <div class="card">
+      <img class="card-img-top" id="conta">
+      <div class="card-body">
+        <h5 class="card-title">Conta</h5>
+        <p class="card-text">Vizualize as contas de seus clientes, aqui você pode alterar o status do pagamento também :) </p>
+        <a href="#" class="btn btn-primary">Vamos ao Trabalho ^^</a>
+      </div>
+    </div>
+    <div class="card">
+      <img class="card-img-top" id="cardapio">
+      <div class="card-body">
+        <h5 class="card-title">Cardápio</h5>
+        <p class="card-text">Altere o cardápio do dia e ofereça novos pratos saborosos aos seus clientes</p>
+        <a href="#" class="btn btn-primary">Vamos ao Trabalho ^^</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% include 'components/footer.html' %}
+<script type="text/javascript">
+</script>
+{% endblock %}
+</body>

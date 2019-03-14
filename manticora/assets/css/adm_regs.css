@@ -13,8 +13,9 @@ align-content: center;
 }
 
 .card {
+top: 10%;
+bottom: 10%;
 height: 100%;
-margin-top: auto;
 margin-bottom: auto;
 width: 50%;
 background-color: rgba(0,0,0,0.5) !important;
