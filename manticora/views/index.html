@@ -49,5 +49,12 @@
 	</div>
 </div>
 {% include 'components/footer.html' %}
+<script type="text/javascript">
+	const urlParams = new URLSearchParams(window.location.search);
+	qstr = urlParams.get('auth')
+		if (qstr == "False"){
+			$.notify("Email ou senha incorretos", "error")
+		}
+</script>
 {% endblock %}
 </body>

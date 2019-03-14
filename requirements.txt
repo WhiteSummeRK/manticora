@@ -4,6 +4,7 @@ ipdb
 Flask-Script
 Flask-Session
 Flask-Migrate
+flask-login
 SQLAlchemy
 Flask-SQLAlchemy
 behave

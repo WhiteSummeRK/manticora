@@ -1,9 +1,11 @@
 from manticora.models.database_functions.usuario import (
     insert_new_user_account,
-    insert_new_rest,
     check_for_existing_mail,
     check_for_existing_name
     )
+from manticora.models.database_functions.restaurante import (
+    insert_new_rest
+)
 
 
 def register_user(nome, senha,

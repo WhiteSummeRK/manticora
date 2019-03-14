@@ -1,7 +1,8 @@
-from flask import Flask, render_template, Blueprint, request, url_for
+from flask import Flask, render_template, Blueprint, request, url_for, redirect
 
 # modulos
 from manticora.controllers.modules.login import login
+from flask_login import login_user
 
 app = Blueprint('login', __name__)
 
@@ -17,7 +18,8 @@ def login_view():
     name = data['username']
     pwd = data['password']
 
-    if login(name, pwd):
-        return 'funcionou'
-    # return redirect(url_for('login.login_template'))
-    return 'não funcionou'
+    suposed_user = login(name, pwd)
+    if suposed_user:
+        login_user(suposed_user)
+        return redirect(url_for('login.login_template'))
+    return redirect(url_for('index.login', auth=False))

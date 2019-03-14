@@ -6,7 +6,7 @@ name = "pypi"
 [packages]
 "Jinja2" = "*"
 Flask = "*"
-"e1839a8" = {path = ".", editable = true}
+e1839a8 = {path = ".",editable = true}
 ipdb = "*"
 behave = "*"
 "psycopg2" = "*"
@@ -16,6 +16,7 @@ Flask-Migrate = "*"
 SQLAlchemy = "*"
 Flask-SQLAlchemy = "*"
 SQLAlchemy-ImageAttach = "*"
+flask-login = "*"
 
 [dev-packages]
 
