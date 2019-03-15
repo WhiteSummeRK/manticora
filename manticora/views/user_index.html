@@ -2,7 +2,6 @@
 {% block title %}Manticora - Restaurantes{% endblock %}
 
 {% block css %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/user_index.css') }}">
 {% endblock %}
 {% block content %}
@@ -10,11 +9,27 @@
 <div class="container">
   <div class="row">
     <div class="card">
+      <div class="card-body">
+        <div class="container">
+          <h5>Seu Endereço</h5>
+          <p>Nome: {{ current_user.nome }}</p>
+          <p>Email: {{ current_user.email }}</p>
+          <br></br>
+          <p>Cidade: {{ current_user.cidade }}</p>
+          <p>Bairro: {{ current_user.bairro }}</p>
+          <p>Rua: {{ current_user.rua }}</p>
+          <p>Numero: {{ current_user.numero }}</p>
+          <p>Complemento: {{ current_user.complemento }}</p>
+          <a href="#" class="btn btn-primary">Alterar Endereço</a>
+        </div>
+      </div>
+    </div>
+    <div class="card">
       <img class="card-img-top" id="pedidos">
       <div class="card-body">
         <h5 class="card-title">Realize um Pedido</h5>
         <p class="card-text">com fome? os restaurantes estão aguardando seu pedido :3</p>
-        <a href="#" class="btn btn-primary">Realizar Pedido</a>
+        <a href="/restaurants/" class="btn btn-primary">Realizar Pedido</a>
       </div>
     </div>
     <div class="card">

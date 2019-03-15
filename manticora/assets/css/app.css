@@ -1,0 +1,33 @@
+html,body{
+background-image: url("../pics/wallp.jpg");
+background-size: cover;
+background-repeat: no-repeat;
+height: 100%;
+font-family: 'Numans', sans-serif;
+}
+
+.container{
+height: 100%;
+align-content: center;
+}
+
+.card-text{
+  position: absolute;
+  top: 67%;
+  color: white;
+}
+
+.card-title {
+  position: absolute;
+  top: 61%;
+  color: white;
+}
+
+h5, h1, h4, h3, p{
+    color: white;
+}
+
+label {
+  color: white;
+  margin: 5px;
+}

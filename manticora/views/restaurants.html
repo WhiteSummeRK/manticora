@@ -1,0 +1,79 @@
+{% extends 'components/base.html' %}
+{% block title %}Manticora - Restaurantes{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/restaurants.css') }}">
+{% endblock %}
+{% block content %}
+{% include 'components/header.html' %}
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <form class="form-inline" action="#">
+      <input class="form-control py-2" type="search" value="Procurar Restaurante" id="search_rest">
+      <span class="input-group-append">
+        <button class="btn btn-outline-secondary" type="button">
+            <i class="fa fa-search"></i>
+        </button>
+      </span>
+    </form>
+    <form class="form-inline" action="#">
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+        <label class="form-check-label" for="exampleRadios1">
+          Restaurantes Abertos
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+        <label class="form-check-label" for="exampleRadios2">
+          Restaurantes Fechados
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">
+        <label class="form-check-label" for="exampleRadios3">
+          Todos
+        </label>
+      </div>
+      <div class="form-group">
+        <label for="sel1">Cidade</label>
+          <select class="form-control" id="sel1">
+              <option>Todos</option>
+              {% for item in citys %}
+              <option>{{ item }}</option>
+              {% endfor %}
+          </select>
+      </div>
+    </form>
+    </div>
+    <div class="col">
+    </div>
+  </div>
+  <div class="row" style="margin-top: 30px">
+    <div class="col">
+      <h1>Restaurantes Disponíveis</h1>
+      {% for item in rests %}
+      <div class="card">
+        <div class="card-body">
+          <div class="row row-rest">
+            <div class="col col-no-border">
+              <br>
+              <a href="#" id="{{ item[1].id }}"class="btn btn-primary">{{item[0]}}</a>
+            </div>
+              <img src="data:;base64,{{ item[1].imagem }}" class="img-fluid">
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="col">
+      2 of 2
+    </div>
+  </div>
+</div>
+{% include 'components/footer.html' %}
+<script type="text/javascript">
+</script>
+{% endblock %}
+</body>

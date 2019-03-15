@@ -2,4 +2,10 @@
   text-align: center;
   border-top: 10%;
   color: white;
+  bottom: 0px;
+}
+
+#my_footer{
+  background-color: rgba(0, 0, 0, .7);
+  height: 10%;
 }

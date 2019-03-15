@@ -1,3 +1,12 @@
+/* Made with love by Mutiullah Samim*/
+
+@import url('https://fonts.googleapis.com/css?family=Numans');
+
+#my_footer{
+  background-color: rgba(0, 0, 0, .7);
+  height: 10%;
+}
+
 #pedidos {
   background-image: url("../pics/comida.jpg");
   position: absolute;
@@ -19,25 +28,13 @@
 
 .card {
   width: 25% !important;
-  margin: 12.5% !important;
+  margin: 4% !important;
   height: 550px !important;
+  background-color: rgba(0,0,0,0.5) !important;
 }
 
 .btn-primary {
   position: absolute;
   top: 88%;
   left: 10%;
-}
-
-.card-text{
-  position: absolute;
-  top: 67%;
-  color: white;
-}
-
-.card-title {
-  position: absolute;
-  top: 61%;
-  color: white;
-
 }

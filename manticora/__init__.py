@@ -19,6 +19,9 @@ app.register_blueprint(register, url_prefix='/register')
 from .controllers.routes.index import app as index  # NOQA
 app.register_blueprint(index, url_prefix='/')
 
+from .controllers.routes.restaurants import app as restaurants # NOQA
+app.register_blueprint(restaurants, url_prefix='/restaurants')
+
 app.secret_key = b'\x89\x03\xf4\xdc\x1a\x95f\xe0\xae!\xf6Ml\xc6\x03\xc4'
 app.config['SESSION_TYPE'] = 'filesystem'
 
