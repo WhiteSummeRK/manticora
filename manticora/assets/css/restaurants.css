@@ -11,6 +11,8 @@ align-content: center;
 
 .col {
   border-style: dashed;
+  border-color: white;
+  padding-left: 0px;
   margin-right: 30px;
 }
 
@@ -68,4 +70,15 @@ background-color: rgba(0,0,0,0.5) !important;
   background-color: rgba(0, 0, 0, 0.5);
   border-color: black;
   color: white;
+}
+
+
+h5, h1, h4, h3, p{
+    color: white;
+}
+
+
+label {
+  color: white;
+  margin: 5px;
 }

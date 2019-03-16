@@ -22,12 +22,3 @@ align-content: center;
   top: 61%;
   color: white;
 }
-
-h5, h1, h4, h3, p{
-    color: white;
-}
-
-label {
-  color: white;
-  margin: 5px;
-}

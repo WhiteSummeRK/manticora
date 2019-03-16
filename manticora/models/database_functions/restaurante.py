@@ -19,6 +19,16 @@ def query_all_adms():
         raise
 
 
+def query_ads_by_name(name):
+    if not name:
+        return query_all_adms()
+    try:
+        return Usuario.query.filter(Usuario.is_adm == True).filter(Usuario.nome.contains(name)).all() # NOQA
+    except Exception as e:
+        db.session.rollback()
+        raise
+
+
 def query_all_restaurants_with_name(adms):
     return [[item.nome, Restaurante.query.filter_by(adm=item).first()]
             for item in adms]

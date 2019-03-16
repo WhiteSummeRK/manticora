@@ -1,7 +1,8 @@
 from flask import Flask, render_template, Blueprint, request, url_for, redirect, abort
 
 # modulos
-from manticora.controllers.modules.restaurants import show_restaurants, show_all_citys
+from manticora.controllers.modules.restaurants import (show_restaurants,
+                                                       show_all_citys)
 from flask_login import login_required, current_user
 
 app = Blueprint('restaurants', __name__)
@@ -14,9 +15,12 @@ def only_normal_users():
 @login_required
 def login_template():
     only_normal_users()
+    query_rest = request.args.get('search_rest')
     citys = show_all_citys()
+    rests = show_restaurants(query_rest)
+
     return render_template('restaurants.html',
-                            rests=show_restaurants(),
+                            rests=rests,
                             citys=citys)
 
 

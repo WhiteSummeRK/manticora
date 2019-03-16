@@ -9,10 +9,10 @@
 <div class="container">
   <div class="row">
     <div class="col">
-      <form class="form-inline" action="#">
-      <input class="form-control py-2" type="search" value="Procurar Restaurante" id="search_rest">
+      <form class="form-inline" action="/restaurants/" method="GET">
+      <input class="form-control py-2" type="search" value="Procurar Restaurante" name="search_rest">
       <span class="input-group-append">
-        <button class="btn btn-outline-secondary" type="button">
+        <button class="btn btn-outline-secondary" type="submit">
             <i class="fa fa-search"></i>
         </button>
       </span>

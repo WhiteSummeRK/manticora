@@ -38,3 +38,13 @@
   top: 88%;
   left: 10%;
 }
+
+h5, h1, h4, h3, p{
+    color: white;
+}
+
+
+label {
+  color: white;
+  margin: 5px;
+}
