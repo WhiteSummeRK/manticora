@@ -82,3 +82,7 @@ label {
   color: white;
   margin: 5px;
 }
+
+#btn_filter {
+  margin-left: 20px;
+}

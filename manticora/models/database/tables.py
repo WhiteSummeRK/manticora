@@ -10,6 +10,7 @@ from sqlalchemy import (
     Float,
     Boolean,
     ForeignKey,
+    Time,
     UniqueConstraint)
 from sqlalchemy_imageattach.entity import Image, image_attachment
 from sqlalchemy.orm import relationship
@@ -21,6 +22,7 @@ app = Flask(__name__)
 db_url = 'postgresql://manticora:manticora123@localhost:5432/manticora_db'
 # db_url = 'postgres://tcjktyoqzsmxdg:476db29152bf604203e8cf71007ffce69c574c8f98b7dfde2f356b11b7f04dee@ec2-75-101-131-79.compute-1.amazonaws.com:5432/dfa118jlcsd94c'
 db = SQLAlchemy()
+
 
 class Usuario(db.Model):
     __tablename__ = 'usuario'
@@ -63,7 +65,31 @@ class Restaurante(db.Model):
     telefone = Column(String(11), nullable=False)
     imagem = Column(LargeBinary, nullable=False)
     id_adm = Column(Integer, ForeignKey('usuario.id'))
+    abertura = Column(Time, nullable=False)
+    fechamento = Column(Time, nullable=False)
+    Cardapio = relationship('Cardapio')
     adm = relationship('Usuario')
+
+
+class Cardapio(db.Model):
+    __tablename__ = 'cardapio'
+
+    id = Column(Integer, primary_key=True)
+    dia = Column(DateTime, nullable=False)
+    prato_princ = Column(String(30), nullable=False)
+    acompanhamento_1 = Column(String(30))
+    acompanhamento_2 = Column(String(30))
+    acompanhamento_3 = Column(String(30))
+    sobremesa = Column(String(30))
+    rest = relationship('Restaurante')
+    id_rest = Column(Integer, ForeignKey('restaurante.id'))
+
+    def __repr__(self):
+        return """Cardapio(dia={}, prato_princ={}, acompanhamento_1={},
+        acompanhamento_2={}, acompanhamento_3={}, sobremesa={})
+        """.format(self.dia, self.prato_princ, self.acompanhamento_1,
+                   self.acompanhamento_2, self.acompanhamento_3, self.sobremesa
+                   )
 
 
 class UsuarioConta(db.Model):

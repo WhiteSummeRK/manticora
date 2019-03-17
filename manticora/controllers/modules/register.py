@@ -6,6 +6,7 @@ from manticora.models.database_functions.usuario import (
 from manticora.models.database_functions.restaurante import (
     insert_new_rest
 )
+from datetime import datetime
 
 
 def register_user(nome, senha,
@@ -30,10 +31,12 @@ def register_user(nome, senha,
     return 'Usuário inserido com sucesso.'
 
 
-def register_rest(phone, num_phone, img, adm):
+def register_rest(phone, num_phone, img, open, closed, adm):
     """Faz as verificações e insere novo adm."""
+    openned = datetime.strptime(open, '%H:%M').time()
+    closed = datetime.strptime(closed, '%H:%M').time()
     try:
-        insert_new_rest(phone, num_phone, img, adm)
+        insert_new_rest(phone, num_phone, img, openned, closed, adm)
     except Exception as e:
         return 'Algo deu errado, tente novamente.'
     return 'ok'

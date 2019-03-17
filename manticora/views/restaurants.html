@@ -17,33 +17,36 @@
         </button>
       </span>
     </form>
-    <form class="form-inline" action="#">
+    <form class="form-inline" action="/restaurants/" method="POST">
       <div class="form-check">
-        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
-        <label class="form-check-label" for="exampleRadios1">
+        <input class="form-check-input" type="radio" name="filter_radio" id="open1" value="open" checked>
+        <label class="form-check-label" for="open1">
           Restaurantes Abertos
         </label>
       </div>
       <div class="form-check">
-        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-        <label class="form-check-label" for="exampleRadios2">
+        <input class="form-check-input" type="radio" name="filter_radio" id="open2" value="closed">
+        <label class="form-check-label" for="open2">
           Restaurantes Fechados
         </label>
       </div>
       <div class="form-check">
-        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">
-        <label class="form-check-label" for="exampleRadios3">
+        <input class="form-check-input" type="radio" name="filter_radio" id="all" value="all">
+        <label class="form-check-label" for="all">
           Todos
         </label>
       </div>
       <div class="form-group">
         <label for="sel1">Cidade</label>
-          <select class="form-control" id="sel1">
-              <option>Todos</option>
+          <select class="form-control" id="sel1" name="sel1">
+              <option value="todos">Todos</option>
               {% for item in citys %}
-              <option>{{ item }}</option>
+              <option value="{{ item }}">{{ item }}</option>
               {% endfor %}
           </select>
+      </div>
+      <div class="form-group" id="btn_filter">
+        <button class="form-control" type="submit" id="btn_filter" name="filter">Filtrar</button>
       </div>
     </form>
     </div>

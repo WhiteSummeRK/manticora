@@ -45,6 +45,8 @@ def new_adm_post():
     street = request.form['street']
     num_street = request.form['num_street']
     comp = request.form['comp']
+    open = request.form['hora_aber']
+    closed = request.form['hora_fech']
     img = request.files['img']
 
     adm = register_user(name, pwd, email, neigh,
@@ -53,6 +55,6 @@ def new_adm_post():
                         return_entity=True)
 
     if not type(adm) == str:
-        rest = register_rest(phone, num_phone, img, adm)
+        rest = register_rest(phone, num_phone, img, open, closed, adm)
         return redirect(url_for('register.new_adm', new_adm=rest))
     return redirect(url_for('register.new_adm', new_adm=adm))
