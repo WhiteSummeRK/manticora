@@ -3,6 +3,11 @@ from manticora.models.database.tables import Usuario, Restaurante, db
 from sqlalchemy import or_, and_
 
 
+def get_actual_rest(curr_user):
+    user = Usuario.query.filter(Usuario.id == curr_user.id).first()
+    return Restaurante.query.filter_by(adm=user).first()
+
+
 def insert_new_rest(phone, num_phone, img, open, closed, adm):
     new_adm = Restaurante(telefone=num_phone + phone,
                           imagem=img.read(),

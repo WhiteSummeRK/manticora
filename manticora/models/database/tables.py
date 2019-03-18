@@ -45,7 +45,7 @@ class Usuario(db.Model):
         return True
 
     def is_anonymous(self):
-        return not is_authenticated()
+        return not self.is_authenticated()
 
     def get_id(self):
         return chr(self.id)
@@ -76,20 +76,16 @@ class Cardapio(db.Model):
 
     id = Column(Integer, primary_key=True)
     dia = Column(DateTime, nullable=False)
-    prato_princ = Column(String(30), nullable=False)
-    acompanhamento_1 = Column(String(30))
-    acompanhamento_2 = Column(String(30))
-    acompanhamento_3 = Column(String(30))
-    sobremesa = Column(String(30))
+    prato = Column(String(30), nullable=False)
+    tipo = Column(String(30), nullable=False)
     rest = relationship('Restaurante')
     id_rest = Column(Integer, ForeignKey('restaurante.id'))
 
     def __repr__(self):
-        return """Cardapio(dia={}, prato_princ={}, acompanhamento_1={},
-        acompanhamento_2={}, acompanhamento_3={}, sobremesa={})
-        """.format(self.dia, self.prato_princ, self.acompanhamento_1,
-                   self.acompanhamento_2, self.acompanhamento_3, self.sobremesa
-                   )
+        return """Cardapio(dia={}, prato={}, tipo={},
+        rest={})
+        """.format(self.dia, self.prato, self.tipo,
+                   self.rest)
 
 
 class UsuarioConta(db.Model):

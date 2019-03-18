@@ -1,0 +1,87 @@
+{% extends 'components/base.html' %}
+{% block title %}Manticora - Restaurantes{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/menu.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
+{% endblock %}
+{% block content %}
+{% include 'components/header.html' %}
+<div class="container">
+  <div class="row mb-4">
+    <div class="col-12">
+      <form class="form-group" action="/menu/" method="post">
+        <div class="form-group">
+            <input type="text" name="item" placeholder="Novo Item" required>
+        </div>
+        <div class="form-group">
+          <input id="datepicker1" name="day" width="276" placeholder="Dia" required/>
+        </div>
+        <select class="form-group" id="type" name="type" required>
+            <option value="main_plate">Prato Principal</option>
+            <option value="acomp">Acompanhamento</option>
+            <option value="drink">Bebida</option>
+            <option value="deserve">Sobremesa</option>
+            <option value="other">Outro</option>
+        </select>
+        <div class="form-group">
+            <button type="submit" class="btn-primary">Cadastrar Item</button>
+        </div>
+      </form>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <form class="form-group" action="#" method="post">
+          <label for="datepicker">Pesquisar por dia</label>
+          <input id="datepicker" name="datepicker" width="276" />
+          <br>
+          <div class="form-group">
+              <button type="submit" class="btn-primary" name="item">Pesquisar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <table class="table table-dark">
+          <thead>
+            <tr>
+              <th scope="col">Dia</th>
+              <th scope="col">Prato Principal</th>
+              <th scope="col">Acompanhamentos</th>
+              <th scope="col">Sobremesa</th>
+              <th scope="col">Bebidas</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in items %}
+            <tr>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+{% include 'components/footer.html' %}
+<script type="text/javascript">
+	const urlParams = new URLSearchParams(window.location.search);
+  $('#datepicker').datepicker({
+    uiLibrary: 'bootstrap4'
+});
+  $('#datepicker1').datepicker({
+    uiLibrary: 'bootstrap4'
+  });
+  qstr = urlParams.get('insertion')
+    if (qstr && qstr !== 'Erro'){
+      $.notify("Item inserido no cardápio", "success")
+    }
+    if (qstr == 'Erro'){
+      $.notify("Houve um erro inesperado, tente novamente", "error")
+    }
+  console.log('{{items}}')
+
+</script>
+{% endblock %}
+</body>
