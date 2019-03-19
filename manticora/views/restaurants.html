@@ -36,7 +36,7 @@
           Todos
         </label>
       </div>
-      <div class="form-group">
+      <div class="col form-group">
         <label for="sel1">Cidade</label>
           <select class="form-control" id="sel1" name="sel1">
               <option value="todos">Todos</option>
@@ -44,23 +44,21 @@
               <option value="{{ item }}">{{ item }}</option>
               {% endfor %}
           </select>
-      </div>
-      <div class="form-group" id="btn_filter">
-        <button class="form-control" type="submit" id="btn_filter" name="filter">Filtrar</button>
+            <button class="form-control" type="submit" id="btn_filter" name="filter">Filtrar</button>
       </div>
     </form>
     </div>
   </div>
   <div class="row" style="margin-top: 30px">
-    <div class="col">
-      <h1>Restaurantes Disponíveis</h1>
+    <div class="col-4">
+      <h1>Restaurantes</h1>
       {% for item in rests %}
       <div class="card">
         <div class="card-body">
           <div class="row row-rest">
             <div class="col col-no-border">
               <br>
-              <a href="#" id="{{ item[1].id }}"class="btn btn-primary">{{item[0]}}</a>
+              <button type="submit" id="{{ item[1].id }}" value="{{ item[1].id }}" class="btn btn-primary btn-send-fetch" >{{item[0]}}</a>
             </div>
               <img src="data:;base64,{{ item[1].imagem }}" class="img-fluid">
           </div>
@@ -68,13 +66,42 @@
       </div>
       {% endfor %}
     </div>
-    <div class="col">
-      2 of 2
+    <div class="col-8" id="cardapio_area">
     </div>
   </div>
 </div>
 {% include 'components/footer.html' %}
 <script type="text/javascript">
+  btn_fetch = document.getElementsByClassName('btn-send-fetch')
+
+  for(var item of btn_fetch){
+    item.addEventListener('click', (e) => {
+      let t = e.target;
+      var id_to_send = t.value;
+      console.log(id_to_send)
+
+      fetch('/restaurants/', {
+        method: 'post',
+        credentials: 'include',
+        body: JSON.stringify({
+          "id_to_send": id_to_send
+        }),
+        headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+          },
+      }).then(response => response.json())
+        .then(json =>{
+          if(json['cardapio'] == 'no_card'){
+            $.notify("O Restaurante Ainda não disponibilizou o cardápio", "error")
+          }
+          else{
+            document.getElementById('cardapio_area').innerHTML = ""
+            document.getElementById('cardapio_area').innerHTML = json['cardapio']
+          }
+        }).catch(err => { console.error(err) })
+    })
+  }
 </script>
 {% endblock %}
 </body>

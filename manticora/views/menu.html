@@ -1,14 +1,12 @@
 {% extends 'components/base.html' %}
 {% block title %}Manticora - Restaurantes{% endblock %}
-
 {% block css %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/menu.css') }}">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
 {% endblock %}
 {% block content %}
 {% include 'components/header.html' %}
 <div class="container">
-  <div class="row mb-4">
+  <div class="row mb-4" id="first_row">
     <div class="col-12">
       <form class="form-group" action="/menu/" method="post">
         <div class="form-group">
@@ -18,11 +16,11 @@
           <input id="datepicker1" name="day" width="276" placeholder="Dia" required/>
         </div>
         <select class="form-group" id="type" name="type" required>
-            <option value="main_plate">Prato Principal</option>
-            <option value="acomp">Acompanhamento</option>
-            <option value="drink">Bebida</option>
-            <option value="deserve">Sobremesa</option>
-            <option value="other">Outro</option>
+            <option value="Prato Principal">Prato Principal</option>
+            <option value="Acompanhamento">Acompanhamento</option>
+            <option value="Bebida">Bebida</option>
+            <option value="Sobremesa">Sobremesa</option>
+            <option value="Outro">Outro</option>
         </select>
         <div class="form-group">
             <button type="submit" class="btn-primary">Cadastrar Item</button>
@@ -32,9 +30,9 @@
     </div>
     <div class="row">
       <div class="col">
-        <form class="form-group" action="#" method="post">
+        <form class="form-group" action="/menu/" method="get">
           <label for="datepicker">Pesquisar por dia</label>
-          <input id="datepicker" name="datepicker" width="276" />
+          <input id="datepicker" name="day" width="276" />
           <br>
           <div class="form-group">
               <button type="submit" class="btn-primary" name="item">Pesquisar</button>
@@ -48,15 +46,16 @@
           <thead>
             <tr>
               <th scope="col">Dia</th>
-              <th scope="col">Prato Principal</th>
-              <th scope="col">Acompanhamentos</th>
-              <th scope="col">Sobremesa</th>
-              <th scope="col">Bebidas</th>
+              <th scope="col">Nome</th>
+              <th scope="col">Tipo</th>
             </tr>
           </thead>
           <tbody>
             {% for item in items %}
             <tr>
+              <td>{{ item.dia }}</td>
+              <td>{{ item.prato }}</td>
+              <td>{{ item.tipo }}</td>
             </tr>
             {% endfor %}
           </tbody>
@@ -64,7 +63,7 @@
       </div>
     </div>
   </div>
-{% include 'components/footer.html' %}
+  {% include 'components/footer.html' %}
 <script type="text/javascript">
 	const urlParams = new URLSearchParams(window.location.search);
   $('#datepicker').datepicker({
@@ -80,7 +79,6 @@
     if (qstr == 'Erro'){
       $.notify("Houve um erro inesperado, tente novamente", "error")
     }
-  console.log('{{items}}')
 
 </script>
 {% endblock %}

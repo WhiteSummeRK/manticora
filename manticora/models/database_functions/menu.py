@@ -24,9 +24,17 @@ def insert_menu(item, kind, day, current_user):
 
 def query_all_menus(current_user):
     rest = get_actual_rest(current_user)
-    return Cardapio.query.filter_by(rest=rest).all()
+    return Cardapio.query.filter_by(rest=rest).order_by(Cardapio.tipo). \
+        limit(50).all()
 
 
 def query_menus_by_day(day, current_user):
     rest = get_actual_rest(current_user)
-    return 'ok'
+    return Cardapio.query.filter_by(rest=rest).filter(Cardapio.dia == day). \
+        order_by(Cardapio.tipo).limit(50).all()
+
+
+def query_menu_by_rest_id(id, date):
+    rest = Restaurante.query.filter_by(id=id).first()
+    return Cardapio.query.filter_by(rest=rest).filter(Cardapio.dia == date). \
+        order_by(Cardapio.tipo).limit(50).all()

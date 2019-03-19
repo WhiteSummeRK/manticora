@@ -66,7 +66,7 @@ def show_closed_rests_by_city(city):
                 Restaurante.abertura > now)).filter_by(adm=item).first()
 
         if rest:
-            result.append([item.nome, rest])
+            result.append([item.nome, rest, 'Fechado'])
 
     return result
 
@@ -81,7 +81,7 @@ def show_openned_rests_by_city(city):
                      Restaurante.abertura < now)).filter_by(adm=item).first()
 
         if rests:
-            result.append([item.nome, rests])
+            result.append([item.nome, rests, 'Aberto'])
 
     return result
 

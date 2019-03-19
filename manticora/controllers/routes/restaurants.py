@@ -1,11 +1,12 @@
 from flask import (Flask, render_template, Blueprint,
-                   request, url_for, redirect, abort)
+                   request, url_for, redirect, abort, jsonify)
+from flask_login import login_required, current_user
 
 # modulos
 from manticora.controllers.modules.restaurants import (show_restaurants,
                                                        show_all_citys,
                                                        show_rests_with_filter)
-from flask_login import login_required, current_user
+from manticora.controllers.modules.menu import show_card_by_rest_id
 
 app = Blueprint('restaurants', __name__)
 
@@ -33,3 +34,12 @@ def login_template():
     return render_template('restaurants.html',
                            rests=rests,
                            citys=citys_)
+
+
+@app.route('/',  methods=['POST'])
+@login_required
+def post_rests():
+    only_normal_users()
+    id_rest = request.json.get('id_to_send')
+    card = show_card_by_rest_id(int(id_rest))
+    return jsonify({"cardapio": card})

@@ -9,13 +9,6 @@ align-content: center;
   align-self: center;
 }
 
-.col {
-  border-style: dashed;
-  border-color: white;
-  padding-left: 0px;
-  margin-right: 30px;
-}
-
 .col-no-border {
   border-style: none !important;
 }

@@ -1,14 +1,13 @@
 html,body{
-background-image: url("../pics/wallp.jpg");
-background-size: cover;
-background-repeat: no-repeat;
+background-image: url("../pics/fundo.png");
+background-repeat: repeat;
 height: 100%;
 font-family: 'Numans', sans-serif;
 }
 
 .container{
-height: 100%;
 align-content: center;
+margin-top: 8%;
 }
 
 .card-text{

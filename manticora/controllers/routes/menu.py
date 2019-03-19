@@ -3,8 +3,7 @@ from flask import (Flask, render_template, Blueprint,
 
 from flask_login import login_required, current_user
 
-from manticora.controllers.modules.menu import (save_menu, show_menu_by_day,
-                                                order_itens_by_data)
+from manticora.controllers.modules.menu import (save_menu, show_menu_by_day)
 
 app = Blueprint('menu', __name__)
 
@@ -17,12 +16,11 @@ def only_adms():
 @app.route('/',  methods=['GET'])
 @login_required
 def menu_for_adm():
-
     only_adms()
     day = request.args.get('day')
     menu_items = show_menu_by_day(day, current_user)
-    itens_by_data = order_itens_by_data(menu_items)
-    return render_template('menu.html', items=itens_by_data)
+
+    return render_template('menu.html', items=menu_items)
 
 
 @app.route('/', methods=['POST'])
