@@ -4,7 +4,9 @@ from flask import (render_template, Blueprint,
 
 # imports dos modulos
 from manticora.controllers.modules.register import (register_user,
-                                                    register_rest)
+                                                    register_rest,
+                                                    update_user)
+from flask_login import current_user
 
 app = Blueprint('register', __name__)
 
@@ -58,3 +60,17 @@ def new_adm_post():
         rest = register_rest(phone, num_phone, img, open, closed, adm)
         return redirect(url_for('register.new_adm', new_adm=rest))
     return redirect(url_for('register.new_adm', new_adm=adm))
+
+
+@app.route('/alter_user/', methods=['POST'])
+def alter_user():
+    data = request.form
+    neigh = data.get('neigh_in')
+    city = data.get('city_in')
+    street = data.get('street_in')
+    num = data.get('number_in')
+    complement = data.get('comp_in')
+
+    upd_user = update_user(city, neigh, street, num, complement, current_user)
+
+    return redirect(url_for('login.login_template', upd=upd_user))

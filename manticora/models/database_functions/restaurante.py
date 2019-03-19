@@ -39,8 +39,39 @@ def query_ads_by_name(name):
 
 
 def query_all_restaurants_with_name(adms):
-    return [[item.nome, Restaurante.query.filter_by(adm=item).first()]
-            for item in adms]
+    open = get_open_rests(adms)
+    closed = get_closed_rests(adms)
+    return open + closed
+
+
+def get_closed_rests(adm):
+    now = get_time_now()
+    result = []
+
+    for item in adm:
+        rest = Restaurante.query.filter(
+            or_(Restaurante.fechamento < now,
+                Restaurante.abertura > now)).filter_by(adm=item).first()
+
+        if rest:
+            result.append([item.nome, rest, 'Fechado'])
+
+    return result
+
+
+def get_open_rests(adm):
+    now = get_time_now()
+    result = []
+
+    for item in adm:
+        rests = Restaurante.query.filter(
+                and_(Restaurante.fechamento > now,
+                     Restaurante.abertura < now)).filter_by(adm=item).first()
+
+        if rests:
+            result.append([item.nome, rests, 'Aberto'])
+
+    return result
 
 
 def query_adm_by_city(city):
@@ -56,43 +87,17 @@ def get_time_now():
 
 
 def show_closed_rests_by_city(city):
-    now = get_time_now()
     adm = query_adm_by_city(city)
-    result = []
-
-    for item in adm:
-        rest = Restaurante.query.filter(
-            or_(Restaurante.fechamento < now,
-                Restaurante.abertura > now)).filter_by(adm=item).first()
-
-        if rest:
-            result.append([item.nome, rest, 'Fechado'])
-
-    return result
+    return get_closed_rests(adm)
 
 
 def show_openned_rests_by_city(city):
-    now = get_time_now()
     adm = query_adm_by_city(city)
-    result = []
-    for item in adm:
-        rests = Restaurante.query.filter(
-                and_(Restaurante.fechamento > now,
-                     Restaurante.abertura < now)).filter_by(adm=item).first()
-
-        if rests:
-            result.append([item.nome, rests, 'Aberto'])
-
-    return result
+    return get_open_rests(adm)
 
 
 def show_all_rests_by_city(city):
-    adm = query_adm_by_city(city)
-    result = []
-    for item in adm:
-        rests = Restaurante.query.filter_by(adm=item).first()
+    rests_open = show_openned_rests_by_city(city)
+    rests_closed = show_closed_rests_by_city(city)
 
-        if rests:
-            result.append([item.nome, rests])
-
-    return result
+    return rests_open + rests_closed

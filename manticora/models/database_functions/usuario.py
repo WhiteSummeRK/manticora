@@ -31,3 +31,14 @@ def check_for_existing_name(nome):
 
 def query_user_and_pwd(user, pwd):
     return Usuario.query.filter_by(nome=user, senha=pwd).first()
+
+
+def update_user_from_db(city, neigh, street, num, complement, current_user):
+    user = Usuario.query.filter_by(id=current_user.id).first()
+    user.cidade = city if city else user.cidade
+    user.bairro = neigh if neigh else user.bairro
+    user.rua = street if street else user.rua
+    user.numero = num if num else user.numero
+    user.complemento = complement if complement else user.complemento
+
+    db.session.commit()

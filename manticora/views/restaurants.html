@@ -10,7 +10,7 @@
   <div class="row">
     <div class="col">
       <form class="form-inline" action="/restaurants/" method="GET">
-      <input class="form-control py-2" type="search" value="Procurar Restaurante" name="search_rest">
+      <input class="form-control py-2" type="search" placeholder="Procurar Restaurante" name="search_rest">
       <span class="input-group-append">
         <button class="btn btn-outline-secondary" type="submit">
             <i class="fa fa-search"></i>
@@ -19,7 +19,7 @@
     </form>
     <form class="form-inline" action="/restaurants/" method="GET">
       <div class="form-check">
-        <input class="form-check-input" type="radio" name="filter_radio" id="open1" value="open" checked>
+        <input class="form-check-input" type="radio" name="filter_radio" id="open1" value="open">
         <label class="form-check-label" for="open1">
           Restaurantes Abertos
         </label>
@@ -31,7 +31,7 @@
         </label>
       </div>
       <div class="form-check">
-        <input class="form-check-input" type="radio" name="filter_radio" id="all" value="all">
+        <input class="form-check-input" type="radio" name="filter_radio" id="all" value="all" checked>
         <label class="form-check-label" for="all">
           Todos
         </label>
@@ -58,7 +58,11 @@
           <div class="row row-rest">
             <div class="col col-no-border">
               <br>
-              <button type="submit" id="{{ item[1].id }}" value="{{ item[1].id }}" class="btn btn-primary btn-send-fetch" >{{item[0]}}</a>
+              {% if item[2] == 'Aberto' %}
+              <button type="submit" id="{{ item[1].id }}" value="{{ item[1].id }}" class="btn btn-primary btn-send-fetch" >{{item[0]}}</button>
+              {% else %}
+              <button type="submit" id="{{ item[1].id }}" value="{{ item[1].id }}" class="btn btn-danger btn-send-fetch" disabled>{{item[0]}}</button>
+              {% endif %}
             </div>
               <img src="data:;base64,{{ item[1].imagem }}" class="img-fluid">
           </div>

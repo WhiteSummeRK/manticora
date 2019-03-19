@@ -10,7 +10,7 @@
   <div class="row">
     <div class="card">
       <div class="card-body">
-        <div class="container">
+        <div class="container" id="address">
           <h5>Seu Endereço</h5>
           <p>Nome: {{ current_user.nome }}</p>
           <p>Email: {{ current_user.email }}</p>
@@ -20,7 +20,7 @@
           <p>Rua: {{ current_user.rua }}</p>
           <p>Numero: {{ current_user.numero }}</p>
           <p>Complemento: {{ current_user.complemento }}</p>
-          <a href="#" class="btn btn-primary">Alterar Endereço</a>
+          <a href="#" id="ch_addr" class="btn btn-primary">Alterar Endereço</a>
         </div>
       </div>
     </div>
@@ -44,6 +44,33 @@
 </div>
 {% include 'components/footer.html' %}
 <script type="text/javascript">
+  document.getElementById("ch_addr").addEventListener('click', (e) => {
+
+    var full_div = " \
+     <form class='form-group' action='/register/alter_user/' method='post'> \
+       <p>Nome: {{ current_user.nome }}</p> \
+       <p>Email: {{ current_user.email }}</p> \
+       <p>Cidade: <input type='text' name='city_in' /></p> \
+       <p>Bairro: <input type='text' name='neigh_in' /></p> \
+       <p>Rua: <input type='text' name='street_in' /></p> \
+       <p>Numero: <input type='text' name='number_in' maxlength='4' /></p> \
+       <p>Complemento: <input type='text' name='comp_in' /></p><br> \
+       <button type='submit' id='confirm_new' class='btn btn-primary'>Confirmar</button> \
+     </form> "
+
+     console.log(full_div)
+
+     document.getElementById('address').innerHTML = full_div
+  })
+  const urlParams = new URLSearchParams(window.location.search);
+
+  qstr = urlParams.get('upd')
+  if(qstr == 'ok'){
+    $.notify('Endereço Atualizado com sucesso', 'success')
+  }
+  else if (qsrt) {
+    $.notify('Ocorreu um erro inesperado', 'error')
+  }
 </script>
 {% endblock %}
 </body>
