@@ -7,29 +7,46 @@
 {% include 'components/header.html' %}
 <div class="container">
   <div class="row mb-4" id="first_row">
-    <div class="col-12">
+    <div class="col-6">
       <form class="form-group" action="/menu/" method="post">
+        <h2>Inserir Novo Item</h2>
         <div class="form-group">
-            <input type="text" name="item" placeholder="Novo Item" required>
+            <input type="text" name="item" placeholder="Novo Item" maxlength="30" required>
         </div>
         <div class="form-group">
           <input id="datepicker1" name="day" width="276" placeholder="Dia" required/>
         </div>
         <select class="form-group" id="type" name="type" required>
-            <option value="Prato Principal">Prato Principal</option>
-            <option value="Acompanhamento">Acompanhamento</option>
-            <option value="Bebida">Bebida</option>
-            <option value="Sobremesa">Sobremesa</option>
-            <option value="Outro">Outro</option>
+            <option value="main_plate">Prato Principal</option>
+            <option value="acomp">Acompanhamento</option>
+            <option value="drink">Bebida</option>
+            <option value="deserve">Sobremesa</option>
+            <option value="other">Outro</option>
         </select>
         <div class="form-group">
             <button type="submit" class="btn-primary">Cadastrar Item</button>
         </div>
       </form>
       </div>
+      <div class="col-6">
+        <form class="form-group" action="/menu/new_size/" method="post">
+          <h2>Inserir Nova Marmita</h2>
+          <div class="form-group">
+            <label for="size">Tamanho</label>
+              <input type="text" name="size" maxlength="1" size="1" required>
+          </div>
+          <div class="form-group">
+            <label for="price">R$</label>
+              <input type="text" name="price" placeholder="Valor" required>
+          </div>
+          <div class="form-group">
+              <button type="submit" class="btn-primary">Criar nova Marmita</button>
+          </div>
+        </form>
+      </div>
     </div>
     <div class="row">
-      <div class="col">
+      <div class="col-6">
         <form class="form-group" action="/menu/" method="get">
           <label for="datepicker">Pesquisar por dia</label>
           <input id="datepicker" name="day" width="276" />
@@ -39,9 +56,29 @@
           </div>
         </form>
       </div>
+      <div class="col-6">
+        <h2>Marmitas Disponíveis</h2>
+        <table class="table table-dark">
+          <thead>
+            <tr>
+              <th scope="col">Tamanho</th>
+              <th scope="col">Preço</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in marmitas %}
+            <tr>
+              <td>{{ item.tamanho }}</td>
+              <td>{{ item.preco }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
     </div>
     <div class="row">
       <div class="col-12">
+        <h2 style="text-align: center;">Seu Cardápio</h2>
         <table class="table table-dark">
           <thead>
             <tr>
@@ -50,15 +87,15 @@
               <th scope="col">Tipo</th>
             </tr>
           </thead>
-          <tbody>
-            {% for item in items %}
-            <tr>
-              <td>{{ item.dia }}</td>
-              <td>{{ item.prato }}</td>
-              <td>{{ item.tipo }}</td>
-            </tr>
-            {% endfor %}
-          </tbody>
+            <tbody>
+              {% for item in items %}
+              <tr>
+                <td>{{ item.dia }}</td>
+                <td>{{ item.prato }}</td>
+                <td>{{ item.tipo }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
         </table>
       </div>
     </div>

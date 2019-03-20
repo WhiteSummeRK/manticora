@@ -12,7 +12,6 @@ from sqlalchemy import (
     ForeignKey,
     Time,
     UniqueConstraint)
-from sqlalchemy_imageattach.entity import Image, image_attachment
 from sqlalchemy.orm import relationship
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask
@@ -68,8 +67,18 @@ class Restaurante(db.Model):
     abertura = Column(Time, nullable=False)
     fechamento = Column(Time, nullable=False)
     Cardapio = relationship('Cardapio')
+    tamanho_preco = relationship('TamanhosPrecos')
     adm = relationship('Usuario')
 
+
+class TamanhosPrecos(db.Model):
+    __tablename__ = 'tamanhos_precos'
+
+    id = Column(Integer, primary_key=True)
+    tamanho = Column(String(1), nullable=False)
+    preco = Column(Float, nullable=False)
+    rest = relationship('Restaurante')
+    id_rest = Column(Integer, ForeignKey('restaurante.id'))
 
 class Cardapio(db.Model):
     __tablename__ = 'cardapio'
@@ -110,10 +119,10 @@ class Extrato(db.Model):
     id = Column(Integer, primary_key=True)
     id_conta = Column(Integer, ForeignKey('usuario_conta.id'))
     conta = relationship('UsuarioConta')
-    nome_item = Column(String(40), nullable=False)
+    itens = Column(String(300), nullable=False)
     data = Column(DateTime, nullable=False, default=datetime.now())
     valor = Column(Float, nullable=False)
 
     def __repr__(self):
-        return f"Extrato(conta={self.conta}, nome_item={self.nome_item}, \
+        return f"Extrato(conta={self.conta}, itens={self.itens}, \
         data={self.data}, valor={self.valor})"

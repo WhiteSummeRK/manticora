@@ -5,3 +5,16 @@
 label {
   color: white;
 }
+
+.container {
+  margin-top: 8%
+}
+
+.container{
+align-content: center;
+height: 100%;
+}
+
+h5, h1, h4, h3, h2, p{
+    color: white;
+}

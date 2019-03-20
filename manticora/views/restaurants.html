@@ -77,6 +77,7 @@
 {% include 'components/footer.html' %}
 <script type="text/javascript">
   btn_fetch = document.getElementsByClassName('btn-send-fetch')
+  const urlParams = new URLSearchParams(window.location.search);
 
   for(var item of btn_fetch){
     item.addEventListener('click', (e) => {
@@ -106,6 +107,18 @@
         }).catch(err => { console.error(err) })
     })
   }
+
+  error = urlParams.get('error')
+  conta = urlParams.get('conta')
+
+    if (error){
+      $.notify("Peça Algum item", "error")
+    }
+    if (conta){
+      $.notify("Pedido Realizado. Sua conta neste restaurante é de " + conta , "success")
+    }
+
+
 </script>
 {% endblock %}
 </body>

@@ -1,8 +1,6 @@
 .card {
-top: 10%;
-height: 100%;
+margin-top: 15%;
 margin-bottom: auto;
-width: 50%;
 background-color: rgba(0,0,0,0.5) !important;
 }
 
@@ -12,6 +10,11 @@ background-color: rgba(0,0,0,0.5) !important;
 
 #form_adm {
   align: center !important;
+}
+
+.container{
+align-content: center;
+height: 100%;
 }
 
 .divider-text {
@@ -34,4 +37,8 @@ background-color: rgba(0,0,0,0.5) !important;
     top: 55%;
     left: 0;
     z-index: 1;
+}
+
+h5, h1, h4, h3, p{
+    color: white;
 }
