@@ -1,0 +1,74 @@
+{% extends 'components/base.html' %}
+{% block title %}Manticora - Restaurantes{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/account.css') }}">
+{% endblock %}
+{% block content %}
+{% include 'components/header.html' %}
+<div class="container">
+  <div class="row">
+    <div class="col-6">
+      <h3>Restaurantes</h3>
+      <p>Você tem contas pendentes nos restaurantes abaixo</p>
+      <table class="table table-dark">
+        <tbody>
+          {% for item in rests %}
+          <tr>
+            <td class="align-middle" >{{ item[0] }}</td>
+            <td class="align-middle"> <img src="data:;base64,{{ item[1].imagem }}" class="img-fluid"> </td>
+            <td class="align-middle money">R$ {{ item[2] }}</td>
+            <td class="align-middle" >{{ item[3] }}</td>
+            <td class="align-middle" ><button type="button" name="button" value="{{ item[4] }}" class="btn btn-primary extrato">Vizualizar Extrato</button></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="col-6" id="extrato">
+    </div>
+  </div>
+</div>
+  {% include 'components/footer.html' %}
+<script type="text/javascript">
+	const urlParams = new URLSearchParams(window.location.search);
+  let moneys = document.getElementsByClassName('money');
+  let buttons = document.getElementsByClassName('extrato');
+    for(item of moneys){
+      if(item.textContent == 'R$ 00.0'){
+        item.className = "align-middle money green"
+      }
+      else{
+        item.className = "align-middle money red"
+      }
+    };
+
+  for(item of buttons){
+    item.addEventListener('click', (e) => {
+      let t = e.target;
+      var id_to_send = t.value;
+
+      fetch('/account/extrato/', {
+        method: 'post',
+        credentials: 'include',
+        body: JSON.stringify({
+          "id_to_send": id_to_send
+        }),
+        headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+          },
+      }).then(response => response.json())
+        .then(json =>{
+          if(json['result'] == 'error'){
+            $.notify("O Restaurante Ainda não disponibilizou o cardápio", "error")
+          }
+          else{
+            document.getElementById('extrato').innerHTML = ""
+            document.getElementById('extrato').innerHTML = json['result']
+          }
+        }).catch(err => { console.error(err) })
+    })
+  }
+</script>
+{% endblock %}
+</body>

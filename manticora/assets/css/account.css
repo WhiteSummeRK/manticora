@@ -1,0 +1,25 @@
+.container {
+  height: 100%;
+  align-content: center;
+  margin-top: 9%;
+}
+
+h5, h1, h4, h3, h2, p{
+    color: white;
+}
+
+.row {
+  position: relative;
+}
+
+.img-fluid {
+  width: 90px;
+}
+
+.green {
+  color: green;
+}
+
+.red {
+  color: red;
+}

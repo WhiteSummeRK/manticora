@@ -79,3 +79,7 @@ label {
 #btn_filter {
   margin-left: 20px;
 }
+
+.btn-send-fetch{
+  width: 60%
+}

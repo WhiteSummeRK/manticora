@@ -75,7 +75,7 @@ def get_open_rests(adm):
 
 
 def query_adm_by_city(city):
-    if city == 'todos':
+    if city == 'todos' or not city:
         return query_all_adms()
     return Usuario.query.filter(Usuario.cidade == city). \
         filter(Usuario.is_adm == True).all() #NOQA
