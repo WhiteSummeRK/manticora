@@ -50,32 +50,40 @@
     </div>
   </div>
   <div class="row" style="margin-top: 30px">
-    <div class="col-4">
+    <div class="col-6">
       <h1>Restaurantes</h1>
-      {% for item in rests %}
-      <div class="card">
-        <div class="card-body">
-          <div class="row row-rest">
-            <div class="col col-no-border">
-              <br>
-              {% if item[2] == 'Aberto' %}
-              <button type="submit" id="{{ item[1].id }}" value="{{ item[1].id }}" class="btn btn-primary btn-send-fetch" >{{item[0]}}</button>
-              {% else %}
-              <button type="submit" id="{{ item[1].id }}" value="{{ item[1].id }}" class="btn btn-danger btn-send-fetch" disabled>{{item[0]}}</button>
-              {% endif %}
-            </div>
-              <img src="data:;base64,{{ item[1].imagem }}" class="img-fluid">
-          </div>
-        </div>
-      </div>
-      {% endfor %}
+      <table class="table table-dark">
+        <tbody>
+          {% for item in rests %}
+          <tr>
+            {% if item[2] == 'Aberto' %}
+            <td class="align-middle" ><button type="submit" id="{{ item[1].id }}" value="{{ item[1].id }}" class="btn btn-primary btn-send-fetch" >{{item[0]}}</button></td>
+            {% else %}
+            <td class="align-middle" ><button type="submit" id="{{ item[1].id }}" value="{{ item[1].id }}" class="btn btn-danger btn-send-fetch" disabled>{{item[0]}}</button></td>
+            {% endif %}
+            <td class="align-middle status">{{item[2]}}</td>
+            <td class="align-middle"> <img src="data:;base64,{{ item[1].imagem }}" class="img-fluid"> </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
     </div>
-    <div class="col-8" id="cardapio_area">
+    <div class="col-6" id="cardapio_area">
     </div>
   </div>
 </div>
 {% include 'components/footer.html' %}
 <script type="text/javascript">
+  let status = document.getElementsByClassName('status');
+    for(item of status){
+      if(item.textContent == 'Aberto'){
+        item.className = "align-middle status green"
+      }
+      else{
+        item.className = "align-middle status red"
+      }
+    };
+
   btn_fetch = document.getElementsByClassName('btn-send-fetch')
   const urlParams = new URLSearchParams(window.location.search);
 
@@ -115,10 +123,28 @@
       $.notify("Peça Algum item", "error")
     }
     if (conta){
-      $.notify("Pedido Realizado. Sua conta neste restaurante é de " + conta , "success")
+      $.notify("Pedido Realizado. Sua conta neste restaurante é de R$ " + conta , "success")
     }
 
-
+    let confirm_dialog = () =>{
+        $('#meu_form').submit(function(event) {
+          event.preventDefault();
+          var form = $(this)[0];
+          $.confirm({
+            title: 'Confirmação',
+            content: 'Realizar pedido?',
+            buttons: {
+              confirm: function () {
+                form.submit();
+              },
+              cancel: function () {
+                $.notify("Pedido Cancelado", "error")
+                document.getElementById('cardapio_area').innerHTML = ""
+              }
+            }
+          });
+        });
+    }
 </script>
 {% endblock %}
 </body>

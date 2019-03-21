@@ -70,7 +70,6 @@ h5, h1, h4, h3, p{
     color: white;
 }
 
-
 label {
   color: white;
   margin: 5px;
@@ -81,5 +80,13 @@ label {
 }
 
 .btn-send-fetch{
-  width: 60%
+  width: 100%;
+}
+
+.green {
+  color: green;
+}
+
+.red {
+  color: red;
 }

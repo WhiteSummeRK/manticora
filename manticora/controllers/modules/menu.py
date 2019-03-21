@@ -53,7 +53,7 @@ def build_html_for_menu(menu, marmitas):
         </div>
         """.format(item.id, item.tamanho, item.preco) #NOQA
     html_head = """
-    <form action='/restaurants/make_request/' method="POST">
+    <form id='meu_form' action='/restaurants/make_request/' method="POST">
     {}
     <table class="table table-dark">
         <thead>
@@ -78,15 +78,16 @@ def build_html_for_menu(menu, marmitas):
               <td>
                   <div class="form-check">
             <input class="form-check-input" type="checkbox" value="{}" name="input_box" id="{}">
+            <input type="hidden" name="btn_req" value={}>
                   </div>
               </td>
             </tr>
-        """.format(item.prato, item.tipo, item.id, item.id) #NOQA
+        """.format(item.prato, item.tipo, item.id, item.id, menu_id) #NOQA
 
     html_btn = """
-    <button type="submit" value={} name="btn_req" class="btn btn-primary mb-2">Realizar Pedido</button>
+    <button type="submit" onclick="confirm_dialog()" class="btn btn-primary mb-2">Realizar Pedido</button>
     </form>
-    """.format(menu_id) # NOQA
+    """
     return html_head + html_middle + html_end + html_btn
 
 
