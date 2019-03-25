@@ -6,12 +6,21 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       {% if current_user.is_authenticated %}
-      <li class="nav-item active">
+      <li class="nav-item" id="home">
         <a class="nav-link" href="/login/">
           <i class="fa fa-home"></i>
           Home
           <span class="sr-only">(current)</span>
           </a>
+      </li>
+      {% if current_user.is_adm %}
+      <li class="nav-item" id="perfil">
+        <a class="nav-link" href="/restaurants/profile/">
+          <i class="fas fa-user"></i>
+          {{ current_user.nome }}
+          <span class="sr-only">(current)</span>
+          </a>
+      {% endif %}
       </li>
       <li class="nav-item" id="logout">
         <a class="nav-link" href="/">

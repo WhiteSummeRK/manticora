@@ -1,0 +1,21 @@
+{% extends 'components/base.html' %}
+{% block title %}Manticora - Restaurantes{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/adm_index.css') }}">
+{% endblock %}
+{% block content %}
+{% include 'components/header.html' %}
+<div class="container">
+  <div class="row">
+  </div>
+</div>
+{% include 'components/footer.html' %}
+<script type="text/javascript">
+  $(document).ready(function(){
+  document.getElementById('perfil').classList.add('active')
+  });
+</script>
+{% endblock %}
+</body>

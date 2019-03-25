@@ -64,3 +64,8 @@ def make_req():
                           foods)
     return redirect(url_for('restaurants.login_template',
                             conta="%.2f" % user_account.conta))
+
+
+@app.route('/profile/', methods=['GET'])
+def adm_profile():
+    return render_template('adm_profile.html')

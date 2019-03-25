@@ -44,6 +44,9 @@
 </div>
 {% include 'components/footer.html' %}
 <script type="text/javascript">
+  $(document).ready(function(){
+  document.getElementById('home').classList.add('active')
+  });
   older_html = document.getElementById('address').innerHTML;
   let cancel_addr = () => {
     document.getElementById('address').innerHTML = "";
