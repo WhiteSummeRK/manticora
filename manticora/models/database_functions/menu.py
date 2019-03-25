@@ -41,8 +41,10 @@ def query_menu_by_rest_id(id, date):
         order_by(Cardapio.tipo).limit(50).all()
 
 
-def query_marmita_by_size(size):
-    return TamanhosPrecos.query.filter_by(tamanho=size).all()
+def query_marmita_by_size(size, current_user):
+    rest = get_actual_rest(current_user)
+    return TamanhosPrecos.query.filter_by(tamanho=size). \
+        filter_by(rest=rest).all()
 
 
 def insert_new_marmita(size, price, current_user):

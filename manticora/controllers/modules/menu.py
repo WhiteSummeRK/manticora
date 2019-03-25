@@ -101,7 +101,7 @@ def show_card_by_rest_id(id):
 
 
 def save_new_marmita(size, price, current_user):
-    if query_marmita_by_size(size):
+    if query_marmita_by_size(size, current_user):
         return "Erro"
     return insert_new_marmita(size, price, current_user)
 
