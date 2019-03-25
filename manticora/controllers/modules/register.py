@@ -5,7 +5,9 @@ from manticora.models.database_functions.usuario import (
     update_user_from_db
     )
 from manticora.models.database_functions.restaurante import (
-    insert_new_rest
+    insert_new_rest,
+    get_actual_rest,
+    update_rest_from_db
 )
 from datetime import datetime
 
@@ -48,6 +50,24 @@ def register_rest(phone, num_phone, img, open, closed, adm):
 def update_user(city, neigh, street, num, complement, current_user):
     try:
         update_user_from_db(city, neigh, street, num, complement, current_user)
+        return "ok"
+    except Exception:
+        return "Algo deu errado, tente novamente."
+
+
+def update_rest(phone, hora_aber, hora_fech, current_user):
+    rest = get_actual_rest(current_user)
+    try:
+        update_rest_from_db(phone, hora_aber, hora_fech, rest)
+        return "ok"
+    except Exception:
+        return "Algo deu errado, tente novamente."
+
+
+def update_rest_img(imagem, current_user):
+    rest = get_actual_rest(current_user)
+    try:
+        update_rest_from_db(False, False, False, imagem, rest)
         return "ok"
     except Exception:
         return "Algo deu errado, tente novamente."

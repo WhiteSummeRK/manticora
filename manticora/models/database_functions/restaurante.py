@@ -70,7 +70,6 @@ def get_open_rests(adm):
 
         if rests:
             result.append([item.nome, rests, 'Aberto'])
-
     return result
 
 
@@ -101,3 +100,17 @@ def show_all_rests_by_city(city):
     rests_closed = show_closed_rests_by_city(city)
 
     return rests_open + rests_closed
+
+
+def update_rest_from_db(phone, hora_aber, hora_fech, imagem, rest):
+    try:
+        new_rest = Restaurante.query.filter_by(id=rest.id).first()
+        new_rest.abertura = hora_aber if hora_aber else new_rest.abertura
+        new_rest.fechamento = hora_fech if hora_fech else new_rest.fechamento
+        new_rest.telefone = phone if phone else new_rest.telefone
+        new_rest.imagem = imagem.read() if imagem else new_rest.imagem
+
+        db.session.commit()
+    except Exception:
+        db.session.rollback()
+        raise Exception

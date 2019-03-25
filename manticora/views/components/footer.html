@@ -2,7 +2,9 @@
 <footer class="page-footer footer_label" id="my_footer">
   <div class="container container-foot">© 2019 Copyright Made By:
       <a href="https://github.com/whitesummerk"> Kauan Alves</a>
+      {% if not current_user.is_authenticated %}
       <div class="footer_label">Wanna Join us? <a href="/register/new_adm/"> Be a administrator FOR FREE</a> <i class="fas fa-envelope"></i>
       </div>
+      {% endif %}
   </div>
 </footer>

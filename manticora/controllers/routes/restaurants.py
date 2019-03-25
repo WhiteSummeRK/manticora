@@ -9,12 +9,21 @@ from manticora.controllers.modules.restaurants import (show_restaurants,
 from manticora.controllers.modules.menu import (show_card_by_rest_id,
                                                 register_user_request,
                                                 update_bill)
+from manticora.controllers.modules.register import (update_user,
+                                                    update_rest,
+                                                    update_rest_img)
+
 
 app = Blueprint('restaurants', __name__)
 
 
 def only_normal_users():
     if current_user.is_adm:
+        return abort(400)
+
+
+def only_adms():
+    if not current_user.is_adm:
         return abort(400)
 
 
@@ -68,4 +77,45 @@ def make_req():
 
 @app.route('/profile/', methods=['GET'])
 def adm_profile():
-    return render_template('adm_profile.html')
+    only_adms()
+    rest = show_restaurants(current_user.nome)[0]
+    return render_template('adm_profile.html', rest=rest)
+
+
+@app.route('/profile/addr/', methods=['POST'])
+def change_addr():
+    only_adms()
+    city = request.form.get('city_in')
+    neigh = request.form.get('neigh_in')
+    street = request.form.get('street_in')
+    num = request.form.get('number_in')
+    comp = request.form.get('comp_in')
+
+    new_addr = update_user(city=city,
+                           neigh=neigh,
+                           street=street,
+                           num=num,
+                           complement=comp,
+                           current_user=current_user)
+    return redirect(url_for('restaurants.adm_profile', upd=new_addr))
+
+
+@app.route('/profile/rest/', methods=['POST'])
+def change_rest():
+    only_adms()
+    phone = request.form.get('phone')
+    hora_aber = request.form.get('hora_aber')
+    hora_fech = request.form.get('hora_fech')
+
+    new_rest = update_rest(phone, hora_aber, hora_fech, current_user)
+
+    return redirect(url_for('restaurants.adm_profile', upd=new_rest))
+
+
+@app.route('/profile/pic/', methods=['POST'])
+def change_pic():
+    only_adms()
+    imagem = request.files.get('img')
+    new_img = update_rest_img(imagem, current_user)
+
+    return redirect(url_for('restaurants.adm_profile', upd=new_img))

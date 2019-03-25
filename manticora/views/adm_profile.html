@@ -2,13 +2,56 @@
 {% block title %}Manticora - Restaurantes{% endblock %}
 
 {% block css %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/adm_index.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/adm_profile.css') }}">
 {% endblock %}
 {% block content %}
 {% include 'components/header.html' %}
 <div class="container">
   <div class="row">
+    <div class="col">
+      <div class="card">
+        <div class="card-body" id="addr">
+          <h5 class="card-title">Dados da Conta</h5>
+          <p>Nome: {{ current_user.nome }}</p>
+          <p>Email: {{ current_user.email }}</p>
+          <br></br>
+          <p>Cidade: {{ current_user.cidade }}</p>
+          <p>Bairro: {{ current_user.bairro }}</p>
+          <p>Rua: {{ current_user.rua }}</p>
+          <p>Numero: {{ current_user.numero }}</p>
+          <p>Complemento: {{ current_user.complemento }}</p>
+          <div class="form-group">
+              <button type="button" onclick="change_addr(this)" id="addr" class="btn-primary">Alterar Dados</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Dados do restaurante</h5>
+
+          <img src="data:;base64,{{ rest[1].imagem }}" id="pict" class="img-fluid">
+          <form class="form-group" action="/restaurants/profile/pic/" method="post" enctype="multipart/form-data">
+            <div class="form-group input-group">
+                <input type="file" name="img" id="input_image" style="color: white;" required>
+            </div>
+            <div class="form-group input-group">
+                <button type="submit"class="btn-primary">Alterar Imagem</button>
+            </div>
+            <br>
+          </form>
+          <div id="older_rest">
+            <p>Telefone: {{ rest[1].telefone }}</p>
+            <p>abertura: {{ rest[1].abertura }}</p>
+            <p>fechamento: {{ rest[1].fechamento }}</p>
+            <div class="form-group">
+                <button type="button" onclick="change_addr(this)" id="rest" class="btn-primary">Alterar Dados</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 {% include 'components/footer.html' %}
@@ -16,6 +59,103 @@
   $(document).ready(function(){
   document.getElementById('perfil').classList.add('active')
   });
+
+  document.getElementById('input_image').onchange = function (evt) {
+    var tgt = evt.target || window.event.srcElement,
+        files = tgt.files;
+
+    if (FileReader && files && files.length) {
+        var fr = new FileReader();
+        fr.onload = function () {
+            document.getElementById("pict").src = fr.result;
+        }
+        fr.readAsDataURL(files[0]);
+    }
+    else {
+        $.notify("Imagem não suportada", "error")
+    }
+}
+
+  var older_addr = document.getElementById('addr').innerHTML;
+  var older_rest = document.getElementById('older_rest').innerHTML;
+
+  let change_addr = (btn) => {
+    if(btn.id == "addr"){
+      var addr_div = " \
+      <h5 class='card-title'>Dados da Conta</h5> \
+      <form class='form-group' id='meu_form' action='/restaurants/profile/addr/' method='post'> \
+        <p>Nome: {{ current_user.nome }}</p> \
+        <p>Email: {{ current_user.email }}</p> \
+        <br></br> \
+        <p>Cidade: <input type='text' value='{{ current_user.cidade }}' name='city_in' /></p> \
+        <p>Bairro: <input type='text' value='{{ current_user.bairro }}' name='neigh_in' /></p> \
+        <p>Rua: <input type='text' value='{{ current_user.rua }}' name='street_in' /></p> \
+        <p>Numero: <input type='text' value='{{ current_user.numero }}' name='number_in' maxlength='4' /></p> \
+        <p>Complemento: <input type='text' value='{{ current_user.complemento }}' name='comp_in' /></p><br> \
+        <div class='btn-group'> \
+          <button type='submit' id='confirm_new' onclick='confirm_dialog()' class='btn btn-primary'>Confirmar</button> \
+          <button type='button' id='cancel' onclick='cancel_addr()'class='btn btn-primary'>Cancelar</button> \
+        </div> \
+      </form> "
+      document.getElementById('addr').innerHTML = addr_div
+
+    }
+    else {
+      var rest_div = " \
+      <form class='form-group' id='meu_form' action='/restaurants/profile/rest/' method='post'> \
+        <p>Telefone: <input type='text' value='{{ rest[1].telefone }}' name='phone' /></p> \
+        <p>Abertura: <input name='hora_aber' value='{{ rest[1].abertura }}' class='form-control' placeholder='Hora' type='time'></p> \
+        <p>Fechamento: <input name='hora_fech' value='{{ rest[1].fechamento }}' class='form-control' placeholder='Hora' type='time'></p> \
+        <div class='btn-group'> \
+          <button type='submit' id='confirm_new' onclick='confirm_dialog()' class='btn btn-primary'>Confirmar</button> \
+          <button type='button' id='cancel' onclick='cancel_rest()'class='btn btn-primary'>Cancelar</button> \
+        </div> \
+      </form> "
+      document.getElementById('older_rest').innerHTML = rest_div
+    }
+
+  }
+
+  let confirm_dialog = () =>{
+      $('#meu_form').submit(function(event) {
+        event.preventDefault();
+        var form = $(this)[0];
+        $.confirm({
+          title: 'Confirmação',
+          content: 'Deseja Realmente alterar o endereço?',
+          buttons: {
+            confirm: function () {
+              form.submit();
+            },
+            cancel: function () {
+              $.notify("A alteração de endereço foi cancelada!", "error")
+              cancel_addr()
+              cancel_rest()
+              return;
+            }
+          }
+        });
+      });
+  }
+  let cancel_addr = () => {
+    document.getElementById('addr').innerHTML = "";
+    document.getElementById('addr').innerHTML = older_addr;
+  }
+
+  let cancel_rest = () => {
+    document.getElementById('older_rest').innerHTML = "";
+    document.getElementById('older_rest').innerHTML = older_rest;
+  }
+
+  const urlParams = new URLSearchParams(window.location.search);
+
+  qstr = urlParams.get('upd')
+  if(qstr == 'ok'){
+    $.notify('Dados Atualizados', 'success')
+  }
+  else if (qsrt) {
+    $.notify('Ocorreu um erro inesperado', 'error')
+  }
 </script>
 {% endblock %}
 </body>
