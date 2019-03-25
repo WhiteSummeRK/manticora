@@ -12,7 +12,7 @@ label {
 
 .container{
 align-content: center;
-height: 100%;
+height: auto;
 }
 
 h5, h1, h4, h3, h2, p{

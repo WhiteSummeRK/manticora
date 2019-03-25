@@ -8,3 +8,7 @@
   background-color: rgba(0, 0, 0, .7);
   height: 10%;
 }
+
+.container-foot{
+height: 100% !important;
+}
