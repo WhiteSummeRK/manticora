@@ -1,0 +1,144 @@
+{% extends 'components/base.html' %}
+{% block title %}Manticora - Restaurantes{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/adm_accounts.css') }}">
+{% endblock %}
+{% block content %}
+{% include 'components/header.html' %}
+<div class="container">
+  <div class="row">
+    <div class="col-8">
+      <div class="card">
+        <div class="card-body" id="addr">
+          <h5 class="card-title">Contas dos Clientes</h5>
+          {% if accounts%}
+          <table class="table">
+            <tbody>
+              {% for item in accounts %}
+              <tr>
+                <td>{{ item.usuario.nome }}</td>
+                <td class="money">R$ {{ item.conta }}</td>
+                <td class="status">{{ item.status }}</td>
+                <td>
+                  <form class="form-group meu_form" action="/account/adm_accounts/change_status/" method="post">
+                    <input type="hidden" name="frente" value="{{ item.id }}" />
+                    {% if item.conta == 0 %}
+                    <button type="submit"  class="btn btn-success estado" title="Avançar Estado" disabled><i class="fas fa-arrow-right"></i></button>
+                    {% else %}
+                    <button type="submit"  class="btn btn-success estado" title="Avançar Estado"><i class="fas fa-arrow-right"></i></button>
+                    {% endif %}
+                  </form>
+                </td>
+                <td><button type="button" value="{{ item.usuario.id }}" class="btn btn-primary usuario" title="Avançar Estado">Vizualizar Cliente</button></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          {% else %}
+          <p>Este restaurante ainda não possui clientes</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="card">
+        <div class="card-body" id="addr">
+          <h5 class="card-title">Dados do usuario</h5>
+          <div class="usuario_data" id="usuario_data">
+            <p>Por favor, selecione um cliente ao lado</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  {% include 'components/footer.html' %}
+<script type="text/javascript">
+  let moneys = document.getElementsByClassName('money');
+  let status = document.getElementsByClassName('status');
+  let buttons = document.getElementsByClassName('usuario');
+  let estado = document.getElementsByClassName('estado');
+  let meu_form = document.getElementsByClassName('meu_form')
+  let table = document.getElementById('usuario_data');
+
+
+    for(item of moneys){
+      if(item.textContent == 'R$ 0.0'){
+        item.className = "money green"
+      }
+      else{
+        item.className = "money red"
+      }
+    };
+    for(item of status){
+      if(item.textContent == 'Aguardando Pagamento'){
+        item.className = "status yellow"
+      }
+      else if(item.textContent == 'Pago'){
+        item.className = "status green"
+      }
+      else {
+        item.className = "status red"
+      }
+    }
+
+    for(item of buttons){
+      item.addEventListener('click', (e) => {
+        let t = e.target;
+        var id_to_send = t.value;
+
+        fetch('/account/user_data/', {
+          method: 'post',
+          credentials: 'include',
+          body: JSON.stringify({
+            "id_to_send": id_to_send
+          }),
+          headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+        }).then(response => response.json())
+          .then(json =>{
+            if(json['result'] == 'error'){
+              $.notify("Erro, tente mais tarde", "error")
+            }
+            else{
+              table.innerHTML = ""
+              table.innerHTML = json['result']
+            }
+          }).catch(err => { console.log(err) })
+      })
+    }
+    const urlParams = new URLSearchParams(window.location.search);
+
+    qstr = urlParams.get('upd')
+
+    if(qstr == 'ok'){
+      $.notify('Endereço Atualizado com sucesso', 'success')
+    }
+    else if (qstr) {
+      $.notify("Erro", 'error')
+    }
+
+    for(item of meu_form){
+      $(item).submit(function(event) {
+        event.preventDefault();
+        var form = $(this)[0];
+        $.confirm({
+          title: 'Confirmação',
+          content: 'Este cliente realmente pagou?',
+          buttons: {
+            confirm: function () {
+              form.submit();
+            },
+            cancel: function () {
+              $.notify("Pedido Cancelado", "error")
+              return;
+            }
+          }
+        });
+      });
+    }
+</script>
+{% endblock %}
+</body>

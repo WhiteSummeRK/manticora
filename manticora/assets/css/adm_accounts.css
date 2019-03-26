@@ -1,0 +1,55 @@
+.card {
+  width: 100% !important;
+  margin: 4% !important;
+  height: auto !important;
+  background-color: rgba(0,0,0,0.5) !important;
+}
+
+
+h5, h1, h4, h3, p, td{
+    color: white;
+}
+
+.container {
+  height: 100%;
+  margin-top: 7%;
+}
+
+.card-text{
+  position: absolute;
+  top: 67%;
+  color: white;
+}
+
+.card-title {
+  position: absolute;
+  top: 0%;
+  color: white;
+}
+
+.card-body {
+  margin-top: 10%;
+}
+
+.img-fluid{
+  top: 0px;
+  height: 150px;
+  right: 0px;
+  width: auto;
+}
+
+input {
+  width: 100%;
+}
+
+.green {
+  color: green;
+}
+
+.red {
+  color: red;
+}
+
+.yellow {
+  color: yellow;
+}

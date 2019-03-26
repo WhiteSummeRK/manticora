@@ -15,3 +15,18 @@ def query_account_by_id(id):
 
 def find_all_extrato(account):
     return Extrato.query.filter_by(conta=account).limit(30).all()
+
+
+def query_all_account_in_rest(rest):
+    return UsuarioConta.query.filter_by(restaurante=rest).all()
+
+
+def change_status(id_account, status):
+    try:
+        account = UsuarioConta.query.filter_by(id=int(id_account)).first()
+        account.conta = 0.00
+        account.status = status
+        db.session.commit()
+    except Exception:
+        db.session.rollback()
+        raise

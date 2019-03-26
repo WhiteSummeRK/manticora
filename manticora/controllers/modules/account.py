@@ -3,7 +3,11 @@ from datetime import datetime
 from manticora.models.database_functions.account import (
     query_user_accounts_by_user,
     query_account_by_id,
-    find_all_extrato)
+    find_all_extrato,
+    query_all_account_in_rest,
+    change_status)
+from manticora.models.database_functions.usuario import query_user_by_id
+from manticora.models.database_functions.restaurante import get_actual_rest
 
 
 def show_rests_accounts(current_user):
@@ -23,7 +27,6 @@ def query_account_and_build_html(id):
     account = query_account_by_id(id)
     extrato = find_all_extrato(account)
     html_head = """
-    <h3>Extrato de {} (Ultimos 30 pedidos)</h3>
     <table class="table table-dark">
         <thead>
             <tr>
@@ -48,3 +51,36 @@ def query_account_and_build_html(id):
             </tr>
         """.format(item.data.date(), item.itens.replace('[', '').replace(']', '').replace('\'', ''), item.valor) #NOQA
     return html_head + html_middle + html_end
+
+
+def show_clients_account(current_user):
+    rest = get_actual_rest(current_user)
+    account = query_all_account_in_rest(rest)
+    return account
+
+
+def update_status_account(id_account):
+    try:
+        change_status(int(id_account), "Pago")
+        return "ok"
+    except Exception:
+        return "Erro, Tente novamente mais tarde"
+
+
+def mount_user_data(user_id):
+    user = query_user_by_id(int(user_id))
+
+    if user:
+        html = """
+        <p>Nome: {}</p>
+        <p>Email: {}</p>
+        <p>Cidade: {}</p>
+        <p>Bairro: {}</p>
+        <p>Rua: {}</p>
+        <p>Numero: {}</p>
+        <p>Complemento: {}</p><br>
+        """.format(user.nome, user.email, user.cidade,
+                   user.bairro, user.rua, user.numero, user.complemento)
+
+        return html
+    return "erro"

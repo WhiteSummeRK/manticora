@@ -42,3 +42,7 @@ def update_user_from_db(city, neigh, street, num, complement, current_user):
     user.complemento = complement if complement else user.complemento
 
     db.session.commit()
+
+
+def query_user_by_id(id):
+    return Usuario.query.filter_by(id=id).first()
