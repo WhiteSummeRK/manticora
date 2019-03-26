@@ -1,5 +1,5 @@
 {% extends 'components/base.html' %}
-{% block title %}Manticora - Restaurantes{% endblock %}
+{% block title %}EZ Food - Restaurantes{% endblock %}
 
 {% block css %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
@@ -7,42 +7,47 @@
 {% block content %}
 {% include 'components/header.html' %}
 <div class="container">
-	<div class="d-flex justify-content-center h-100">
-		<div class="card">
-			<div class="card-header">
-				<h3>Sign In</h3>
-				<div class="d-flex justify-content-end social_icon">
-					<span><i class="fab fa-facebook-square"></i></span>
-					<span><i class="fab fa-twitter-square"></i></span>
+	<div class="row justify-content-center">
+		<img src="{{ url_for('static', filename='pics/logo_transparent.png') }}" alt="">
+	</div>
+	<div class="row justify-content-center">
+		<div class="d-flex justify-content-center h-100">
+			<div class="card">
+				<div class="card-header">
+					<h3>Entrar</h3>
+					<div class="d-flex justify-content-end social_icon">
+						<span><i class="fab fa-facebook-square"></i></span>
+						<span><i class="fab fa-twitter-square"></i></span>
+					</div>
 				</div>
-			</div>
-			<div class="card-body">
-				<form action="/login/" name='login' method="POST">
-					<div class="input-group form-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text"><i class="fas fa-user"></i></span>
-						</div>
-						<input type="text" class="form-control" name="username" placeholder="username">
+				<div class="card-body">
+					<form action="/login/" name='login' method="POST">
+						<div class="input-group form-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text"><i class="fas fa-user"></i></span>
+							</div>
+							<input type="text" class="form-control" name="username" placeholder="username">
 
-					</div>
-					<div class="input-group form-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text"><i class="fas fa-key"></i></span>
 						</div>
-						<input type="password" class="form-control" name="password" placeholder="password">
+						<div class="input-group form-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text"><i class="fas fa-key"></i></span>
+							</div>
+							<input type="password" class="form-control" name="password" placeholder="password">
+						</div>
+						<div class="row align-items-center remember">
+							<input type="checkbox" name="remember_me">Lembre-me
+						</div>
+						<div class="form-group">
+							<input type="submit" value="Login" class="btn float-right login_btn">
+						</div>
+					</form>
+				</div>
+				{% include 'components/register_modal.html' %}
+				<div class="card-footer">
+					<div class="d-flex justify-content-center links">
+						Não possui uma conta?<a href="#" data-toggle="modal" data-target="#register_modal">Registre-se</a>
 					</div>
-					<div class="row align-items-center remember">
-						<input type="checkbox" name="remember_me">Remember Me
-					</div>
-					<div class="form-group">
-						<input type="submit" value="Login" class="btn float-right login_btn">
-					</div>
-				</form>
-			</div>
-			{% include 'components/register_modal.html' %}
-			<div class="card-footer">
-				<div class="d-flex justify-content-center links">
-					Don't have an account?<a href="#" data-toggle="modal" data-target="#register_modal">Sign Up</a>
 				</div>
 			</div>
 		</div>
