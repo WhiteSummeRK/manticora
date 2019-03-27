@@ -122,7 +122,8 @@ class Extrato(db.Model):
     itens = Column(String(300), nullable=False)
     data = Column(DateTime, nullable=False, default=datetime.now())
     valor = Column(Float, nullable=False)
+    status = Column(String(100), nullable=False, default="Aguardando Confirmação") #NOQA
 
     def __repr__(self):
         return f"Extrato(conta={self.conta}, itens={self.itens}, \
-        data={self.data}, valor={self.valor})"
+        data={self.data}, valor={self.valor}, status={self.status})"

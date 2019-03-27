@@ -1,5 +1,9 @@
 from datetime import datetime
-from manticora.models.database.tables import Usuario, Restaurante, db
+from manticora.models.database.tables import (Extrato,
+                                              Usuario,
+                                              UsuarioConta,
+                                              Restaurante,
+                                              db)
 from sqlalchemy import or_, and_
 
 
@@ -114,3 +118,28 @@ def update_rest_from_db(phone, hora_aber, hora_fech, imagem, rest):
     except Exception:
         db.session.rollback()
         raise Exception
+
+
+def query_requests_by_rest(rest, date):
+    result = Extrato.query.join(UsuarioConta). \
+        filter(Extrato.data == date). \
+        filter(UsuarioConta.restaurante == rest). \
+        order_by(Extrato.status).all()
+
+    return result
+
+
+def query_extrato_by_id(id_extrato):
+    return Extrato.query.filter_by(id=id_extrato).first()
+
+
+def update_status_from_extrato(id_extrato, status):
+    try:
+        extrato = query_extrato_by_id(id_extrato)
+        extrato.status = status
+
+        db.session.commit()
+        return extrato
+    except Exception:
+        raise
+        return False

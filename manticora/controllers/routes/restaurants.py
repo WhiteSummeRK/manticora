@@ -5,7 +5,9 @@ from flask_login import login_required, current_user
 # modulos
 from manticora.controllers.modules.restaurants import (show_restaurants,
                                                        show_all_citys,
-                                                       show_rests_with_filter)
+                                                       show_rests_with_filter,
+                                                       show_requests_to_rest,
+                                                       update_status_request)
 from manticora.controllers.modules.menu import (show_card_by_rest_id,
                                                 register_user_request,
                                                 update_bill)
@@ -76,6 +78,7 @@ def make_req():
 
 
 @app.route('/profile/', methods=['GET'])
+@login_required
 def adm_profile():
     only_adms()
     rest = show_restaurants(current_user.nome)[0]
@@ -83,6 +86,7 @@ def adm_profile():
 
 
 @app.route('/profile/addr/', methods=['POST'])
+@login_required
 def change_addr():
     only_adms()
     city = request.form.get('city_in')
@@ -101,6 +105,7 @@ def change_addr():
 
 
 @app.route('/profile/rest/', methods=['POST'])
+@login_required
 def change_rest():
     only_adms()
     phone = request.form.get('phone')
@@ -113,9 +118,27 @@ def change_rest():
 
 
 @app.route('/profile/pic/', methods=['POST'])
+@login_required
 def change_pic():
     only_adms()
     imagem = request.files.get('img')
     new_img = update_rest_img(imagem, current_user)
 
     return redirect(url_for('restaurants.adm_profile', upd=new_img))
+
+
+@app.route('/requests/', methods=["GET"])
+@login_required
+def requests_view():
+    only_adms()
+    requests = show_requests_to_rest(current_user)
+    return render_template('requests.html', requests=requests)
+
+
+@app.route('/requests/change_status/', methods=['POST'])
+@login_required
+def change_request_status():
+    id_to_send = request.form.get('frente')
+    new_status = update_status_request(id_to_send)
+
+    return redirect(url_for('restaurants.requests_view', upd=new_status))

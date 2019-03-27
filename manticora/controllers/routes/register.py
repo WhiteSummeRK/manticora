@@ -1,6 +1,6 @@
 from json import loads
 from flask import (render_template, Blueprint,
-                   request, jsonify, redirect, url_for)
+                   request, jsonify, redirect, url_for, abort)
 
 # imports dos modulos
 from manticora.controllers.modules.register import (register_user,
@@ -51,15 +51,18 @@ def new_adm_post():
     closed = request.form['hora_fech']
     img = request.files['img']
 
-    adm = register_user(name, pwd, email, neigh,
-                        city, street, num_street,
-                        comp, is_adm=True,
-                        return_entity=True)
+    try:
+        adm = register_user(name, pwd, email, neigh,
+                            city, street, num_street,
+                            comp, is_adm=True,
+                            return_entity=True)
 
-    if not type(adm) == str:
-        rest = register_rest(phone, num_phone, img, open, closed, adm)
-        return redirect(url_for('register.new_adm', new_adm=rest))
-    return redirect(url_for('register.new_adm', new_adm=adm))
+        if not type(adm) == str:
+            rest = register_rest(phone, num_phone, img, open, closed, adm)
+            return redirect(url_for('register.new_adm', new_adm=rest))
+        return redirect(url_for('register.new_adm', new_adm=adm))
+    except Exception:
+        abort(400)
 
 
 @app.route('/alter_user/', methods=['POST'])

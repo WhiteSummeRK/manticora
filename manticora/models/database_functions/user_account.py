@@ -17,7 +17,7 @@ def insert_into_user_extrato(item, preco, current_user, rest_id):
     new_request = Extrato(
         conta=query_user_account_by_id(int(current_user.id), int(rest_id)),
         itens=item,
-        data=datetime.now(),
+        data=datetime.now().date(),
         valor=float(preco)
         )
     try:
@@ -62,3 +62,8 @@ def query_bill(current_user, rest_id):
     rest = Restaurante.query.filter_by(id=int(rest_id)).first()
     return UsuarioConta.query.filter_by(usuario=current_user). \
         filter_by(restaurante=rest).first()
+
+
+def query_user_accounts_by_rest(rest):
+    import ipdb; ipdb.set_trace()
+    return UsuarioConta.query.filter_by(restaurante=rest).all()
