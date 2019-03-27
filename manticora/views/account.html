@@ -7,22 +7,26 @@
 {% include 'components/header.html' %}
 <div class="container">
   <div class="row">
-    <div class="col-6">
-      <h3>Restaurantes</h3>
-      <p>Você tem contas pendentes nos restaurantes abaixo</p>
-      <table class="table table-dark">
-        <tbody>
-          {% for item in rests %}
-          <tr>
-            <td class="align-middle" >{{ item[0] }}</td>
-            <td class="align-middle"> <img src="data:;base64,{{ item[1].imagem }}" class="img-fluid"> </td>
-            <td class="align-middle money">R$ {{ item[2] }}</td>
-            <td class="align-middle" >{{ item[3] }}</td>
-            <td class="align-middle" ><button type="button" name="button" value="{{ item[4] }}" class="btn btn-primary extrato">Vizualizar Extrato</button></td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+    <div class="col-6">,
+      <div class="card">
+        <div class="card-body" id="addr">
+          <h5 class="card-title">Restaurantes</h5>
+          <p>Você tem contas pendentes nos restaurantes abaixo</p>
+          <table class="table">
+            <tbody>
+              {% for item in rests %}
+              <tr>
+                <td class="align-middle" >{{ item[0] }}</td>
+                <td class="align-middle"> <img src="data:;base64,{{ item[1].imagem }}" class="img-fluid"> </td>
+                <td class="align-middle money">R$ {{ item[2] }}</td>
+                <td class="align-middle" >{{ item[3] }}</td>
+                <td class="align-middle" ><button type="button" title="Ver Extrato" name="button" value="{{ item[4] }}" class="btn btn-success extrato"><i class="fas fa-dollar-sign"></i></button></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
     <div class="col-6" id="extrato">
     </div>

@@ -43,19 +43,23 @@ def show_menu_by_day(day, current_user):
 
 def build_html_for_menu(menu, marmitas):
     menu_id = menu[0].id_rest
-    marmitas_html = "<p>Escolha o Tamanho</p>"
+    marmitas_html = ""
     for item in marmitas:
         marmitas_html += """
         <div class="form-check-inline">
           <label class="form-check-label">
-            <input type="radio" class="form-check-input" value={} name="marmitas" required>{} (R${})
+            <input type="radio" class="form-check-input card-text" value={} name="marmitas" required>{} (R${})
           </label>
         </div>
         """.format(item.id, item.tamanho, item.preco) #NOQA
     html_head = """
+
+    <div class="card">
+    <div class="card-body">
+    <h5 class="card-title">Escolha o Tamanho</h5>
     <form id='meu_form' action='/restaurants/make_request/' method="POST">
     {}
-    <table class="table table-dark">
+    <table class="table">
         <thead>
             <tr>
             <th scope="col">Nome</th>
@@ -87,6 +91,8 @@ def build_html_for_menu(menu, marmitas):
     html_btn = """
     <button type="submit" onclick="confirm_dialog()" class="btn btn-primary mb-2">Realizar Pedido</button>
     </form>
+    </div>
+    </div>
     """
     return html_head + html_middle + html_end + html_btn
 

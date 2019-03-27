@@ -38,6 +38,19 @@ height: 100%;
   background-color: rgba(0,0,0,0.5) !important;
 }
 
+.card-text{
+  position: absolute;
+  top: 67%;
+  color: white;
+}
+
+.card-title {
+  position: absolute;
+  top: 61%;
+  color: white;
+
+}
+
 .btn-primary {
   position: absolute;
   top: 88%;

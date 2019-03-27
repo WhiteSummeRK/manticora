@@ -27,7 +27,10 @@ def query_account_and_build_html(id):
     account = query_account_by_id(id)
     extrato = find_all_extrato(account)
     html_head = """
-    <table class="table table-dark">
+    <div class="card">
+    <div class="card-body" id="addr">
+    <h5 class="card-title">Restaurantes</h5>
+    <table class="table">
         <thead>
             <tr>
             <th scope="col">Data</th>
@@ -40,6 +43,8 @@ def query_account_and_build_html(id):
     html_end = """
         </tbody>
     </table>
+    </div>
+    </div>
     """
     html_middle = ""
     for item in extrato:

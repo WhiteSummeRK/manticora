@@ -17,19 +17,6 @@ align-content: center;
   right: 0px !important;
 }
 
-.card{
-height: 80px;
-margin: 5px;
-width: 100%;
-background-color: rgba(0,0,0,0.5) !important;
-}
-
-.card-body {
-  height: 70px;
-  margin: 5px;
-  width: 100%;
-}
-
 .row-rest {
   position: absolute;
   width: 100%;
@@ -65,11 +52,6 @@ background-color: rgba(0,0,0,0.5) !important;
   color: white;
 }
 
-
-h5, h1, h4, h3, p{
-    color: white;
-}
-
 label {
   color: white;
   margin: 5px;
@@ -89,4 +71,13 @@ label {
 
 .red {
   color: red;
+}
+
+h5, h1, h4, h3, h2, p, td, th, tr{
+    color: white;
+}
+
+th {
+  border: 0px !important;
+  color: yellow;
 }

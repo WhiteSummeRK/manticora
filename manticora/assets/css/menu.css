@@ -11,6 +11,25 @@ label {
   margin-top: 8%
 }
 
-h5, h1, h4, h3, h2, p{
+.card-body {
+  margin-top: 5%;
+}
+
+h5, h1, h4, h3, h2, p, .td, .th, .tr{
     color: white;
+}
+
+.th {
+  border: 0px !important;
+  color: yellow;
+}
+
+.table-wrapper-scroll-y {
+  position: relative;
+  height: 400px;
+  overflow: auto;
+}
+
+.my-custom-scrollbar {
+  display: block;
 }
