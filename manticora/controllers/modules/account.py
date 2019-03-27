@@ -5,7 +5,8 @@ from manticora.models.database_functions.account import (
     query_account_by_id,
     find_all_extrato,
     query_all_account_in_rest,
-    change_status)
+    change_status,
+    query_all_requests_from_user)
 from manticora.models.database_functions.usuario import query_user_by_id
 from manticora.models.database_functions.restaurante import get_actual_rest
 
@@ -91,3 +92,8 @@ def mount_user_data(user_id):
 
         return html
     return "erro"
+
+
+def get_user_requests(current_user):
+    return query_all_requests_from_user(int(current_user.id),
+                                        datetime.now().date())

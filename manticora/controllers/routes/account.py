@@ -8,7 +8,8 @@ from manticora.controllers.modules.account import (
     query_account_and_build_html,
     show_clients_account,
     update_status_account,
-    mount_user_data) #NOQA
+    mount_user_data,
+    get_user_requests) #NOQA
 
 
 app = Blueprint('account', __name__)
@@ -49,6 +50,14 @@ def user_data():
 def adm_accounts():
     accounts = show_clients_account(current_user)
     return render_template('adm_accounts.html', accounts=accounts)
+
+
+@app.route('/all_requests/', methods=["GET"])
+@login_required
+def all_req():
+    only_normal_users()
+    requests = get_user_requests(current_user)
+    return render_template('user_requests.html', requests=requests)
 
 
 @app.route('/adm_accounts/change_status/', methods=['POST'])

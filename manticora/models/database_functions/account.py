@@ -1,5 +1,6 @@
 from datetime import datetime
 from manticora.models.database.tables import (UsuarioConta,
+                                              Usuario,
                                               Restaurante,
                                               Extrato,
                                               db)
@@ -30,3 +31,10 @@ def change_status(id_account, status):
     except Exception:
         db.session.rollback()
         raise
+
+
+def query_all_requests_from_user(id, date):
+    return Extrato.query.join(UsuarioConta).join(Usuario) \
+        .filter(Usuario.id == id) \
+        .filter(Extrato.data == date) \
+        .order_by(Extrato.status).all()
