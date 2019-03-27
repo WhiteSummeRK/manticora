@@ -12,6 +12,7 @@
         <div class="card-body" id="addr">
           <h5 class="card-title">Contas dos Clientes</h5>
           {% if accounts%}
+          <div class="table-wrapper-scroll-y my-custom-scrollbar">
           <table class="table">
             <tbody>
               {% for item in accounts %}
@@ -34,6 +35,7 @@
               {% endfor %}
             </tbody>
           </table>
+        </div>
           {% else %}
           <p>Este restaurante ainda não possui clientes</p>
           {% endif %}

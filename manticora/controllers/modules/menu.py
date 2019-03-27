@@ -59,6 +59,7 @@ def build_html_for_menu(menu, marmitas):
     <h5 class="card-title">Escolha o Tamanho</h5>
     <form id='meu_form' action='/restaurants/make_request/' method="POST">
     {}
+    <div class="table-wrapper-scroll-y my-custom-scrollbar">
     <table class="table">
         <thead>
             <tr>
@@ -72,6 +73,7 @@ def build_html_for_menu(menu, marmitas):
     html_end = """
         </tbody>
     </table>
+    </div>
     """
     html_middle = ""
     for item in menu:

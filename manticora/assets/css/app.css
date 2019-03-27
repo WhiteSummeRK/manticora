@@ -5,6 +5,13 @@ height: 100%;
 font-family: 'Numans', sans-serif;
 }
 
-h5, h1, h4, h3, h2, td, th, tr{
-    color: white;
+
+.table-wrapper-scroll-y {
+  position: relative;
+  height: 700px;
+  overflow: auto;
+}
+
+.my-custom-scrollbar {
+  display: block;
 }

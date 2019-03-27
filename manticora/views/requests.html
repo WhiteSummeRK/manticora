@@ -12,6 +12,7 @@
         <div class="card-body" id="addr">
           <h5 class="card-title">Pedidos dos Clientes (Apenas no dia de hoje)</h5>
           {% if requests %}
+          <div class="table-wrapper-scroll-y my-custom-scrollbar">
           <table class="table">
             <tbody>
               <thead>
@@ -43,6 +44,7 @@
               {% endfor %}
             </tbody>
           </table>
+        </div>
           {% else %}
           <p>Ainda não há pedidos</p>
           {% endif %}

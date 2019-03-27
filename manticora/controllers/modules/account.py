@@ -30,6 +30,7 @@ def query_account_and_build_html(id):
     <div class="card">
     <div class="card-body" id="addr">
     <h5 class="card-title">Restaurantes</h5>
+    <div class="table-wrapper-scroll-y my-custom-scrollbar">
     <table class="table">
         <thead>
             <tr>
@@ -43,6 +44,7 @@ def query_account_and_build_html(id):
     html_end = """
         </tbody>
     </table>
+    </div>
     </div>
     </div>
     """

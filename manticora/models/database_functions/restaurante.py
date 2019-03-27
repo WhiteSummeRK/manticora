@@ -58,7 +58,7 @@ def get_closed_rests(adm):
                 Restaurante.abertura > now)).filter_by(adm=item).first()
 
         if rest:
-            result.append([item.nome, rest, 'Fechado'])
+            result.append([item.nome, rest, 'Aberto'])
 
     return result
 

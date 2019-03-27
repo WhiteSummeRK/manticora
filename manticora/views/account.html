@@ -7,11 +7,13 @@
 {% include 'components/header.html' %}
 <div class="container">
   <div class="row">
-    <div class="col-6">,
+    <div class="col-6">
       <div class="card">
         <div class="card-body" id="addr">
           <h5 class="card-title">Restaurantes</h5>
+          {% if rests %}
           <p>Você tem contas pendentes nos restaurantes abaixo</p>
+          <div class="table-wrapper-scroll-y my-custom-scrollbar">
           <table class="table">
             <tbody>
               {% for item in rests %}
@@ -25,6 +27,10 @@
               {% endfor %}
             </tbody>
           </table>
+        </div>
+        {% else %}
+        <p>Você não possui contas pendentes</p>
+        {% endif %}
         </div>
       </div>
     </div>

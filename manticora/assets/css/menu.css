@@ -24,17 +24,6 @@ h5, h1, h4, h3, h2, p, .td, .th, .tr{
   color: yellow;
 }
 
-.table-wrapper-scroll-y {
-  position: relative;
-  height: 400px;
-  overflow: auto;
-}
-
-.my-custom-scrollbar {
-  display: block;
-}
-
-
 .card {
   width: 100%;
   margin: 4%;
