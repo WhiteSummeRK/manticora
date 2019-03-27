@@ -20,7 +20,7 @@
                 <td class="align-middle"> <img src="data:;base64,{{ item[1].imagem }}" class="img-fluid"> </td>
                 <td class="align-middle money">R$ {{ item[2] }}</td>
                 <td class="align-middle" >{{ item[3] }}</td>
-                <td class="align-middle" ><button type="button" title="Ver Extrato" name="button" value="{{ item[4] }}" class="btn btn-success extrato"><i class="fas fa-dollar-sign"></i></button></td>
+                <td class="align-middle" ><button type="button" title="Ver Extrato" name="button" id="{{ item[4] }}" class="btn btn-success extrato"><i class="fas fa-dollar-sign" id="{{ item[4] }}"></i></button></td>
               </tr>
               {% endfor %}
             </tbody>
@@ -49,7 +49,7 @@
   for(item of buttons){
     item.addEventListener('click', (e) => {
       let t = e.target;
-      var id_to_send = t.value;
+      var id_to_send = t.id;
 
       fetch('/account/extrato/', {
         method: 'post',

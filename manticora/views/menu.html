@@ -81,6 +81,9 @@
                   <td class="td">{{ item.dia }}</td>
                   <td class="td">{{ item.prato }}</td>
                   <td class="td">{{ item.tipo }}</td>
+                  <td>
+                    <button type="submit"  class="btn btn-danger excluir-item" title="Excluir"><i class="fas fa-trash"></i></button>
+                  </td>
                 </tr>
                 {% endfor %}
               </tbody>
@@ -106,6 +109,9 @@
                   <tr class="tr">
                     <td class="td">{{ item.tamanho }}</td>
                     <td class="td">R$ {{ item.preco }}</td>
+                    <td>
+                      <button type="submit"  class="btn btn-danger excluir-marm" title="Excluir"><i class="fas fa-trash"></i></button>
+                    </td>
                   </tr>
                   {% endfor %}
                 </tbody>

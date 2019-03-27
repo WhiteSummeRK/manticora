@@ -7,7 +7,7 @@ label {
 }
 
 .container {
-  height: 100%;
+  height: auto;
   margin-top: 8%
 }
 
@@ -32,4 +32,40 @@ h5, h1, h4, h3, h2, p, .td, .th, .tr{
 
 .my-custom-scrollbar {
   display: block;
+}
+
+
+.card {
+  width: 100%;
+  margin: 4%;
+  height: auto;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.card-text{
+  position: absolute;
+  top: 67%;
+  color: white;
+}
+
+.card-title {
+  position: absolute;
+  top: 61%;
+  color: white;
+}
+
+.card-text{
+  position: absolute;
+  top: 67%;
+  color: white;
+}
+
+.card-title {
+  position: absolute;
+  top: 0%;
+  color: white;
+}
+
+.card-body {
+  margin-top: 10%;
 }
