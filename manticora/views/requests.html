@@ -25,7 +25,7 @@
               {% for item in requests %}
               <tr>
                 <td>{{ item.conta.usuario.nome }}</td>
-                <td>{{ item.itens }}</td>
+                <td>{{ item.itens.replace('[', '').replace(']', '').replace('\'', '') }}</td>
                 <td class="status">{{ item.status }}</td>
                 <td>
                   <form class="form-group meu_form" action="/restaurants/requests/change_status/" method="post">

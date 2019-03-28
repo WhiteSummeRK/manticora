@@ -82,3 +82,28 @@ def query_all_marmitas_by_rest_id(id):
 
 def query_marmita_by_id(id):
     return TamanhosPrecos.query.filter_by(id=int(id)).first()
+
+
+def query_menu_item_by_id(id):
+    return Cardapio.query.filter_by(id=id).first()
+
+
+def delete_item_from_menu_db(id):
+    try:
+        item_to_del = query_menu_item_by_id(id)
+        db.session.delete(item_to_del)
+        db.session.commit()
+        return item_to_del
+    except Exception:
+        db.session.rollback()
+        raise
+
+def delete_marm_from_db(id):
+    try:
+        marm_to_del = query_marmita_by_id(id)
+        db.session.delete(marm_to_del)
+        db.session.commit()
+        return marm_to_del
+    except Exception:
+        db.session.rollback()
+        raise

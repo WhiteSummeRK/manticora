@@ -1,11 +1,14 @@
 from flask import (Flask, render_template, Blueprint,
-                   request, url_for, redirect, abort)
+                   request, url_for, redirect, abort,
+                   jsonify)
 
 from flask_login import login_required, current_user
 
 from manticora.controllers.modules.menu import (save_menu, show_menu_by_day,
                                                 save_new_marmita,
-                                                show_all_marmitas)
+                                                show_all_marmitas,
+                                                del_item_from_menu,
+                                                del_marm_size)
 
 app = Blueprint('menu', __name__)
 
@@ -44,3 +47,20 @@ def new_size_post():
 
     result = save_new_marmita(size, price, current_user)
     return redirect(url_for('menu.menu_for_adm', insertion=result))
+
+
+@app.route('/delete_marm/', methods=['POST'])
+@login_required
+def del_marm():
+    id_to_del = request.json.get('id_to_send')
+    return jsonify({
+        "result": del_marm_size(id_to_del)
+        })
+
+@app.route('/delete_item/', methods=['POST'])
+@login_required
+def del_item():
+    id_to_del = request.json.get('id_to_send')
+    return jsonify({
+        "result": del_item_from_menu(id_to_del)
+        })

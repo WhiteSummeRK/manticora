@@ -21,7 +21,7 @@
                 <td class="align-middle" >{{ item[0] }}</td>
                 <td class="align-middle"> <img src="data:;base64,{{ item[1].imagem }}" class="img-fluid"> </td>
                 <td class="align-middle money">R$ {{ item[2] }}</td>
-                <td class="align-middle" >{{ item[3] }}</td>
+                <td class="align-middle status" >{{ item[3] }}</td>
                 <td class="align-middle" ><button type="button" title="Ver Extrato" name="button" id="{{ item[4] }}" class="btn btn-success extrato"><i class="fas fa-dollar-sign" id="{{ item[4] }}"></i></button></td>
               </tr>
               {% endfor %}
@@ -43,6 +43,7 @@
 	const urlParams = new URLSearchParams(window.location.search);
   let moneys = document.getElementsByClassName('money');
   let buttons = document.getElementsByClassName('extrato');
+  let status = document.getElementsByClassName('status')
     for(item of moneys){
       if(item.textContent == 'R$ 0.0'){
         item.className = "align-middle money green"
@@ -51,6 +52,18 @@
         item.className = "align-middle money red"
       }
     };
+
+    for(item of status){
+      if(item.textContent == 'Aguardando Pagamento'){
+        item.className = "align-middle status yellow"
+      }
+      else if(item.textContent == 'Pago'){
+        item.className = "align-middle status green"
+      }
+      else {
+        item.className = "align-middle status yellow"
+      }
+    }
 
   for(item of buttons){
     item.addEventListener('click', (e) => {

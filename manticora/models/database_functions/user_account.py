@@ -34,6 +34,7 @@ def update_user_bill(preco, current_user, rest_id):
         filter_by(restaurante=rest).first()
     try:
         bill.conta += float(preco)
+        bill.status = "Aguardando Pagamento"
         db.session.commit()
 
         return bill

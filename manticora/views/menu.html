@@ -82,7 +82,7 @@
                   <td class="td">{{ item.prato }}</td>
                   <td class="td">{{ item.tipo }}</td>
                   <td>
-                    <button type="submit"  class="btn btn-danger excluir-item" title="Excluir"><i class="fas fa-trash"></i></button>
+                    <button type="submit"  class="btn btn-danger excluir-item" id="{{ item.id }}" title="Excluir"><i id="{{ item.id }}"class="fas fa-trash"></i></button>
                   </td>
                 </tr>
                 {% endfor %}
@@ -110,7 +110,7 @@
                     <td class="td">{{ item.tamanho }}</td>
                     <td class="td">R$ {{ item.preco }}</td>
                     <td>
-                      <button type="submit"  class="btn btn-danger excluir-marm" title="Excluir"><i class="fas fa-trash"></i></button>
+                      <button type="submit" id="{{ item.id }}"  class="btn btn-danger excluir-marm" title="Excluir"><i id="{{ item.id }}" class="fas fa-trash"></i></button>
                     </td>
                   </tr>
                   {% endfor %}
@@ -137,6 +137,87 @@
     }
     if (qstr == 'Erro'){
       $.notify("Houve um erro inesperado, tente novamente", "error")
+    }
+
+    buttons_marm = document.getElementsByClassName('excluir-marm')
+    buttons_item = document.getElementsByClassName('excluir-item')
+
+    for(item of buttons_marm){
+      item.addEventListener('click', (e) => {
+        let t = e.target;
+        var id_to_send = t.id;
+
+        $.confirm({
+          title: 'Confirmação',
+          content: 'Este cliente realmente pagou?',
+          buttons: {
+            confirm: function () {
+              fetch('/menu/delete_marm/', {
+                method: 'post',
+                credentials: 'include',
+                body: JSON.stringify({
+                  "id_to_send": id_to_send
+                }),
+                headers: {
+                      'Accept': 'application/json',
+                      'Content-Type': 'application/json'
+                  },
+              }).then(response => response.json())
+                .then(json =>{
+                  if(json['result'] == 'error'){
+                    $.notify("O item não pôde ser deletado", "error")
+                  }
+                  else{
+                    document.location.reload()
+                  }
+                }).catch(err => { console.error(err) })
+            },
+            cancel: function () {
+              return;
+            }
+          }
+        });
+      })
+    }
+
+    for(item of buttons_item){
+      item.addEventListener('click', (e) => {
+        let t = e.target;
+        var id_to_send = t.id;
+
+        $.confirm({
+          title: 'Confirmação',
+          content: 'Este cliente realmente pagou?',
+          buttons: {
+            confirm: function () {
+              fetch('/menu/delete_item/', {
+                method: 'post',
+                credentials: 'include',
+                body: JSON.stringify({
+                  "id_to_send": id_to_send
+                }),
+                headers: {
+                      'Accept': 'application/json',
+                      'Content-Type': 'application/json'
+                  },
+              }).then(response => response.json())
+                .then(json =>{
+                  if(json['result'] == 'error'){
+                    $.notify("O item não pôde ser deletado", "error")
+                  }
+                  else{
+                    document.location.reload()
+                  }
+                }).catch(err => { console.error(err) })
+            },
+            cancel: function () {
+              return;
+            }
+          }
+        });
+
+
+      })
     }
 
 </script>

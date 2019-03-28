@@ -28,8 +28,8 @@
               <tr>
                 <td>{{ item.data.date() }}</td>
                 <td>{{ item.conta.restaurante.adm.nome }}</td>
-                <td>{{ item.itens }}</td>
-                <td>{{ item.valor }}</td>
+                <td>{{ item.itens.replace('[', '').replace(']', '').replace('\'', '') }}</td>
+                <td>R$ {{ item.valor }}</td>
                 <td class="status">{{ item.status }}</td>
               </tr>
               {% endfor %}

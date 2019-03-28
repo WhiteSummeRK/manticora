@@ -7,7 +7,9 @@ from manticora.models.database_functions.menu import (insert_menu,
                                                       query_all_marmitas_by_rest_id,
                                                       query_marmita_by_size,
                                                       query_marmita_by_id,
-                                                      query_itens_from_menu) # NOQA
+                                                      query_itens_from_menu,
+                                                      delete_item_from_menu_db,
+                                                      delete_marm_from_db) # NOQA
 from manticora.models.database_functions.user_account import (insert_into_user_extrato, #NOQA
                                                               update_user_bill,
                                                               create_user_account,
@@ -73,6 +75,7 @@ def build_html_for_menu(menu, marmitas):
     html_end = """
         </tbody>
     </table>
+    <button type="submit" onclick="confirm_dialog()" class="btn btn-primary mb-2">Realizar Pedido</button>
     </div>
     """
     html_middle = ""
@@ -91,7 +94,6 @@ def build_html_for_menu(menu, marmitas):
         """.format(item.prato, item.tipo, item.id, item.id, menu_id) #NOQA
 
     html_btn = """
-    <button type="submit" onclick="confirm_dialog()" class="btn btn-primary mb-2">Realizar Pedido</button>
     </form>
     </div>
     </div>
@@ -132,3 +134,18 @@ def update_bill(current_user, marmita_id, rest_id):
     if query_bill(current_user, rest_id):
         return update_user_bill(marmita.preco, current_user, rest_id)
     return create_user_account(marmita.preco, current_user, rest_id)
+
+
+def del_item_from_menu(id_to_del):
+    try:
+        delete_item_from_menu_db(int(id_to_del))
+        return "ok"
+    except Exception:
+        return "error"
+
+def del_marm_size(id_to_del):
+    try:
+        delete_marm_from_db(int(id_to_del))
+        return "ok"
+    except Exception:
+        return "error"
