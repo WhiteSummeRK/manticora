@@ -20,7 +20,7 @@
           <p>Rua: {{ current_user.rua }}</p>
           <p>Numero: {{ current_user.numero }}</p>
           <p>Complemento: {{ current_user.complemento }}</p>
-          <a href="#" id="ch_addr" onclick="change_addr()" class="btn btn-primary">Alterar Endereço</a>
+          <a href="#" id="ch_addr" onclick="change_addr()" class="btn login_btn btn-card">Alterar Endereço</a>
         </div>
       </div>
     </div>
@@ -29,7 +29,7 @@
       <div class="card-body">
         <h5 class="card-title">Realize um Pedido</h5>
         <p class="card-text">com fome? os restaurantes estão aguardando seu pedido :3</p>
-        <a href="/restaurants/" class="btn btn-primary">Realizar Pedido</a>
+        <a href="/restaurants/" class="btn login_btn btn-card">Realizar Pedido</a>
       </div>
     </div>
     <div class="card">
@@ -37,7 +37,15 @@
       <div class="card-body">
         <h5 class="card-title">Conta</h5>
         <p class="card-text">Vizualize quanto vc está devendo aos restaurantes. Cuidado, não exagere no consumo ^^ </p>
-        <a href="/account/" class="btn btn-primary">Vizualizar sua tragédia :/</a>
+        <a href="/account/" class="btn login_btn btn-card">Vizualizar sua tragédia :/</a>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="card" style="height: auto !important; width: auto !important;">
+      <div class="card-body">
+        <h5>Responda nosso questionário :D</h5>
+        <button type="button" name="button" class="btn login_btn">Clique Aqui!</button>
       </div>
     </div>
   </div>
@@ -65,8 +73,8 @@
       <p>Numero: <input type='text' name='number_in' maxlength='4' /></p> \
       <p>Complemento: <input type='text' name='comp_in' /></p><br> \
       <div class='btn-group'> \
-        <button type='submit' id='confirm_new' onclick='confirm_dialog()' class='btn btn-primary'>Confirmar</button> \
-        <button type='button' id='cancel' onclick='cancel_addr()'class='btn btn-primary'>Cancelar</button> \
+        <button type='submit' id='confirm_new' onclick='confirm_dialog()' class='btn login_btn'>Confirmar</button> \
+        <button type='button' id='cancel' onclick='cancel_addr()'class='btn login_btn'>Cancelar</button> \
       </div> \
     </form> "
 

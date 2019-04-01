@@ -21,7 +21,7 @@
           <p>Numero: {{ current_user.numero }}</p>
           <p>Complemento: {{ current_user.complemento }}</p>
           <div class="form-group">
-              <button type="button" onclick="change_addr(this)" id="addr" class="btn-primary">Alterar Dados</button>
+              <button type="button" onclick="change_addr(this)" id="addr" class="btn login_btn">Alterar Dados</button>
           </div>
         </div>
       </div>
@@ -37,7 +37,7 @@
                 <input type="file" name="img" id="input_image" style="color: white;" required>
             </div>
             <div class="form-group input-group">
-                <button type="submit"class="btn-primary">Alterar Imagem</button>
+                <button type="submit"class="btn login_btn">Alterar Imagem</button>
             </div>
             <br>
           </form>
@@ -46,7 +46,7 @@
             <p>abertura: {{ rest[1].abertura }}</p>
             <p>fechamento: {{ rest[1].fechamento }}</p>
             <div class="form-group">
-                <button type="button" onclick="change_addr(this)" id="rest" class="btn-primary">Alterar Dados</button>
+                <button type="button" onclick="change_addr(this)" id="rest" class="btn login_btn">Alterar Dados</button>
             </div>
           </div>
         </div>
@@ -93,8 +93,8 @@
         <p>Numero: <input type='text' value='{{ current_user.numero }}' name='number_in' maxlength='4' /></p> \
         <p>Complemento: <input type='text' value='{{ current_user.complemento }}' name='comp_in' /></p><br> \
         <div class='btn-group'> \
-          <button type='submit' id='confirm_new' onclick='confirm_dialog()' class='btn btn-primary'>Confirmar</button> \
-          <button type='button' id='cancel' onclick='cancel_addr()'class='btn btn-primary'>Cancelar</button> \
+          <button type='submit' id='confirm_new' onclick='confirm_dialog()' class='btn login_btn'>Confirmar</button> \
+          <button type='button' id='cancel' onclick='cancel_addr()'class='btn login_btn'>Cancelar</button> \
         </div> \
       </form> "
       document.getElementById('addr').innerHTML = addr_div
@@ -107,8 +107,8 @@
         <p>Abertura: <input name='hora_aber' value='{{ rest[1].abertura }}' class='form-control' placeholder='Hora' type='time'></p> \
         <p>Fechamento: <input name='hora_fech' value='{{ rest[1].fechamento }}' class='form-control' placeholder='Hora' type='time'></p> \
         <div class='btn-group'> \
-          <button type='submit' id='confirm_new' onclick='confirm_dialog()' class='btn btn-primary'>Confirmar</button> \
-          <button type='button' id='cancel' onclick='cancel_rest()'class='btn btn-primary'>Cancelar</button> \
+          <button type='submit' id='confirm_new' onclick='confirm_dialog()' class='btn login_btn'>Confirmar</button> \
+          <button type='button' id='cancel' onclick='cancel_rest()'class='btn login_btn'>Cancelar</button> \
         </div> \
       </form> "
       document.getElementById('older_rest').innerHTML = rest_div

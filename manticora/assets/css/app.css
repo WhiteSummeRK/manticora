@@ -15,3 +15,21 @@ font-family: 'Numans', sans-serif;
 .my-custom-scrollbar {
   display: block;
 }
+
+.login_btn{
+color: black;
+background-color: #FFC312;
+width: auto;
+margin: 4px;
+border-radius: 10px;
+}
+
+.login_btn:hover{
+color: black;
+background-color: white;
+}
+
+.btn-card {
+  position: absolute !important;
+  top: 88% !important;
+}

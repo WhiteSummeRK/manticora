@@ -75,7 +75,7 @@ def build_html_for_menu(menu, marmitas):
     html_end = """
         </tbody>
     </table>
-    <button type="submit" onclick="confirm_dialog()" class="btn btn-primary mb-2">Realizar Pedido</button>
+    <button type="submit" onclick="confirm_dialog()" class="btn login_btn mb-2">Realizar Pedido</button>
     </div>
     """
     html_middle = ""

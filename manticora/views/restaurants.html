@@ -61,7 +61,7 @@
                 {% for item in rests %}
                 <tr>
                   {% if item[2] == 'Aberto' %}
-                  <td class="align-middle" ><button type="submit" id="{{ item[1].id }}" value="{{ item[1].id }}" class="btn btn-primary btn-send-fetch" >{{item[0]}}</button></td>
+                  <td class="align-middle" ><button type="submit" id="{{ item[1].id }}" value="{{ item[1].id }}" class="btn login_btn btn-send-fetch" >{{item[0]}}</button></td>
                   {% else %}
                   <td class="align-middle" ><button type="submit" id="{{ item[1].id }}" value="{{ item[1].id }}" class="btn btn-danger btn-send-fetch" disabled>{{item[0]}}</button></td>
                   {% endif %}
