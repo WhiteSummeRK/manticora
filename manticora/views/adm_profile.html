@@ -54,7 +54,6 @@
     </div>
   </div>
 </div>
-{% include 'components/footer.html' %}
 <script type="text/javascript">
   $(document).ready(function(){
   document.getElementById('perfil').classList.add('active')
@@ -153,8 +152,8 @@
   if(qstr == 'ok'){
     $.notify('Dados Atualizados', 'success')
   }
-  else if (qsrt) {
-    $.notify('Ocorreu um erro inesperado', 'error')
+  else if (qstr) {
+    $.notify(qstr, 'error')
   }
 </script>
 {% endblock %}

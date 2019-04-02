@@ -10,11 +10,6 @@ h5, h1, h4, h3, p, td{
     color: white;
 }
 
-.container {
-  height: auto;
-  margin-top: 7%;
-}
-
 .card-text{
   position: absolute;
   top: 67%;

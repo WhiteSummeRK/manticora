@@ -26,11 +26,6 @@
   align-self: center;
 }
 
-.container{
-align-content: center;
-height: auto;
-}
-
 .card {
   width: 25% !important;
   margin: 4% !important;

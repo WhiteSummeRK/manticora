@@ -12,11 +12,6 @@ background-color: rgba(0,0,0,0.5) !important;
   align: center !important;
 }
 
-.container{
-align-content: center;
-height: auto;
-}
-
 .divider-text {
     position: relative;
     text-align: center;

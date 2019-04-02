@@ -1,7 +1,5 @@
 .container{
-height: auto;
 top: 10%;
-align-content: center;
 }
 
 .row {
@@ -81,8 +79,6 @@ th {
   border: 0px !important;
   color: yellow;
 }
-
-
 
 .card {
   width: 100%;

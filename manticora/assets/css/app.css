@@ -12,6 +12,16 @@ font-family: 'Numans', sans-serif;
   overflow: auto;
 }
 
+.container {
+  height: auto !important;
+}
+
+.card {
+-webkit-box-shadow: 0px 0px 15px 2px black;
+-moz-box-shadow: 0px 0px 15px 2px black;
+box-shadow: 0px 0px 15px 2px black;
+}
+
 .my-custom-scrollbar {
   display: block;
 }

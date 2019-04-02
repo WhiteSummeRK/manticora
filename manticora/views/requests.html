@@ -38,7 +38,7 @@
                   </form>
                 </td>
                 <td>
-                  <button type="button" value="{{ item.conta.usuario.id }}" class="btn login_btn usuario" title="Avançar Estado">Vizualizar Cliente</button>
+                  <button type="button" value="{{ item.conta.usuario.id }}" class="btn login_btn usuario" title="Avançar Estado">Visualizar Cliente</button>
                 </td>
               </tr>
               {% endfor %}
@@ -63,7 +63,6 @@
     </div>
   </div>
 </div>
-  {% include 'components/footer.html' %}
 <script type="text/javascript">
   let status = document.getElementsByClassName('status');
   let buttons = document.getElementsByClassName('usuario');
@@ -115,7 +114,7 @@
     qstr = urlParams.get('upd')
 
     if(qstr == 'ok'){
-      $.notify('Endereço Atualizado com sucesso', 'success')
+      $.notify('Pedido Atualizado!', 'success')
     }
     else if (qstr) {
       $.notify("Erro", 'error')
