@@ -57,8 +57,10 @@ def update_user(city, neigh, street, num, complement, current_user):
 
 def update_rest(phone, hora_aber, hora_fech, current_user):
     rest = get_actual_rest(current_user)
+    db_hora_aber = datetime.strptime(hora_aber, "%H:%M").time()
+    db_hora_fech = datetime.strptime(hora_fech, "%H:%M").time()
     try:
-        update_rest_from_db(phone, hora_aber, hora_fech, rest)
+        update_rest_from_db(phone, db_hora_aber, db_hora_fech, None, rest)
         return "ok"
     except Exception:
         return "Algo deu errado, tente novamente."

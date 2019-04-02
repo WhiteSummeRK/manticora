@@ -103,8 +103,8 @@
       var rest_div = " \
       <form class='form-group' id='meu_form' action='/restaurants/profile/rest/' method='post'> \
         <p>Telefone: <input type='text' value='{{ rest[1].telefone }}' name='phone' /></p> \
-        <p>Abertura: <input name='hora_aber' value='{{ rest[1].abertura }}' class='form-control' placeholder='Hora' type='time'></p> \
-        <p>Fechamento: <input name='hora_fech' value='{{ rest[1].fechamento }}' class='form-control' placeholder='Hora' type='time'></p> \
+        <p>Abertura: <input name='hora_aber' value='{{ rest[1].abertura.strftime('%H:%M') }}' class='form-control' placeholder='Hora' type='time'></p> \
+        <p>Fechamento: <input name='hora_fech' value='{{ rest[1].fechamento.strftime('%H:%M') }}' class='form-control' placeholder='Hora' type='time'></p> \
         <div class='btn-group'> \
           <button type='submit' id='confirm_new' onclick='confirm_dialog()' class='btn login_btn'>Confirmar</button> \
           <button type='button' id='cancel' onclick='cancel_rest()'class='btn login_btn'>Cancelar</button> \
