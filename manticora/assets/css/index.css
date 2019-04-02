@@ -10,11 +10,6 @@ width: 400px;
 background-color: rgba(0,0,0,0.5) !important;
 }
 
-.container{
-align-content: center;
-height: 100% !important;
-}
-
 .social_icon span{
 font-size: 60px;
 margin-left: 10px;
@@ -72,4 +67,8 @@ margin-left: 4px;
 img {
   height: 400px;
   width: auto;
+}
+
+h5 {
+  color: white;
 }

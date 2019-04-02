@@ -34,6 +34,12 @@ margin: 4px;
 border-radius: 10px;
 }
 
+.card-mark{
+  margin-top: 5% !important;
+  height: auto !important;
+  width: auto !important;
+}
+
 .login_btn:hover{
 color: black;
 background-color: white;
