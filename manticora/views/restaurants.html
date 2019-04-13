@@ -91,36 +91,73 @@
     };
 
   btn_fetch = document.getElementsByClassName('btn-send-fetch')
+
   const urlParams = new URLSearchParams(window.location.search);
+
+  function build_html_menu(id){
+    new_card = document.getElementById('cardapio_area')
+
+    new_card.innerHTML = " \
+    <div class='card'>  \
+      <div class='card-body'> \
+        <h5 class='card-title'> Escolha uma categoria </h5> \
+        <div class='form-group'>\
+        <button type='submit' class='btn login_btn' value='" + id + "' id='marm'>Marmitas</button> \
+        <button type='submit' class='btn login_btn' value='"+ id + "' id='lanch'>Lanches</button> \
+        <button type='submit' class='btn login_btn' value='"+ id + "' id='pizz'>Pizzas</button> \
+        </div> \
+      </div> \
+    </div> \
+    "
+    var marm = document.getElementById('marm')
+    var lanch = document.getElementById('lanch')
+    var pizz = document.getElementById('pizz')
+
+  }
+
 
   for(var item of btn_fetch){
     item.addEventListener('click', (e) => {
       let t = e.target;
-      var id_to_send = t.value;
-      console.log(id_to_send)
+      var id_to_build = t.value;
 
-      fetch('/restaurants/', {
-        method: 'post',
-        credentials: 'include',
-        body: JSON.stringify({
-          "id_to_send": id_to_send
-        }),
-        headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json'
-          },
-      }).then(response => response.json())
-        .then(json =>{
-          if(json['cardapio'] == 'no_card'){
-            $.notify("O Restaurante Ainda não disponibilizou o cardápio", "error")
-          }
-          else{
-            document.getElementById('cardapio_area').innerHTML = ""
-            document.getElementById('cardapio_area').innerHTML = json['cardapio']
-          }
-        }).catch(err => { console.error(err) })
+      build_html_menu(id_to_build)
+
+      marm.addEventListener('click', (e) => {
+        let t = e.target;
+        var id_to_send = t.value;
+        console.log(id_to_send)
+
+        fetch('/restaurants/', {
+          method: 'post',
+          credentials: 'include',
+          body: JSON.stringify({
+            "id_to_send": id_to_send
+          }),
+          headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+        }).then(response => response.json())
+          .then(json =>{
+            if(json['cardapio'] == 'no_card'){
+              $.notify("O Restaurante Ainda não disponibilizou o cardápio", "error")
+            }
+            else{
+              document.getElementById('cardapio_area').innerHTML = ""
+              document.getElementById('cardapio_area').innerHTML = json['cardapio']
+
+              document.getElementById('go_back').addEventListener('click', (e) => {
+                document.getElementById('cardapio_area').innerHTML = ""
+              })
+            }
+          }).catch(err => { console.error(err) })
+      })
+
     })
   }
+
+
 
   error = urlParams.get('error')
   conta = urlParams.get('conta')
