@@ -18,17 +18,21 @@ from manticora.models.database_functions.user_account import (insert_into_user_e
 from datetime import datetime
 
 
-def save_menu(item, kind, day, current_user):
+def save_menu(item, kind, day, preco_item, current_user):
     item_kind = {
         "main_plate": "Prato Principal",
         "acomp": "Acompanhamento",
         "drink": "Bebida",
         "deserve": "Sobremesa",
+        "snack": "Lanche",
+        "add": "Adicional",
         "other": "Outro"
     }
     if kind not in item_kind.keys():
         return "acha que foi inserido mas nem foi ein"
-    return insert_menu(item, item_kind[kind], day, current_user)
+    if not preco_item:
+        return insert_menu(item, item_kind[kind], day, None, current_user)
+    return insert_menu(item, item_kind[kind], day, float(preco_item.replace(',', '.')), current_user) # NOQA
 
 
 def change_datetime(menus):
@@ -67,6 +71,7 @@ def build_html_for_menu(menu, marmitas):
             <tr>
             <th scope="col">Nome</th>
             <th scope="col">Tipo</th>
+            <th scope="col">Preço Por Item</th>
             <th scope="col">Pedido</th>
           </tr>
         </thead>
@@ -80,8 +85,10 @@ def build_html_for_menu(menu, marmitas):
     """
     html_middle = ""
     for item in menu:
+        preco = "" if not item.preco else f"R$ {item.preco}" #NOQA
         html_middle += """
             <tr>
+              <td>{}</td>
               <td>{}</td>
               <td>{}</td>
               <td>
@@ -91,7 +98,7 @@ def build_html_for_menu(menu, marmitas):
                   </div>
               </td>
             </tr>
-        """.format(item.prato, item.tipo, item.id, item.id, menu_id) #NOQA
+        """.format(item.prato, item.tipo, preco, item.id, item.id, menu_id) #NOQA
 
     html_btn = """
     </form>
@@ -121,19 +128,33 @@ def show_all_marmitas(current_user):
 
 
 def register_user_request(marmita_id, current_user, rest_id, foods):
-    marmita = query_marmita_by_id(marmita_id)
+    valor = 0
     itens = query_itens_from_menu(foods)
-    item = "{} - {}".format(marmita.tamanho, sorted(itens))
+    for foods in itens:
+        if foods[1]:
+            valor += foods[1]
 
-    return insert_into_user_extrato(item, marmita.preco,
+    marmita = query_marmita_by_id(marmita_id)
+    valor += marmita.preco
+    item = "{} - {}".format(marmita.tamanho, sorted([item[0] for item in itens]))
+
+    return insert_into_user_extrato(item, valor,
                                     current_user, rest_id)
 
 
-def update_bill(current_user, marmita_id, rest_id):
+def update_bill(current_user, marmita_id, rest_id, foods):
+    valor = 0
+    menu = query_itens_from_menu(foods)
+    for item in menu:
+        if item[1]:
+            valor += item[1]
+
     marmita = query_marmita_by_id(marmita_id)
+    valor += marmita.preco
+
     if query_bill(current_user, rest_id):
-        return update_user_bill(marmita.preco, current_user, rest_id)
-    return create_user_account(marmita.preco, current_user, rest_id)
+        return update_user_bill(valor, current_user, rest_id)
+    return create_user_account(valor, current_user, rest_id)
 
 
 def del_item_from_menu(id_to_del):

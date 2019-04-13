@@ -18,8 +18,8 @@ from flask import Flask
 
 app = Flask(__name__)
 
-# db_url = 'postgresql://manticora:manticora123@localhost:5432/manticora_db'
-db_url = 'postgres://tcjktyoqzsmxdg:476db29152bf604203e8cf71007ffce69c574c8f98b7dfde2f356b11b7f04dee@ec2-75-101-131-79.compute-1.amazonaws.com:5432/dfa118jlcsd94c'
+db_url = 'postgresql://manticora:manticora123@localhost:5432/manticora_db'
+# db_url = 'postgres://tcjktyoqzsmxdg:476db29152bf604203e8cf71007ffce69c574c8f98b7dfde2f356b11b7f04dee@ec2-75-101-131-79.compute-1.amazonaws.com:5432/dfa118jlcsd94c'
 db = SQLAlchemy()
 
 
@@ -87,14 +87,15 @@ class Cardapio(db.Model):
     dia = Column(DateTime, nullable=False)
     prato = Column(String(30), nullable=False)
     tipo = Column(String(30), nullable=False)
+    preco = Column(Float, nullable=True)
     rest = relationship('Restaurante')
     id_rest = Column(Integer, ForeignKey('restaurante.id'))
 
     def __repr__(self):
         return """Cardapio(dia={}, prato={}, tipo={},
-        rest={})
+        rest={}, preço={})
         """.format(self.dia, self.prato, self.tipo,
-                   self.rest)
+                   self.rest, self.preco)
 
 
 class UsuarioConta(db.Model):

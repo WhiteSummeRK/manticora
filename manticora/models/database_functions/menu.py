@@ -5,7 +5,7 @@ from sqlalchemy import or_, and_
 from datetime import datetime
 
 
-def insert_menu(item, kind, day, current_user):
+def insert_menu(item, kind, day, preco, current_user):
     new_day = datetime.strptime(day, "%m/%d/%Y").date()
     try:
         rest = get_actual_rest(current_user)
@@ -13,6 +13,7 @@ def insert_menu(item, kind, day, current_user):
             dia=day,
             prato=item,
             tipo=kind,
+            preco=preco,
             rest=rest
         )
         db.session.add(card)
@@ -25,14 +26,14 @@ def insert_menu(item, kind, day, current_user):
 
 def query_all_menus(current_user):
     rest = get_actual_rest(current_user)
-    return Cardapio.query.filter_by(rest=rest).order_by(Cardapio.tipo). \
+    return Cardapio.query.filter_by(rest=rest).order_by(Cardapio.dia). \
         limit(50).all()
 
 
 def query_menus_by_day(day, current_user):
     rest = get_actual_rest(current_user)
     return Cardapio.query.filter_by(rest=rest).filter(Cardapio.dia == day). \
-        order_by(Cardapio.tipo).limit(50).all()
+        order_by(Cardapio.dia).limit(50).all()
 
 
 def query_menu_by_rest_id(id, date):
@@ -66,7 +67,7 @@ def query_itens_from_menu(items):
     all_itens = []
     for item in items:
         plate = Cardapio.query.filter_by(id=int(item)).first()
-        all_itens.append(plate.prato)
+        all_itens.append([plate.prato, plate.preco])
     return all_itens
 
 

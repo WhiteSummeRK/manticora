@@ -35,7 +35,8 @@ def menu_post():
     item = request.form.get('item')
     kind = request.form.get('type')
     day = request.form.get('day')
-    result = save_menu(item, kind, day, current_user)
+    preco_item = request.form.get('price')
+    result = save_menu(item, kind, day, preco_item, current_user)
     return redirect(url_for('menu.menu_for_adm', insertion=result))
 
 

@@ -67,8 +67,10 @@ def make_req():
     if not foods:
         return redirect(url_for('restaurants.login_template',
                                 error="no item"))
+
     marmita_id = request.form.get('marmitas')
-    user_account = update_bill(current_user, marmita_id, rest_id)
+
+    user_account = update_bill(current_user, marmita_id, rest_id, foods)
     register_user_request(marmita_id,
                           current_user,
                           rest_id,

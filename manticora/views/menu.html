@@ -18,13 +18,16 @@
               <div class="form-group">
                 <input id="datepicker1" name="day" width="276" placeholder="Dia" required/>
               </div>
-              <select class="form-group" id="type" name="type" required>
+              <select class="form-group" id="tipo" name="type" onchange="checkType()" required>
                 <option value="main_plate">Prato Principal</option>
                 <option value="acomp">Acompanhamento</option>
                 <option value="drink">Bebida</option>
                 <option value="deserve">Sobremesa</option>
+                <option value="add">Adicional</option>
                 <option value="other">Outro</option>
               </select>
+              <div class="form-group" id="preco_item" name="preco_item">
+              </div>
               <div class="form-group">
                 <button type="submit" class="btn login_btn">Cadastrar Item</button>
               </div>
@@ -73,6 +76,7 @@
                   <th class="th" scope="col">Dia</th>
                   <th class="th" scope="col">Nome</th>
                   <th class="th" scope="col">Tipo</th>
+                  <th class="th" scope="col">Preço</th>
                 </tr>
               </thead>
               <tbody class="tbody">
@@ -81,6 +85,11 @@
                   <td class="td">{{ item.dia }}</td>
                   <td class="td">{{ item.prato }}</td>
                   <td class="td">{{ item.tipo }}</td>
+                  {% if item.preco %}
+                  <td class="td">{{ item.preco }}</td>
+                  {% else %}
+                  <td class="td">N/A</td>
+                  {% endif %}
                   <td>
                     <button type="submit"  class="btn btn-danger excluir-item" id="{{ item.id }}" title="Excluir"><i id="{{ item.id }}"class="fas fa-trash"></i></button>
                   </td>
@@ -217,6 +226,24 @@
 
 
       })
+    }
+
+    var tipo = document.getElementById('tipo');
+    var preco_item = document.getElementById('preco_item')
+
+    function checkType(){
+      var with_prize = ["drink", "deserve", "other", "snack", "add"]
+      if(with_prize.includes(tipo.value)){
+        preco_item.innerHTML = " \
+        <label for='price'>R$</label> \
+        <input type='text' name='price' placeholder='Valor' required>"
+
+        return true
+      }
+      else {
+        preco_item.innerHTML = ""
+        return false
+      }
     }
 
 </script>
