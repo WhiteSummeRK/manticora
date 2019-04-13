@@ -28,6 +28,9 @@ app.register_blueprint(menu, url_prefix='/menu')
 from .controllers.routes.account import app as account #NOQA
 app.register_blueprint(account, url_prefix='/account')
 
+from .controllers.routes.default_menus import app as default_menus # NOQA
+app.register_blueprint(default_menus, url_prefix='/default_menus')
+
 app.secret_key = b'\x89\x03\xf4\xdc\x1a\x95f\xe0\xae!\xf6Ml\xc6\x03\xc4'
 app.config['SESSION_TYPE'] = 'filesystem'
 

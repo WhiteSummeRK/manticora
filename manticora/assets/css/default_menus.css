@@ -1,0 +1,63 @@
+.row {
+  position: relative;
+}
+
+label {
+  color: white;
+}
+
+.container {
+  margin-top: 8%
+}
+
+.card-body {
+  margin-top: 5%;
+}
+
+h5, h1, h4, h3, h2, p, .td, .th, .tr{
+    color: white;
+}
+
+.th {
+  border: 0px !important;
+  color: yellow;
+}
+
+.card {
+  width: 100%;
+  margin: 4%;
+  height: auto;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.card-text{
+  position: absolute;
+  top: 67%;
+  color: white;
+}
+
+.card-title {
+  position: absolute;
+  top: 61%;
+  color: white;
+}
+
+.card-text{
+  position: absolute;
+  top: 67%;
+  color: white;
+}
+
+.card-title {
+  position: absolute;
+  top: 0%;
+  color: white;
+}
+
+.card-body {
+  margin-top: 10%;
+}
+
+.table-wrapper-scroll-y {
+  height: 400px !important;
+}

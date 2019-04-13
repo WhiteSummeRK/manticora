@@ -1,0 +1,273 @@
+{% extends 'components/base.html' %}
+
+{% block title %}EZ Food - Restaurantes{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/default_menus.css') }}">
+{% endblock %}
+{% block content %}
+{% include 'components/header.html' %}
+<div class="container">
+  <div class="row">
+    <div class="col-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Inserir Novo Item</h5>
+            <form class="form-group" action="/default_menus/new_item" method="post">
+              <div class="form-group">
+                <input type="text" name="item" placeholder="Novo Item" maxlength="30" required>
+              </div>
+              <div class="form-group">
+                <select class="form-control" id="dia" name="dia" required>
+                  <option value="monday">Segunda-Feira</option>
+                  <option value="tuesday">Terça-Feira</option>
+                  <option value="wednesday">Quarta-Feira</option>
+                  <option value="thursday">Quinta-Feira</option>
+                  <option value="friday">Sexta-Feira</option>
+                  <option value="saturday">Sábado</option>
+                  <option value="sunday">Domingo</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <select class="form-control" id="tipo" name="type" required>
+                  <option value="main_plate">Prato Principal</option>
+                  <option value="acomp">Acompanhamento</option>
+                  <option value="drink">Bebida</option>
+                  <option value="deserve">Sobremesa</option>
+                  <option value="add">Adicional</option>
+                  <option value="other">Outro</option>
+                </select>
+              </div>
+              <div class="form-group" id="preco_item" name="preco_item">
+              </div>
+              <div class="form-group">
+                <button type="submit" class="btn login_btn">Cadastrar Item</button>
+              </div>
+            </form>
+          </div>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Segunda-Feira</h5>
+            <div class="table-wrapper-scroll-y my-custom-scrollbar">
+            <table class="table">
+              <thead>
+                <tr class="tr">
+                  <th class="th" scope="col">Nome</th>
+                  <th class="th" scope="col">Tipo</th>
+                  <th class="th" scope="col">Preço</th>
+                </tr>
+              </thead>
+              <tbody class="tbody">
+                <tr class="tr">
+                  <td class="td">XPTO</td>
+                  <td class="td">XPTO</td>
+                  <td class="td">XPTO</td>
+                  <td class="td">XPTO</td>
+                  <td class="td">N/A</td>
+                  <td>
+                    <button type="submit"  class="btn btn-danger excluir-item" id="xpto" title="Excluir"><i id="xpto"class="fas fa-trash"></i></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Terça-Feira</h5>
+            <div class="table-wrapper-scroll-y my-custom-scrollbar">
+            <table class="table">
+              <thead>
+                <tr class="tr">
+                  <th class="th" scope="col">Nome</th>
+                  <th class="th" scope="col">Tipo</th>
+                  <th class="th" scope="col">Preço</th>
+                </tr>
+              </thead>
+              <tbody class="tbody">
+                <tr class="tr">
+                  <td class="td">XPTO</td>
+                  <td class="td">XPTO</td>
+                  <td class="td">XPTO</td>
+                  <td class="td">XPTO</td>
+                  <td class="td">N/A</td>
+                  <td>
+                    <button type="submit"  class="btn btn-danger excluir-item" id="xpto" title="Excluir"><i id="xpto"class="fas fa-trash"></i></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Quarta-feira</h5>
+            <div class="table-wrapper-scroll-y my-custom-scrollbar">
+            <table class="table">
+              <thead>
+                <tr class="tr">
+                  <th class="th" scope="col">Nome</th>
+                  <th class="th" scope="col">Tipo</th>
+                  <th class="th" scope="col">Preço</th>
+                </tr>
+              </thead>
+              <tbody class="tbody">
+                <tr class="tr">
+                  <td class="td">XPTO</td>
+                  <td class="td">XPTO</td>
+                  <td class="td">XPTO</td>
+                  <td class="td">XPTO</td>
+                  <td class="td">N/A</td>
+                  <td>
+                    <button type="submit"  class="btn btn-danger excluir-item" id="xpto" title="Excluir"><i id="xpto"class="fas fa-trash"></i></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Quinta-Feira</h5>
+            <div class="table-wrapper-scroll-y my-custom-scrollbar">
+            <table class="table">
+              <thead>
+                <tr class="tr">
+                  <th class="th" scope="col">Nome</th>
+                  <th class="th" scope="col">Tipo</th>
+                  <th class="th" scope="col">Preço</th>
+                </tr>
+              </thead>
+              <tbody class="tbody">
+                <tr class="tr">
+                  <td class="td">XPTO</td>
+                  <td class="td">XPTO</td>
+                  <td class="td">XPTO</td>
+                  <td class="td">XPTO</td>
+                  <td class="td">N/A</td>
+                  <td>
+                    <button type="submit"  class="btn btn-danger excluir-item" id="xpto" title="Excluir"><i id="xpto"class="fas fa-trash"></i></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Sexta-Feira</h5>
+            <div class="table-wrapper-scroll-y my-custom-scrollbar">
+            <table class="table">
+              <thead>
+                <tr class="tr">
+                  <th class="th" scope="col">Nome</th>
+                  <th class="th" scope="col">Tipo</th>
+                  <th class="th" scope="col">Preço</th>
+                </tr>
+              </thead>
+              <tbody class="tbody">
+                <tr class="tr">
+                  <td class="td">XPTO</td>
+                  <td class="td">XPTO</td>
+                  <td class="td">XPTO</td>
+                  <td class="td">XPTO</td>
+                  <td class="td">N/A</td>
+                  <td>
+                    <button type="submit"  class="btn btn-danger excluir-item" id="xpto" title="Excluir"><i id="xpto"class="fas fa-trash"></i></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Sábado</h5>
+            <div class="table-wrapper-scroll-y my-custom-scrollbar">
+            <table class="table">
+              <thead>
+                <tr class="tr">
+                  <th class="th" scope="col">Nome</th>
+                  <th class="th" scope="col">Tipo</th>
+                  <th class="th" scope="col">Preço</th>
+                </tr>
+              </thead>
+              <tbody class="tbody">
+                <tr class="tr">
+                  <td class="td">XPTO</td>
+                  <td class="td">XPTO</td>
+                  <td class="td">XPTO</td>
+                  <td class="td">XPTO</td>
+                  <td class="td">N/A</td>
+                  <td>
+                    <button type="submit"  class="btn btn-danger excluir-item" id="xpto" title="Excluir"><i id="xpto"class="fas fa-trash"></i></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Domingo</h5>
+            <div class="table-wrapper-scroll-y my-custom-scrollbar">
+            <table class="table">
+              <thead>
+                <tr class="tr">
+                  <th class="th" scope="col">Nome</th>
+                  <th class="th" scope="col">Tipo</th>
+                  <th class="th" scope="col">Preço</th>
+                </tr>
+              </thead>
+              <tbody class="tbody">
+                <tr class="tr">
+                  <td class="td">XPTO</td>
+                  <td class="td">XPTO</td>
+                  <td class="td">XPTO</td>
+                  <td class="td">XPTO</td>
+                  <td class="td">N/A</td>
+                  <td>
+                    <button type="submit"  class="btn btn-danger excluir-item" id="xpto" title="Excluir"><i id="xpto"class="fas fa-trash"></i></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+	const urlParams = new URLSearchParams(window.location.search);
+	qstr = urlParams.get('auth')
+</script>
+{% endblock %}
+</body>
