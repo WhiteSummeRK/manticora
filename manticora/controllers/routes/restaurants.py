@@ -54,7 +54,8 @@ def login_template():
 def post_rests():
     only_normal_users()
     id_rest = request.json.get('id_to_send')
-    card = show_card_by_rest_id(int(id_rest))
+    tipo = request.json.get('tipo')
+    card = show_card_by_rest_id(int(id_rest), tipo)
     return jsonify({"cardapio": card})
 
 

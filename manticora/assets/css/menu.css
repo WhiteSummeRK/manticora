@@ -36,11 +36,6 @@ h5, h1, h4, h3, h2, p, .td, .th, .tr{
   color: white;
 }
 
-.card-title {
-  position: absolute;
-  top: 61%;
-  color: white;
-}
 
 .card-text{
   position: absolute;
@@ -50,7 +45,7 @@ h5, h1, h4, h3, h2, p, .td, .th, .tr{
 
 .card-title {
   position: absolute;
-  top: 0%;
+  top: 2%;
   color: white;
 }
 

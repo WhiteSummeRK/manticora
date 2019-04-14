@@ -25,6 +25,7 @@ def save_menu(item, kind, day, preco_item, current_user):
         "drink": "Bebida",
         "deserve": "Sobremesa",
         "snack": "Lanche",
+        "pizza": "Pizza",
         "add": "Adicional",
         "other": "Outro"
     }
@@ -47,7 +48,7 @@ def show_menu_by_day(day, current_user):
     return change_datetime(query_menus_by_day(day, current_user))
 
 
-def build_html_for_menu(menu, marmitas):
+def build_html_for_menu(menu, marmitas, msg):
     menu_id = menu[0].id_rest
     marmitas_html = ""
     for item in marmitas:
@@ -62,7 +63,7 @@ def build_html_for_menu(menu, marmitas):
 
     <div class="card">
     <div class="card-body">
-    <h5 class="card-title">Escolha o Tamanho</h5>
+    <h5 class="card-title">{}</h5>
     <form id='meu_form' action='/restaurants/make_request/' method="POST">
     {}
     <div class="table-wrapper-scroll-y my-custom-scrollbar">
@@ -76,11 +77,12 @@ def build_html_for_menu(menu, marmitas):
           </tr>
         </thead>
             <tbody>
-    """.format(marmitas_html)
+    """.format(msg, marmitas_html)
     html_end = """
         </tbody>
     </table>
     <button type="submit" onclick="confirm_dialog()" class="btn login_btn mb-2">Realizar Pedido</button>
+    <button type="button" id="go_back" class="btn login_btn mb-2">Voltar</button>
     </div>
     """
     html_middle = ""
@@ -108,13 +110,44 @@ def build_html_for_menu(menu, marmitas):
     return html_head + html_middle + html_end + html_btn
 
 
-def show_card_by_rest_id(id):
+def show_card_by_rest_id(id, tipo):
     today = datetime.now().date()
-    menu = query_menu_by_rest_id(id, today)
+    marmita = ['Adicional', 'Acompanhamento', 'Prato Principal', 'Bebida', 'Sobremesa']
+    lanche = ['Lanche', 'Bebida', 'Sobremesa']
+    pizza = ['Pizza', 'Bebida', 'Sobremesa']
+    other = ['Outro']
     marmitas = query_all_marmitas_by_rest_id(id)
-    if not menu or not marmitas:
-        return "no_card"
-    return build_html_for_menu(menu, marmitas)
+    menu = query_menu_by_rest_id(id, today)
+
+    marm_menu = [item for item in menu if item.tipo in marmita]
+    lanche_menu = [item for item in menu if item.tipo in lanche]
+    pizza_menu = [item for item in menu if item.tipo in pizza]
+    other_menu = [item for item in menu if item.tipo in other]
+
+    if tipo == 'marmita':
+        if not marm_menu or not marmitas:
+            return "no_card"
+        return build_html_for_menu(marm_menu,
+                                   marmitas,
+                                   "Monte sua marmita ^^")
+
+    if tipo == 'lanche':
+        if not lanche_menu:
+            return "no_card"
+        return build_html_for_menu(lanche_menu, [],
+                                   'Escolha seu lanche, também leve uma bebidinha :D')
+
+    if tipo == 'pizza':
+        if not pizza_menu:
+            return "no_card"
+        return build_html_for_menu(pizza_menu, [],
+                                   'Hmmmmm, essas pizzas parecem saborosas :3')
+
+    if tipo == 'other':
+        if not other_menu:
+            return "no_card"
+        return build_html_for_menu(other_menu, [],
+                                   'Relaxe, temos de tudo pra você! (:')
 
 
 def save_new_marmita(size, price, current_user):
@@ -134,9 +167,12 @@ def register_user_request(marmita_id, current_user, rest_id, foods):
         if foods[1]:
             valor += foods[1]
 
-    marmita = query_marmita_by_id(marmita_id)
-    valor += marmita.preco
-    item = "{} - {}".format(marmita.tamanho, sorted([item[0] for item in itens]))
+    if marmita_id:
+        marmita = query_marmita_by_id(marmita_id)
+        valor += marmita.preco
+        item = "{} - {}".format(marmita.tamanho, sorted([item[0] for item in itens]))
+    else:
+        item = "{}".format(sorted([item[0] for item in itens]))
 
     return insert_into_user_extrato(item, valor,
                                     current_user, rest_id)
@@ -149,8 +185,9 @@ def update_bill(current_user, marmita_id, rest_id, foods):
         if item[1]:
             valor += item[1]
 
-    marmita = query_marmita_by_id(marmita_id)
-    valor += marmita.preco
+    if marmita_id:
+        marmita = query_marmita_by_id(marmita_id)
+        valor += marmita.preco
 
     if query_bill(current_user, rest_id):
         return update_user_bill(valor, current_user, rest_id)
