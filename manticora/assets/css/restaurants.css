@@ -93,12 +93,6 @@ th {
   color: white;
 }
 
-.card-title {
-  position: absolute;
-  top: 61%;
-  color: white;
-}
-
 .card-text{
   position: absolute;
   top: 67%;
@@ -107,7 +101,7 @@ th {
 
 .card-title {
   position: absolute;
-  top: 0%;
+  top: 2%;
   color: white;
 }
 
