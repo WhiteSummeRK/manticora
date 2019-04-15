@@ -13,7 +13,7 @@
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">Inserir Novo Item</h5>
-            <form class="form-group" action="/default_menus/new_item" method="post">
+            <form class="form-group" action="/default_menus/new_item/" method="post">
               <div class="form-group">
                 <input type="text" name="item" placeholder="Novo Item" maxlength="30" required>
               </div>
@@ -29,13 +29,15 @@
                 </select>
               </div>
               <div class="form-group">
-                <select class="form-control" id="tipo" name="type" required>
-                  <option value="main_plate">Prato Principal</option>
-                  <option value="acomp">Acompanhamento</option>
+                <select class="form-control" id="tipo" name="type" onchange="checkType()" required>
+                  <option value="acomp">Acompanhamento (Marmitas)</option>
+                  <option value="add">Adicional (Marmitas)</option>
                   <option value="drink">Bebida</option>
-                  <option value="deserve">Sobremesa</option>
-                  <option value="add">Adicional</option>
+                  <option value="snack">Lanche</option>
+                  <option value="pizza">Pizza</option>
+                  <option value="main_plate">Prato Principal (Marmitas)</option>
                   <option value="other">Outro</option>
+                  <option value="deserve">Sobremesa</option>
                 </select>
               </div>
               <div class="form-group" id="preco_item" name="preco_item">
@@ -268,6 +270,23 @@
 <script type="text/javascript">
 	const urlParams = new URLSearchParams(window.location.search);
 	qstr = urlParams.get('auth')
+  var preco_item = document.getElementById('preco_item')
+
+
+  function checkType(){
+    var with_prize = ["drink", "deserve", "other", "snack", "add", "pizza"]
+    if(with_prize.includes(tipo.value)){
+      preco_item.innerHTML = " \
+      <label for='price'>R$</label> \
+      <input type='text' name='price' placeholder='Valor' required>"
+
+      return true
+    }
+    else {
+      preco_item.innerHTML = ""
+      return false
+    }
+  }
 </script>
 {% endblock %}
 </body>

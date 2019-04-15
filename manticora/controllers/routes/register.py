@@ -6,6 +6,7 @@ from flask import (render_template, Blueprint,
 from manticora.controllers.modules.register import (register_user,
                                                     register_rest,
                                                     update_user)
+from manticora.models.database.tables import db
 from flask_login import current_user
 
 app = Blueprint('register', __name__)
@@ -62,6 +63,7 @@ def new_adm_post():
             return redirect(url_for('register.new_adm', new_adm=rest))
         return redirect(url_for('register.new_adm', new_adm=adm))
     except Exception:
+        db.session.rollback()
         abort(400)
 
 
