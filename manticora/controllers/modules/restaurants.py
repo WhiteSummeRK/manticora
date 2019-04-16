@@ -13,8 +13,7 @@ from manticora.models.database_functions.restaurante import (
     get_actual_rest
 )
 from manticora.models.database_functions.user_account import (
-    query_for_user_account,
-    query_user_accounts_by_rest)
+    query_for_user_account)
 
 from manticora.models.database.tables import db, Usuario
 

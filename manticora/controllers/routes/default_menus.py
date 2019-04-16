@@ -30,9 +30,11 @@ def login():
 def insert_item():
     only_adms()
     dia = request.form.get('dia')
-    tipo = request.form.get('tipo')
+    tipo = request.form.get('type')
     item = request.form.get('item')
     preco = request.form.get('price')
+    if preco:
+        preco = preco.replace(',', '.')
     card = insert_default_card(dia, tipo, item, preco, current_user)
 
     return redirect(url_for('default_menus.login', status=card))

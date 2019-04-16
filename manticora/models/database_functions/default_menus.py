@@ -25,3 +25,13 @@ def query_all_menus(rest):
         db.session.rollback()
         db.session.remove()
         raise
+
+def delete_item_from_menu_default_db(id):
+    try:
+        item_to_del = CardapioPadrao.query.filter_by(id=id).first()
+        db.session.delete(item_to_del)
+        db.session.commit()
+        return item_to_del
+    except Exception:
+        db.session.rollback()
+        raise

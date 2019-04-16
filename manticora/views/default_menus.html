@@ -64,21 +64,23 @@
                 </tr>
               </thead>
               <tbody class="tbody">
+                {% for item in card %}
+                {% if item.dia == 'Segunda-Feira' %}
                 <tr class="tr">
-                  {% for item in card %}
-                  <td class="td">item.prato</td>
-                  <td class="td">item.tipo</td>
+                  <td class="td">{{ item.prato }}</td>
+                  <td class="td">{{ item.tipo }}</td>
                   {% if item.preco %}
-                  <td class="td">item.preco</td>
+                  <td class="td">R$ {{ item.preco }}</td>
                   {% else %}
                   <td class="td"></td>
                   {% endif %}
-                  <td class="td">item.dia</td>
+                  <td class="td">{{ item.dia }}</td>
                   <td>
-                    <button type="submit"  class="btn btn-danger excluir-item" id="xpto" title="Excluir"><i id="xpto"class="fas fa-trash"></i></button>
+                    <button type="submit"  class="btn btn-danger excluir-item" id="{{ item.id }}" title="Excluir"><i id="{{ item.id }}"class="fas fa-trash"></i></button>
                   </td>
-                  {% endfor %}
                 </tr>
+                {% endif %}
+                {% endfor %}
               </tbody>
             </table>
             </div>
@@ -101,16 +103,23 @@
                 </tr>
               </thead>
               <tbody class="tbody">
+                {% for item in card %}
+                {% if item.dia == 'Terça-Feira' %}
                 <tr class="tr">
-                  <td class="td">XPTO</td>
-                  <td class="td">XPTO</td>
-                  <td class="td">XPTO</td>
-                  <td class="td">XPTO</td>
-                  <td class="td">N/A</td>
+                  <td class="td">{{ item.prato }}</td>
+                  <td class="td">{{ item.tipo }}</td>
+                  {% if item.preco %}
+                  <td class="td">R$ {{ item.preco }}</td>
+                  {% else %}
+                  <td class="td"></td>
+                  {% endif %}
+                  <td class="td">{{ item.dia }}</td>
                   <td>
-                    <button type="submit"  class="btn btn-danger excluir-item" id="xpto" title="Excluir"><i id="xpto"class="fas fa-trash"></i></button>
+                    <button type="submit"  class="btn btn-danger excluir-item" id="{{ item.id }}" title="Excluir"><i id="{{ item.id }}"class="fas fa-trash"></i></button>
                   </td>
                 </tr>
+                {% endif %}
+                {% endfor %}
               </tbody>
             </table>
             </div>
@@ -131,16 +140,23 @@
                 </tr>
               </thead>
               <tbody class="tbody">
+                {% for item in card %}
+                {% if item.dia == 'Quarta-feira' %}
                 <tr class="tr">
-                  <td class="td">XPTO</td>
-                  <td class="td">XPTO</td>
-                  <td class="td">XPTO</td>
-                  <td class="td">XPTO</td>
-                  <td class="td">N/A</td>
+                  <td class="td">{{ item.prato }}</td>
+                  <td class="td">{{ item.tipo }}</td>
+                  {% if item.preco %}
+                  <td class="td">R$ {{ item.preco }}</td>
+                  {% else %}
+                  <td class="td"></td>
+                  {% endif %}
+                  <td class="td">{{ item.dia }}</td>
                   <td>
-                    <button type="submit"  class="btn btn-danger excluir-item" id="xpto" title="Excluir"><i id="xpto"class="fas fa-trash"></i></button>
+                    <button type="submit"  class="btn btn-danger excluir-item" id="{{ item.id }}" title="Excluir"><i id="{{ item.id }}"class="fas fa-trash"></i></button>
                   </td>
                 </tr>
+                {% endif %}
+                {% endfor %}
               </tbody>
             </table>
             </div>
@@ -163,16 +179,23 @@
                 </tr>
               </thead>
               <tbody class="tbody">
+                {% for item in card %}
+                {% if item.dia == 'Quinta-Feira' %}
                 <tr class="tr">
-                  <td class="td">XPTO</td>
-                  <td class="td">XPTO</td>
-                  <td class="td">XPTO</td>
-                  <td class="td">XPTO</td>
-                  <td class="td">N/A</td>
+                  <td class="td">{{ item.prato }}</td>
+                  <td class="td">{{ item.tipo }}</td>
+                  {% if item.preco %}
+                  <td class="td">R$ {{ item.preco }}</td>
+                  {% else %}
+                  <td class="td"></td>
+                  {% endif %}
+                  <td class="td">{{ item.dia }}</td>
                   <td>
-                    <button type="submit"  class="btn btn-danger excluir-item" id="xpto" title="Excluir"><i id="xpto"class="fas fa-trash"></i></button>
+                    <button type="submit"  class="btn btn-danger excluir-item" id="{{ item.id }}" title="Excluir"><i id="{{ item.id }}"class="fas fa-trash"></i></button>
                   </td>
                 </tr>
+                {% endif %}
+                {% endfor %}
               </tbody>
             </table>
             </div>
@@ -193,16 +216,23 @@
                 </tr>
               </thead>
               <tbody class="tbody">
+                {% for item in card %}
+                {% if item.dia == 'Sexta-Feira' %}
                 <tr class="tr">
-                  <td class="td">XPTO</td>
-                  <td class="td">XPTO</td>
-                  <td class="td">XPTO</td>
-                  <td class="td">XPTO</td>
-                  <td class="td">N/A</td>
+                  <td class="td">{{ item.prato }}</td>
+                  <td class="td">{{ item.tipo }}</td>
+                  {% if item.preco %}
+                  <td class="td">R$ {{ item.preco }}</td>
+                  {% else %}
+                  <td class="td"></td>
+                  {% endif %}
+                  <td class="td">{{ item.dia }}</td>
                   <td>
-                    <button type="submit"  class="btn btn-danger excluir-item" id="xpto" title="Excluir"><i id="xpto"class="fas fa-trash"></i></button>
+                    <button type="submit"  class="btn btn-danger excluir-item" id="{{ item.id }}" title="Excluir"><i id="{{ item.id }}"class="fas fa-trash"></i></button>
                   </td>
                 </tr>
+                {% endif %}
+                {% endfor %}
               </tbody>
             </table>
             </div>
@@ -225,16 +255,23 @@
                 </tr>
               </thead>
               <tbody class="tbody">
+                {% for item in card %}
+                {% if item.dia == 'Sábado' %}
                 <tr class="tr">
-                  <td class="td">XPTO</td>
-                  <td class="td">XPTO</td>
-                  <td class="td">XPTO</td>
-                  <td class="td">XPTO</td>
-                  <td class="td">N/A</td>
+                  <td class="td">{{ item.prato }}</td>
+                  <td class="td">{{ item.tipo }}</td>
+                  {% if item.preco %}
+                  <td class="td">R$ {{ item.preco }}</td>
+                  {% else %}
+                  <td class="td"></td>
+                  {% endif %}
+                  <td class="td">{{ item.dia }}</td>
                   <td>
-                    <button type="submit"  class="btn btn-danger excluir-item" id="xpto" title="Excluir"><i id="xpto"class="fas fa-trash"></i></button>
+                    <button type="submit"  class="btn btn-danger excluir-item" id="{{ item.id }}"  title="Excluir"><i id="{{ item.id }}" class="fas fa-trash"></i></button>
                   </td>
                 </tr>
+                {% endif %}
+                {% endfor %}
               </tbody>
             </table>
             </div>
@@ -255,16 +292,23 @@
                 </tr>
               </thead>
               <tbody class="tbody">
+                {% for item in card %}
+                {% if item.dia == 'Domingo' %}
                 <tr class="tr">
-                  <td class="td">XPTO</td>
-                  <td class="td">XPTO</td>
-                  <td class="td">XPTO</td>
-                  <td class="td">XPTO</td>
-                  <td class="td">N/A</td>
+                  <td class="td">{{ item.prato }}</td>
+                  <td class="td">{{ item.tipo }}</td>
+                  {% if item.preco %}
+                  <td class="td">R$ {{ item.preco }}</td>
+                  {% else %}
+                  <td class="td"></td>
+                  {% endif %}
+                  <td class="td">{{ item.dia }}</td>
                   <td>
-                    <button type="submit"  class="btn btn-danger excluir-item" id="xpto" title="Excluir"><i id="xpto"class="fas fa-trash"></i></button>
+                    <button type="submit"  class="btn btn-danger excluir-item" id="{{ item.id }}" title="Excluir"><i id="{{ item.id }}"class="fas fa-trash"></i></button>
                   </td>
                 </tr>
+                {% endif %}
+                {% endfor %}
               </tbody>
             </table>
             </div>
@@ -276,14 +320,25 @@
 <script type="text/javascript">
 	const urlParams = new URLSearchParams(window.location.search);
 	qstr = urlParams.get('status')
+  window.onload = function(){
+    show_notify()
+
+
+  }
+  $(document).ready(function(){
+    itens = document.getElementsByClassName('excluir-item')
+    delete_itens(itens)
+});
 
   function show_notify(){
     if(qstr == 'ok'){
-      $.notify('', 'success')
+      $.notify('Item inserido com sucesso', 'success')
     }
     if(qstr == 'error'){
-      $.notify('', 'error')
-
+      $.notify('Ocorreu um erro inesperado', 'error')
+    }
+    if(qstr == 'ok_del'){
+      $.notify('Item deletado com sucesso', 'success')
     }
   }
   var preco_item = document.getElementById('preco_item')
@@ -301,6 +356,50 @@
     else {
       preco_item.innerHTML = ""
       return false
+    }
+  }
+
+  function delete_itens(buttons_item){
+    console.log(buttons_item)
+    for(item of buttons_item){
+      item.addEventListener('click', (e) => {
+        let t = e.target;
+        var id_to_send = t.id;
+
+        $.confirm({
+          title: 'Confirmação',
+          content: 'Este cliente realmente pagou?',
+          buttons: {
+            confirm: function () {
+              fetch('/menu/delete_item/', {
+                method: 'post',
+                credentials: 'include',
+                body: JSON.stringify({
+                  "id_to_send": id_to_send,
+                  "tipo": "default"
+                }),
+                headers: {
+                      'Accept': 'application/json',
+                      'Content-Type': 'application/json'
+                  },
+              }).then(response => response.json())
+                .then(json =>{
+                  if(json['result'] == 'error'){
+                    $.notify("O item não pôde ser deletado", "error")
+                  }
+                  else{
+                    document.location.reload()
+                  }
+                }).catch(err => { console.error(err) })
+            },
+            cancel: function () {
+              return;
+            }
+          }
+        });
+
+
+      })
     }
   }
 </script>

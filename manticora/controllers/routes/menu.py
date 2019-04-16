@@ -9,6 +9,7 @@ from manticora.controllers.modules.menu import (save_menu, show_menu_by_day,
                                                 show_all_marmitas,
                                                 del_item_from_menu,
                                                 del_marm_size)
+from manticora.controllers.modules.default_menus import del_item_from_menu_default
 
 app = Blueprint('menu', __name__)
 
@@ -62,6 +63,11 @@ def del_marm():
 @login_required
 def del_item():
     id_to_del = request.json.get('id_to_send')
+
+    if request.json.get('tipo') == 'default':
+        return jsonify({
+            "result": del_item_from_menu_default(id_to_del)
+            })
     return jsonify({
         "result": del_item_from_menu(id_to_del)
         })

@@ -1,6 +1,7 @@
 from manticora.models.database_functions.default_menus import (
     default_card_insert,
-    query_all_menus
+    query_all_menus,
+    delete_item_from_menu_default_db
 )
 from manticora.models.database_functions.restaurante import (
     get_actual_rest
@@ -41,3 +42,11 @@ def insert_default_card(dia, tipo, item, preco, user):
 
 def show_default_menus(user):
     return query_all_menus(get_actual_rest(user))
+
+
+def del_item_from_menu_default(id):
+    try:
+        delete_item_from_menu_default_db(int(id))
+        return "ok_del"
+    except Exception:
+        return "error"
