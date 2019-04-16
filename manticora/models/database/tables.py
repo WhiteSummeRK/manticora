@@ -98,6 +98,23 @@ class Cardapio(db.Model):
                    self.rest, self.preco)
 
 
+class CardapioPadrao(db.Model):
+    __tablename__ = 'cardapio_padrao'
+
+    id = Column(Integer, primary_key=True)
+    dia = Column(String(35), nullable=False)
+    prato = Column(String(30), nullable=False)
+    tipo = Column(String(30), nullable=False)
+    preco = Column(Float, nullable=True)
+    rest = relationship('Restaurante')
+    id_rest = Column(Integer, ForeignKey('restaurante.id'))
+
+    def __repr__(self):
+        return """Cardapio(dia={}, prato={}, tipo={},
+        rest={}, preço={})
+        """.format(self.dia, self.prato, self.tipo,
+                   self.rest, self.preco)
+
 class UsuarioConta(db.Model):
     __tablename__ = "usuario_conta"
 

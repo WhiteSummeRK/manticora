@@ -1,7 +1,6 @@
-from manticora.models.database.tables import (Usuario, Restaurante,
+from manticora.models.database.tables import (Restaurante,
                                               Cardapio, TamanhosPrecos, db)
 from manticora.models.database_functions.restaurante import get_actual_rest
-from sqlalchemy import or_, and_
 from datetime import datetime
 
 
@@ -10,7 +9,7 @@ def insert_menu(item, kind, day, preco, current_user):
     try:
         rest = get_actual_rest(current_user)
         card = Cardapio(
-            dia=day,
+            dia=new_day,
             prato=item,
             tipo=kind,
             preco=preco,
@@ -19,8 +18,9 @@ def insert_menu(item, kind, day, preco, current_user):
         db.session.add(card)
         db.session.commit()
         return 'Cardápio Inserido com sucesso!'
-    except Exception as e:
+    except Exception:
         db.session.rollback()
+        db.session.remove()
         raise
 
 
@@ -98,6 +98,7 @@ def delete_item_from_menu_db(id):
     except Exception:
         db.session.rollback()
         raise
+
 
 def delete_marm_from_db(id):
     try:

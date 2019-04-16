@@ -60,18 +60,24 @@
                   <th class="th" scope="col">Nome</th>
                   <th class="th" scope="col">Tipo</th>
                   <th class="th" scope="col">Preço</th>
+                  <th class="th" scope="col">Dia</th>
                 </tr>
               </thead>
               <tbody class="tbody">
                 <tr class="tr">
-                  <td class="td">XPTO</td>
-                  <td class="td">XPTO</td>
-                  <td class="td">XPTO</td>
-                  <td class="td">XPTO</td>
-                  <td class="td">N/A</td>
+                  {% for item in card %}
+                  <td class="td">item.prato</td>
+                  <td class="td">item.tipo</td>
+                  {% if item.preco %}
+                  <td class="td">item.preco</td>
+                  {% else %}
+                  <td class="td"></td>
+                  {% endif %}
+                  <td class="td">item.dia</td>
                   <td>
                     <button type="submit"  class="btn btn-danger excluir-item" id="xpto" title="Excluir"><i id="xpto"class="fas fa-trash"></i></button>
                   </td>
+                  {% endfor %}
                 </tr>
               </tbody>
             </table>
@@ -269,7 +275,17 @@
 </div>
 <script type="text/javascript">
 	const urlParams = new URLSearchParams(window.location.search);
-	qstr = urlParams.get('auth')
+	qstr = urlParams.get('status')
+
+  function show_notify(){
+    if(qstr == 'ok'){
+      $.notify('', 'success')
+    }
+    if(qstr == 'error'){
+      $.notify('', 'error')
+
+    }
+  }
   var preco_item = document.getElementById('preco_item')
 
 
