@@ -19,6 +19,8 @@ from manticora.models.database_functions.user_account import (insert_into_user_e
 from manticora.models.database_functions.default_menus import (
     query_card_default_by_day
 )
+from manticora.models.database_functions.restaurante import (query_rest_by_id,
+                                                             get_actual_rest)
 
 from datetime import datetime
 from time import strptime, strftime
@@ -49,36 +51,36 @@ def change_datetime(menus):
 
 
 def show_menu_by_day(day, current_user):
-        week_day = datetime.today().weekday()
-        weekday_num = {
-            0: "Segunda-Feira",
-            1: "Terça-Feira",
-            2: "Quarta-Feira",
-            3: "Quinta-Feira",
-            4: "Sexta-Feira",
-            5: "Sábado",
-            6: "Domingo"
-        }
-        weekday = {
-            "Monday": "Segunda-Feira",
-            "Tuesday": "Terça-Feira",
-            "Wednesday": "Quarta-Feira",
-            "Thursday": "Quinta-Feira",
-            "Friday": "Sexta-Feira",
-            "Saturday": "Sábado",
-            "Sunday": "Domingo"
-        }
-        try:
-            if not day:
-                default_cards = query_card_default_by_day(weekday_num[week_day])
-                all_cards = change_datetime(query_all_menus(current_user))
-                return default_cards + all_cards
-
-            _day = strftime("%A", strptime(day, "%m/%d/%Y"))
-            weekday_filter = query_card_default_by_day(weekday[_day])
-            return change_datetime(query_menus_by_day(day, current_user))
-        except Exception:
-            abort(400)
+    rest = get_actual_rest(current_user)
+    week_day = datetime.today().weekday()
+    weekday_num = {
+        0: "Segunda-Feira",
+        1: "Terça-Feira",
+        2: "Quarta-Feira",
+        3: "Quinta-Feira",
+        4: "Sexta-Feira",
+        5: "Sábado",
+        6: "Domingo"
+    }
+    weekday = {
+        "Monday": "Segunda-Feira",
+        "Tuesday": "Terça-Feira",
+        "Wednesday": "Quarta-Feira",
+        "Thursday": "Quinta-Feira",
+        "Friday": "Sexta-Feira",
+        "Saturday": "Sábado",
+        "Sunday": "Domingo"
+    }
+    try:
+        if not day:
+            default_cards = query_card_default_by_day(weekday_num[week_day], rest)
+            all_cards = change_datetime(query_all_menus(current_user))
+            return default_cards + all_cards
+        _day = strftime("%A", strptime(day, "%m/%d/%Y"))
+        weekday_filter = query_card_default_by_day(weekday[_day], rest)
+        return weekday_filter + change_datetime(query_menus_by_day(day, current_user))
+    except Exception:
+        abort(400)
 
 
 def build_html_for_menu(menu, marmitas, msg):
@@ -146,6 +148,7 @@ def build_html_for_menu(menu, marmitas, msg):
 def show_card_by_rest_id(id, tipo):
     today = datetime.now().date()
     week_day = datetime.today().weekday()
+    rest = query_rest_by_id(int(id))
     weekday_num = {
         0: "Segunda-Feira",
         1: "Terça-Feira",
@@ -162,7 +165,7 @@ def show_card_by_rest_id(id, tipo):
 
     marmitas = query_all_marmitas_by_rest_id(id)
 
-    default_day_menu = query_card_default_by_day(weekday_num[week_day])
+    default_day_menu = query_card_default_by_day(weekday_num[week_day], rest)
     menu_for_today = query_menu_by_rest_id(id, today)
 
     menu = default_day_menu + menu_for_today
@@ -196,6 +199,46 @@ def show_card_by_rest_id(id, tipo):
             return "no_card"
         return build_html_for_menu(other_menu, [],
                                    'Relaxe, temos de tudo pra você! (:')
+
+    if tipo == 'rest_data':
+        return build_html_with_rest_data(id)
+
+
+def build_html_with_rest_data(id):
+    rest = query_rest_by_id(int(id))
+    html = """
+    <div class="card">
+    <div class="card-body">
+    <h5 class="card-title">Restaurante {}</h5>
+    <div class="container" id="address">
+          <p>Email: {}</p>
+          <p>Telefone: {}</p>
+          <p>Horário de Abertura: {}</p>
+          <p>Horário de Fechamento: {}</p>
+          <br>
+          <h5>Endereço</h5>
+          <br>
+          <p>Cidade: {}</p>
+          <p>Bairro: {}</p>
+          <p>Rua: {}</p>
+          <p>Numero: {}</p>
+          <p>Complemento: {}</p>
+    </div>
+    </div>
+    </div>
+    """.format(
+        rest.adm.nome,
+        rest.adm.email,
+        rest.telefone,
+        rest.abertura,
+        rest.fechamento,
+        rest.adm.cidade,
+        rest.adm.bairro,
+        rest.adm.rua,
+        rest.adm.numero,
+        rest.adm.complemento
+    )
+    return html
 
 
 def save_new_marmita(size, price, current_user):

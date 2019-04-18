@@ -20,12 +20,12 @@ def insert_default_card(dia, tipo, item, preco, user):
     }
 
     availabe_types = {
-        "acomp": "Acompanhamento (Marmitas)",
-        "add": "Adicional (Marmitas)",
+        "acomp": "Acompanhamento",
+        "add": "Adicional",
         "drink": "Bebida",
         "snack": "Lanche",
         "pizza": "Pizza",
-        "main_plate": "Prato Principal (Marmitas)",
+        "main_plate": "Prato Principal",
         "other": "Outro",
         "deserve": "Sobremesa"
     }

@@ -143,3 +143,7 @@ def update_status_from_extrato(id_extrato, status):
     except Exception:
         raise
         return False
+
+
+def query_rest_by_id(id):
+    return Restaurante.query.filter_by(id=id).first()

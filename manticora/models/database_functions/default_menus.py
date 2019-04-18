@@ -38,9 +38,10 @@ def delete_item_from_menu_default_db(id):
         raise
 
 
-def query_card_default_by_day(day):
+def query_card_default_by_day(day, rest):
     try:
-        return CardapioPadrao.query.filter_by(dia=day).order_by(CardapioPadrao.tipo).all() # NOQA
+        return CardapioPadrao.query.filter_by(dia=day,
+                                              rest=rest).order_by(CardapioPadrao.tipo).all() # NOQA
     except Exception:
         db.session.rollback()
         raise
