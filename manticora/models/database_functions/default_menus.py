@@ -26,12 +26,21 @@ def query_all_menus(rest):
         db.session.remove()
         raise
 
+
 def delete_item_from_menu_default_db(id):
     try:
         item_to_del = CardapioPadrao.query.filter_by(id=id).first()
         db.session.delete(item_to_del)
         db.session.commit()
         return item_to_del
+    except Exception:
+        db.session.rollback()
+        raise
+
+
+def query_card_default_by_day(day):
+    try:
+        return CardapioPadrao.query.filter_by(dia=day).order_by(CardapioPadrao.tipo).all() # NOQA
     except Exception:
         db.session.rollback()
         raise

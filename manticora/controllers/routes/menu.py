@@ -59,6 +59,7 @@ def del_marm():
         "result": del_marm_size(id_to_del)
         })
 
+
 @app.route('/delete_item/', methods=['POST'])
 @login_required
 def del_item():

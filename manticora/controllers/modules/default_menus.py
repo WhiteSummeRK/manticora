@@ -14,7 +14,7 @@ def insert_default_card(dia, tipo, item, preco, user):
         "tuesday": "Terça-Feira",
         "wednesday": "Quarta-Feira",
         "thursday": "Quinta-Feira",
-        "friday": "exta-Feira",
+        "friday": "Sexta-Feira",
         "saturday": "Sábado",
         "sunday": "Domingo"
     }

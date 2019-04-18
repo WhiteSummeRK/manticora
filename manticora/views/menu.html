@@ -64,7 +64,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-6">
+      <div class="col-8">
         <h2 style="text-align: center;">Seu Cardápio</h2>
         <div class="card">
           <div class="card-body">
@@ -108,7 +108,7 @@
           </div>
         </div>
       </div>
-      <div class="col-6">
+      <div class="col-4">
         <h2 style="text-align: center;">Marmitas Disponíveis</h2>
         <div class="card">
           <div class="card-body">
@@ -219,6 +219,9 @@
                 .then(json =>{
                   if(json['result'] == 'error'){
                     $.notify("O item não pôde ser deletado", "error")
+                  }
+                  else if(json['result'] == 'only_full_card'){
+                    $.notify("Este item deve ser deletado a partir dos cardápios diários!", "error")
                   }
                   else{
                     document.location.reload()

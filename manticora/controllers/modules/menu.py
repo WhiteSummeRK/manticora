@@ -1,3 +1,5 @@
+from flask import abort
+from sqlalchemy.orm.exc import UnmappedInstanceError
 from manticora.models.database_functions.menu import (insert_menu,
                                                       query_all_menus,
                                                       query_menus_by_day,
@@ -14,8 +16,12 @@ from manticora.models.database_functions.user_account import (insert_into_user_e
                                                               update_user_bill,
                                                               create_user_account,
                                                               query_bill) #NOQA
+from manticora.models.database_functions.default_menus import (
+    query_card_default_by_day
+)
 
 from datetime import datetime
+from time import strptime, strftime
 
 
 def save_menu(item, kind, day, preco_item, current_user):
@@ -43,9 +49,36 @@ def change_datetime(menus):
 
 
 def show_menu_by_day(day, current_user):
-    if not day:
-        return change_datetime(query_all_menus(current_user))
-    return change_datetime(query_menus_by_day(day, current_user))
+        week_day = datetime.today().weekday()
+        weekday_num = {
+            0: "Segunda-Feira",
+            1: "Terça-Feira",
+            2: "Quarta-Feira",
+            3: "Quinta-Feira",
+            4: "Sexta-Feira",
+            5: "Sábado",
+            6: "Domingo"
+        }
+        weekday = {
+            "Monday": "Segunda-Feira",
+            "Tuesday": "Terça-Feira",
+            "Wednesday": "Quarta-Feira",
+            "Thursday": "Quinta-Feira",
+            "Friday": "Sexta-Feira",
+            "Saturday": "Sábado",
+            "Sunday": "Domingo"
+        }
+        try:
+            if not day:
+                default_cards = query_card_default_by_day(weekday_num[week_day])
+                all_cards = change_datetime(query_all_menus(current_user))
+                return default_cards + all_cards
+
+            _day = strftime("%A", strptime(day, "%m/%d/%Y"))
+            weekday_filter = query_card_default_by_day(weekday[_day])
+            return change_datetime(query_menus_by_day(day, current_user))
+        except Exception:
+            abort(400)
 
 
 def build_html_for_menu(menu, marmitas, msg):
@@ -112,12 +145,27 @@ def build_html_for_menu(menu, marmitas, msg):
 
 def show_card_by_rest_id(id, tipo):
     today = datetime.now().date()
+    week_day = datetime.today().weekday()
+    weekday_num = {
+        0: "Segunda-Feira",
+        1: "Terça-Feira",
+        2: "Quarta-Feira",
+        3: "Quinta-Feira",
+        4: "Sexta-Feira",
+        5: "Sábado",
+        6: "Domingo"
+    }
     marmita = ['Adicional', 'Acompanhamento', 'Prato Principal', 'Bebida', 'Sobremesa']
     lanche = ['Lanche', 'Bebida', 'Sobremesa']
     pizza = ['Pizza', 'Bebida', 'Sobremesa']
     other = ['Outro']
+
     marmitas = query_all_marmitas_by_rest_id(id)
-    menu = query_menu_by_rest_id(id, today)
+
+    default_day_menu = query_card_default_by_day(weekday_num[week_day])
+    menu_for_today = query_menu_by_rest_id(id, today)
+
+    menu = default_day_menu + menu_for_today
 
     marm_menu = [item for item in menu if item.tipo in marmita]
     lanche_menu = [item for item in menu if item.tipo in lanche]
@@ -157,7 +205,7 @@ def save_new_marmita(size, price, current_user):
 
 
 def show_all_marmitas(current_user):
-    return query_all_marmitas(current_user)
+        return query_all_marmitas(current_user)
 
 
 def register_user_request(marmita_id, current_user, rest_id, foods):
@@ -198,6 +246,8 @@ def del_item_from_menu(id_to_del):
     try:
         delete_item_from_menu_db(int(id_to_del))
         return "ok"
+    except UnmappedInstanceError:
+        return "only_full_card"
     except Exception:
         return "error"
 
