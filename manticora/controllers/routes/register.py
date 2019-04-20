@@ -52,19 +52,18 @@ def new_adm_post():
     closed = request.form['hora_fech']
     img = request.files['img']
 
-    try:
-        adm = register_user(name, pwd, email, neigh,
-                            city, street, num_street,
-                            comp, is_adm=True,
-                            return_entity=True)
+    if open == closed:
+        return redirect(url_for('register.new_adm',
+                                new_adm='Desculpe, não é possivel utilizar um estabelecimento 24hrs')) # NOQA
+    adm = register_user(name, pwd, email, neigh,
+                        city, street, num_street,
+                        comp, is_adm=True,
+                        return_entity=True)
 
-        if not type(adm) == str:
-            rest = register_rest(phone, num_phone, img, open, closed, adm)
-            return redirect(url_for('register.new_adm', new_adm=rest))
-        return redirect(url_for('register.new_adm', new_adm=adm))
-    except Exception:
-        db.session.rollback()
-        abort(400)
+    if not type(adm) == str:
+        rest = register_rest(phone, num_phone, img, open, closed, adm)
+        return redirect(url_for('register.new_adm', new_adm=rest))
+    return redirect(url_for('register.new_adm', new_adm=adm))
 
 
 @app.route('/alter_user/', methods=['POST'])

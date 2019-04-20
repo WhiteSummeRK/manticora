@@ -1,5 +1,6 @@
 from manticora.models.database.tables import (Restaurante,
-                                              Cardapio, TamanhosPrecos, db)
+                                              Cardapio, TamanhosPrecos,
+                                              CardapioPadrao, db)
 from manticora.models.database_functions.restaurante import get_actual_rest
 from datetime import datetime
 
@@ -67,6 +68,8 @@ def query_itens_from_menu(items):
     all_itens = []
     for item in items:
         plate = Cardapio.query.filter_by(id=int(item)).first()
+        if not plate:
+            plate = CardapioPadrao.query.filter_by(id=int(item)).first()
         all_itens.append([plate.prato, plate.preco])
     return all_itens
 
