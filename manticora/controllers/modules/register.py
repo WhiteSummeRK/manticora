@@ -9,6 +9,7 @@ from manticora.models.database_functions.restaurante import (
     get_actual_rest,
     update_rest_from_db
 )
+from manticora.models.database.tables import db
 from datetime import datetime
 
 
@@ -39,10 +40,14 @@ def register_rest(phone, num_phone, img, open, closed, adm):
     openned = datetime.strptime(open, '%H:%M').time()
     closed = datetime.strptime(closed, '%H:%M').time()
     if openned == closed:
+        db.session.rollback()
+        db.session.remove()
         return "Desculpe, não é possivel utilizar um estabelecimento 24hrs"
     try:
         insert_new_rest(phone, num_phone, img, openned, closed, adm)
-    except Exception as e:
+    except Exception:
+        db.session.rollback()
+        db.session.remove()
         return 'Algo deu errado, tente novamente.'
     return 'ok'
 
